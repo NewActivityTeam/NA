@@ -23,6 +23,7 @@ public class CommentDaoImp implements CommentDao {
 		this.sessionFactory = sessionFactory;
 	}
 	
+	//插入
 	@Override
 	public boolean insert(Comment comment) {
 		try {
@@ -40,6 +41,7 @@ public class CommentDaoImp implements CommentDao {
 		}
 	}
 
+	//修改
 	@Override
 	public boolean update(Comment comment) {
 		try {
@@ -57,6 +59,7 @@ public class CommentDaoImp implements CommentDao {
 		}
 	}
 
+	//删除
 	@Override
 	public boolean delete(Comment comment) {
 		try {
@@ -74,6 +77,7 @@ public class CommentDaoImp implements CommentDao {
 		}
 	}
 
+	//查询HQL
 	@Override
 	public Object selectHql(String hql) {
 		List<Comment> list = null;
@@ -88,6 +92,7 @@ public class CommentDaoImp implements CommentDao {
 		return list;
 	}
 
+	//查询SQL
 	@Override
 	public Object selectSql(String sql) {
 		List<Comment> list = null;
@@ -102,6 +107,7 @@ public class CommentDaoImp implements CommentDao {
 		return list;
 	}
 
+	//通过ID获取
 	@Override
 	public Comment getComment(long id) {
 		Session session = sessionFactory.getCurrentSession();

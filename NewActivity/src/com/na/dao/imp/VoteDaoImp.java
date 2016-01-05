@@ -23,6 +23,7 @@ public class VoteDaoImp implements VoteDao {
 		this.sessionFactory = sessionFactory;
 	}
 	
+	//插入
 	@Override
 	public boolean insert(Vote vote) {
 		try {
@@ -40,6 +41,7 @@ public class VoteDaoImp implements VoteDao {
 		}
 	}
 
+	//修改
 	@Override
 	public boolean update(Vote vote) {
 		try {
@@ -57,6 +59,7 @@ public class VoteDaoImp implements VoteDao {
 		}
 	}
 
+	//删除
 	@Override
 	public boolean delete(Vote vote) {
 		try {
@@ -74,6 +77,7 @@ public class VoteDaoImp implements VoteDao {
 		}
 	}
 
+	//查询HQL
 	@Override
 	public Object selectHql(String hql) {
 		List<Vote> list = null;
@@ -88,6 +92,7 @@ public class VoteDaoImp implements VoteDao {
 		return list;
 	}
 
+	//查询SQL
 	@Override
 	public Object selectSql(String sql) {
 		List<Vote> list = null;
@@ -102,6 +107,7 @@ public class VoteDaoImp implements VoteDao {
 		return list;
 	}
 
+	//通过ID获取
 	@Override
 	public Vote getVote(long id) {
 		Session session = sessionFactory.getCurrentSession();

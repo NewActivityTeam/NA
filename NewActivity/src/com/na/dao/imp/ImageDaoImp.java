@@ -23,6 +23,7 @@ public class ImageDaoImp implements ImageDao {
 		this.sessionFactory = sessionFactory;
 	}
 	
+	//插入
 	@Override
 	public boolean insert(Image image) {
 		try {
@@ -40,6 +41,7 @@ public class ImageDaoImp implements ImageDao {
 		}
 	}
 
+	//修改
 	@Override
 	public boolean update(Image image) {
 		try {
@@ -57,6 +59,7 @@ public class ImageDaoImp implements ImageDao {
 		}
 	}
 
+	//删除
 	@Override
 	public boolean delete(Image image) {
 		try {
@@ -74,6 +77,7 @@ public class ImageDaoImp implements ImageDao {
 		}
 	}
 
+	//查询HQL
 	@Override
 	public Object selectHql(String hql) {
 		List<Image> list = null;
@@ -87,7 +91,7 @@ public class ImageDaoImp implements ImageDao {
 		}
 		return list;
 	}
-
+	//查询SQL
 	@Override
 	public Object selectSql(String sql) {
 		List<Image> list = null;

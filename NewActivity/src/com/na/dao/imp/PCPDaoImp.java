@@ -23,6 +23,7 @@ public class PCPDaoImp implements PCPDao {
 		this.sessionFactory = sessionFactory;
 	}
 	
+	//插入
 	@Override
 	public boolean insert(PCP pcp) {
 		try {
@@ -39,7 +40,8 @@ public class PCPDaoImp implements PCPDao {
 			return false;
 		}
 	}
-
+	
+	//修改
 	@Override
 	public boolean update(PCP pcp) {
 		try {
@@ -57,6 +59,7 @@ public class PCPDaoImp implements PCPDao {
 		}
 	}
 
+	//删除
 	@Override
 	public boolean delete(PCP pcp) {
 		try {
@@ -74,6 +77,7 @@ public class PCPDaoImp implements PCPDao {
 		}
 	}
 
+	//查询HQL
 	@Override
 	public Object selectHql(String hql) {
 		List<PCP> list = null;
@@ -88,6 +92,7 @@ public class PCPDaoImp implements PCPDao {
 		return list;
 	}
 
+	//查询SQL
 	@Override
 	public Object selectSql(String sql) {
 		List<PCP> list = null;
@@ -102,6 +107,7 @@ public class PCPDaoImp implements PCPDao {
 		return list;
 	}
 
+	//通过ID获取
 	@Override
 	public PCP getPcp(long id) {
 		Session session = sessionFactory.getCurrentSession();
