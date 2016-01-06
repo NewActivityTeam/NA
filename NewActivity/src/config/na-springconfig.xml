@@ -38,12 +38,10 @@
 		</property>
 		<property name="mappingResources">
 			<list>
-				<value>com/na/entity/VoteItem.hbm.xml</value>
 				<value>com/na/entity/Vote.hbm.xml</value>
 				<value>com/na/entity/PCP.hbm.xml</value>
 				<value>com/na/entity/Userinfo.hbm.xml</value>
 				<value>com/na/entity/Activity.hbm.xml</value>
-				<value>com/na/entity/VoteDetail.hbm.xml</value>
 				<value>com/na/entity/Comment.hbm.xml</value>
 				<value>com/na/entity/Image.hbm.xml</value>
 				<value>com/na/entity/Assess.hbm.xml</value>
@@ -93,14 +91,6 @@
 		<property name="sessionFactory" ref="sessionFactory"/>
 	</bean>
 	
-	<bean id="voteDetailDao" class="com.na.dao.imp.VoteDetailDaoImp">
-		<property name="sessionFactory" ref="sessionFactory"/>
-	</bean>
-	
-	<bean id="voteItemDao" class="com.na.dao.imp.VoteItemDaoImp">
-		<property name="sessionFactory" ref="sessionFactory"/>
-	</bean>
-	
 	<!-- Service层 -->
 	
 	<bean id="activityService" class="com.na.service.imp.ActivityServiceImp">
@@ -129,12 +119,6 @@
 	</bean>
 	<bean id="voteService" class="com.na.service.imp.VoteServiceImp">
 		<property name="voteDao" ref="voteDao"/>
-	</bean>
-	<bean id="voteDetailService" class="com.na.service.imp.VoteDetailServiceImp">
-		<property name="voteDetailDao" ref="voteDetailDao"/>
-	</bean>
-	<bean id="voteItemService" class="com.na.service.imp.VoteItemServiceImp">
-		<property name="voteItemDao" ref="voteItemDao"/>
 	</bean>
 	
 	</beans>

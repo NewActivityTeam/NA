@@ -1,5 +1,7 @@
 package com.na.service;
 
+import java.util.List;
+
 import com.na.entity.Userinfo;
 
 public interface UserinfoService {
@@ -14,5 +16,5 @@ public interface UserinfoService {
 	
 	public Userinfo getUserinfoByYbAccount(String ybaccount);
 	
-	
+	public List<Userinfo> getUserinfos(long[] ids);
 }

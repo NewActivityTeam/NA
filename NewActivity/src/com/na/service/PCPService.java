@@ -34,5 +34,5 @@ public interface PCPService {
 	
 	public int exitPCP(long id);
 	
-	
+	public int fastAllot(long[] ids,List<Long> groups,int nop);
 }
