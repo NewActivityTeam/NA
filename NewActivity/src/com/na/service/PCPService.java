@@ -18,9 +18,11 @@ public interface PCPService {
 	
 	public PCP getPcp(long uid,long aid);
 	
-	public PCP getPcpByUID(long uid);
+	public List<PCP> getPcpByUID(long uid);
 	
-	public PCP getPcpByAID(long aid);
+	public List<PCP> getPcpByAID(long aid);
+	
+	public List<PCP> getPcpByAIDOrderGroup(long aid);
 	
 	public float setGrade(long id);
 	
