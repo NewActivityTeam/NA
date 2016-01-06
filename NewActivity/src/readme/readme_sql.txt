@@ -69,10 +69,10 @@ tb_vote_detail		投票明细		-
 
 tb_assess		评价
 
-	id		评价id
-	uid		评价用户
-	aid		活动id
-	grade	活动评分
+	id			评价id
+	uid			评价用户
+	aid			活动id
+	grade		活动评分
 	
 tb_group		小组
 

@@ -17,4 +17,6 @@ public interface UserinfoService {
 	public Userinfo getUserinfoByYbAccount(String ybaccount);
 	
 	public List<Userinfo> getUserinfos(long[] ids);
+	
+	
 }
