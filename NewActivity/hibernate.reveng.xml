@@ -22,4 +22,7 @@
 		class="com.na.entity.VoteItem">
 	</table>
 	<table name="tb_vote" catalog="na" class="com.na.entity.Vote"></table>
+	<table name="tb_assess" catalog="na" class="com.na.entity.Assess"></table>
+	<table name="tb_group" catalog="na" class="com.na.entity.Group"></table>
+	<table name="tb_group_apply" catalog="na" class="com.na.entity.GroupApply"></table>
 </hibernate-reverse-engineering>

@@ -1,70 +1,93 @@
+ï»¿
+tb_userinfo		ç”¨æˆ·ä¿¡æ¯
 
-tb_userinfo		ÓÃ»§ĞÅÏ¢
-
-	ÁĞÃû		ÃèÊö		ÊÇ·ñÓÃ»§ÊäÈë£¨+ÓÃ»§ÊäÈë-ÏµÍ³Éú³É£©
-	uid		ÓÃ»§±àºÅ		-
-	authority	È¨ÏŞ		-
-	sex		ĞÔ±ğ		+
-	height		Éí¸ß		+
-	weight		ÌåÖØ		+
-	age		ÄêÁä		+
-	phonenumber	µç»°ºÅÂë		+
-	email		ÓÊÏä		+
+	åˆ—å		æè¿°		æ˜¯å¦ç”¨æˆ·è¾“å…¥ï¼ˆ+ç”¨æˆ·è¾“å…¥-ç³»ç»Ÿç”Ÿæˆï¼‰
+	uid		ç”¨æˆ·ç¼–å·		-
+	authority	æƒé™		-
+	sex		æ€§åˆ«		+
+	height		èº«é«˜		+
+	weight		ä½“é‡		+
+	age		å¹´é¾„		+
+	phonenumber	ç”µè¯å·ç 		+
+	email		é‚®ç®±		+
 
 
-tb_activity		»î¶¯ĞÅÏ¢
+tb_activity		æ´»åŠ¨ä¿¡æ¯
 
-	id		»î¶¯±àºÅ		-
-	title		»î¶¯±êÌâ		+
-	description	»î¶¯ÃèÊö		+
-	starttime	¿ªÊ¼Ê±¼ä		+
-	endtime		½áÊøÊ±¼ä		+
-	createtime	´´½¨Ê±¼ä		-
-	manager		¹ÜÀíÔ±id		-
-	grade		ÆÀ·Ö		-
-	web_address	web¶ËµØÖ·	-
-	mobile_address	ÊÖ»ú¶ËµØÖ·	-
+	id		æ´»åŠ¨ç¼–å·		-
+	title		æ´»åŠ¨æ ‡é¢˜		+
+	description	æ´»åŠ¨æè¿°		+
+	starttime	å¼€å§‹æ—¶é—´		+
+	endtime		ç»“æŸæ—¶é—´		+
+	createtime	åˆ›å»ºæ—¶é—´		-
+	manager		ç®¡ç†å‘˜id		-
+	web_address	webç«¯åœ°å€	-
+	mobile_address	æ‰‹æœºç«¯åœ°å€	-
 	
 
-tb_participation	²ÎÓëĞÅÏ¢		-
+tb_participation	å‚ä¸ä¿¡æ¯		-
 	
-	id		²ÎÓë±àºÅ	
-	uid		ÓÃ»§±àºÅ
-	aid		»î¶¯±àºÅ
-	groupid		×é±àºÅ
+	id		å‚ä¸ç¼–å·	
+	uid		ç”¨æˆ·ç¼–å·
+	aid		æ´»åŠ¨ç¼–å·
+	groupid		ç»„ç¼–å·
+	grade	ç”¨æˆ·è¯„åˆ†
 
 
-tb_comment		ÆÀÂÛ		
+tb_comment		è¯„è®º		
 	
-	id		ÆÀÂÛ±àºÅ		-
-	uid		ÓÃ»§±àºÅ		-
-	aid		»î¶¯±àºÅ		-
-	createtime	ÆÀÂÛÊ±¼ä		-
-	content		ÆÀÂÛÄÚÈİ		+
+	id		è¯„è®ºç¼–å·		-
+	uid		ç”¨æˆ·ç¼–å·		-
+	aid		æ´»åŠ¨ç¼–å·		-
+	createtime	è¯„è®ºæ—¶é—´		-
+	content		è¯„è®ºå†…å®¹		+
 
-tb_image		Í¼Æ¬		-
+tb_image		å›¾ç‰‡		-
 
-	id		Í¼Æ¬±àºÅ	
-	address		Í¼Æ¬µØÖ·	
+	id		å›¾ç‰‡ç¼–å·	
+	address		å›¾ç‰‡åœ°å€	
 
 
-tb_vote			Í¶Æ±		-
-	id		Í¶Æ±±àºÅ
-	title		±êÌâ»òÃèÊö
-	type		Í¶±êÀà±ğ
+tb_vote			æŠ•ç¥¨		-
 
-tb_vote_item		Í¶Æ±±¸Ñ¡À¸	-
+	id		æŠ•ç¥¨ç¼–å·
+	title		æ ‡é¢˜æˆ–æè¿°
+	type		æŠ•æ ‡ç±»åˆ«
+
+tb_vote_item		æŠ•ç¥¨å¤‡é€‰æ 	-
 	
-	id		±¸Ñ¡À¸id
-	voteid		ËùÊôÍ¶Æ±
-	title		±êÌâ
-	otherid		ÍâÁ´½Óid
+	id		å¤‡é€‰æ id
+	voteid		æ‰€å±æŠ•ç¥¨
+	title		æ ‡é¢˜
+	otherid		å¤–é“¾æ¥id
 
-tb_vote_detail		Í¶Æ±Ã÷Ï¸		-
-	id		Ã÷Ï¸id
-	uid		Í¶Æ±ÓÃ»§id
-	itemid		ËùÍ¶±¸Ñ¡À¸id	
+tb_vote_detail		æŠ•ç¥¨æ˜ç»†		-
 
+	id		æ˜ç»†id
+	uid		æŠ•ç¥¨ç”¨æˆ·id
+	itemid		æ‰€æŠ•å¤‡é€‰æ id	
+
+tb_assess		è¯„ä»·
+
+	id		è¯„ä»·id
+	uid		è¯„ä»·ç”¨æˆ·
+	aid		æ´»åŠ¨id
+	grade	æ´»åŠ¨è¯„åˆ†
 	
+tb_group		å°ç»„
+
+	id			å°ç»„id
+	aid			æ‰€å±æ´»åŠ¨
+	groupname	å°ç»„å
+	description	æè¿°
+	leader		é˜Ÿé•¿
+	maxcount	æœ€å¤§äººæ•°
+	
+tb_group_apply	å°ç»„ç”³è¯·
+
+	id			ç”³è¯·id
+	uid			ç”¨æˆ·id
+	gid			å°ç»„id
+	state		çŠ¶æ€	(0æœªå›å¤ 	1ç”³è¯·é€šè¿‡	2æ‹’ç»)
 
 	

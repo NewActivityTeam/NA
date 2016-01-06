@@ -12,15 +12,15 @@ public class Userinfo implements java.io.Serializable {
 	// Fields
 
 	private Long uid;
+	private String ybaccount;
 	private Integer authority;
 	private Float height;
 	private Float weight;
 	private Integer age;
 	private Integer sex;
-	private Integer phonenumber;
+	private String phonenumber;
 	private String email;
 	private Set comments = new HashSet(0);
-	private Set PCPs = new HashSet(0);
 
 	// Constructors
 
@@ -29,14 +29,16 @@ public class Userinfo implements java.io.Serializable {
 	}
 
 	/** minimal constructor */
-	public Userinfo(Integer authority) {
+	public Userinfo(String ybaccount, Integer authority) {
+		this.ybaccount = ybaccount;
 		this.authority = authority;
 	}
 
 	/** full constructor */
-	public Userinfo(Integer authority, Float height, Float weight, Integer age,
-			Integer sex, Integer phonenumber, String email, Set comments,
-			Set PCPs) {
+	public Userinfo(String ybaccount, Integer authority, Float height,
+			Float weight, Integer age, Integer sex, String phonenumber,
+			String email, Set comments) {
+		this.ybaccount = ybaccount;
 		this.authority = authority;
 		this.height = height;
 		this.weight = weight;
@@ -45,7 +47,6 @@ public class Userinfo implements java.io.Serializable {
 		this.phonenumber = phonenumber;
 		this.email = email;
 		this.comments = comments;
-		this.PCPs = PCPs;
 	}
 
 	// Property accessors
@@ -56,6 +57,14 @@ public class Userinfo implements java.io.Serializable {
 
 	public void setUid(Long uid) {
 		this.uid = uid;
+	}
+
+	public String getYbaccount() {
+		return this.ybaccount;
+	}
+
+	public void setYbaccount(String ybaccount) {
+		this.ybaccount = ybaccount;
 	}
 
 	public Integer getAuthority() {
@@ -98,11 +107,11 @@ public class Userinfo implements java.io.Serializable {
 		this.sex = sex;
 	}
 
-	public Integer getPhonenumber() {
+	public String getPhonenumber() {
 		return this.phonenumber;
 	}
 
-	public void setPhonenumber(Integer phonenumber) {
+	public void setPhonenumber(String phonenumber) {
 		this.phonenumber = phonenumber;
 	}
 
@@ -120,14 +129,6 @@ public class Userinfo implements java.io.Serializable {
 
 	public void setComments(Set comments) {
 		this.comments = comments;
-	}
-
-	public Set getPCPs() {
-		return this.PCPs;
-	}
-
-	public void setPCPs(Set PCPs) {
-		this.PCPs = PCPs;
 	}
 
 }

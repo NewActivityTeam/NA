@@ -10,6 +10,9 @@
             <column name="uid" />
             <generator class="identity" />
         </id>
+        <property name="ybaccount" type="java.lang.String">
+            <column name="ybaccount" not-null="true" />
+        </property>
         <property name="authority" type="java.lang.Integer">
             <column name="authority" not-null="true" />
         </property>
@@ -25,8 +28,8 @@
         <property name="sex" type="java.lang.Integer">
             <column name="sex" />
         </property>
-        <property name="phonenumber" type="java.lang.Integer">
-            <column name="phonenumber" />
+        <property name="phonenumber" type="java.lang.String">
+            <column name="phonenumber" length="20" />
         </property>
         <property name="email" type="java.lang.String">
             <column name="email" length="50" />
@@ -36,12 +39,6 @@
                 <column name="uid" not-null="true" />
             </key>
             <one-to-many class="com.na.entity.Comment" />
-        </set>
-        <set name="PCPs" inverse="true">
-            <key>
-                <column name="uid" />
-            </key>
-            <one-to-many class="com.na.entity.PCP" />
         </set>
     </class>
 </hibernate-mapping>

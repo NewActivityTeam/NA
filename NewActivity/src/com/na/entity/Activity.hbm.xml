@@ -37,12 +37,6 @@
         <property name="mobileAddress" type="java.lang.String">
             <column name="mobile_address" />
         </property>
-        <set name="PCPs" inverse="true">
-            <key>
-                <column name="aid" />
-            </key>
-            <one-to-many class="com.na.entity.PCP" />
-        </set>
         <set name="comments" inverse="true">
             <key>
                 <column name="aid" />

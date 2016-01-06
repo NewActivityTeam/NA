@@ -1,5 +1,7 @@
 package com.na.entity;
 
+import java.sql.Timestamp;
+
 /**
  * PCP entity. @author MyEclipse Persistence Tools
  */
@@ -9,9 +11,11 @@ public class PCP implements java.io.Serializable {
 	// Fields
 
 	private Long id;
-	private Activity activity;
-	private Userinfo userinfo;
-	private Integer groupid;
+	private Long uid;
+	private Long aid;
+	private Long groupid;
+	private Timestamp createtime;
+	private Float grade;
 
 	// Constructors
 
@@ -20,16 +24,22 @@ public class PCP implements java.io.Serializable {
 	}
 
 	/** minimal constructor */
-	public PCP(Long id) {
+	public PCP(Long id, Long uid, Long aid, Timestamp createtime) {
 		this.id = id;
+		this.uid = uid;
+		this.aid = aid;
+		this.createtime = createtime;
 	}
 
 	/** full constructor */
-	public PCP(Long id, Activity activity, Userinfo userinfo, Integer groupid) {
+	public PCP(Long id, Long uid, Long aid, Long groupid, Timestamp createtime,
+			Float grade) {
 		this.id = id;
-		this.activity = activity;
-		this.userinfo = userinfo;
+		this.uid = uid;
+		this.aid = aid;
 		this.groupid = groupid;
+		this.createtime = createtime;
+		this.grade = grade;
 	}
 
 	// Property accessors
@@ -42,28 +52,44 @@ public class PCP implements java.io.Serializable {
 		this.id = id;
 	}
 
-	public Activity getActivity() {
-		return this.activity;
+	public Long getUid() {
+		return this.uid;
 	}
 
-	public void setActivity(Activity activity) {
-		this.activity = activity;
+	public void setUid(Long uid) {
+		this.uid = uid;
 	}
 
-	public Userinfo getUserinfo() {
-		return this.userinfo;
+	public Long getAid() {
+		return this.aid;
 	}
 
-	public void setUserinfo(Userinfo userinfo) {
-		this.userinfo = userinfo;
+	public void setAid(Long aid) {
+		this.aid = aid;
 	}
 
-	public Integer getGroupid() {
+	public Long getGroupid() {
 		return this.groupid;
 	}
 
-	public void setGroupid(Integer groupid) {
+	public void setGroupid(Long groupid) {
 		this.groupid = groupid;
+	}
+
+	public Timestamp getCreatetime() {
+		return this.createtime;
+	}
+
+	public void setCreatetime(Timestamp createtime) {
+		this.createtime = createtime;
+	}
+
+	public Float getGrade() {
+		return this.grade;
+	}
+
+	public void setGrade(Float grade) {
+		this.grade = grade;
 	}
 
 }

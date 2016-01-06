@@ -22,7 +22,6 @@ public class Activity implements java.io.Serializable {
 	private Float grade;
 	private String webAddress;
 	private String mobileAddress;
-	private Set PCPs = new HashSet(0);
 	private Set comments = new HashSet(0);
 
 	// Constructors
@@ -41,8 +40,7 @@ public class Activity implements java.io.Serializable {
 	/** full constructor */
 	public Activity(String title, String description, Timestamp starttime,
 			Timestamp endtime, Timestamp createtime, String manager,
-			Float grade, String webAddress, String mobileAddress, Set PCPs,
-			Set comments) {
+			Float grade, String webAddress, String mobileAddress, Set comments) {
 		this.title = title;
 		this.description = description;
 		this.starttime = starttime;
@@ -52,7 +50,6 @@ public class Activity implements java.io.Serializable {
 		this.grade = grade;
 		this.webAddress = webAddress;
 		this.mobileAddress = mobileAddress;
-		this.PCPs = PCPs;
 		this.comments = comments;
 	}
 
@@ -136,14 +133,6 @@ public class Activity implements java.io.Serializable {
 
 	public void setMobileAddress(String mobileAddress) {
 		this.mobileAddress = mobileAddress;
-	}
-
-	public Set getPCPs() {
-		return this.PCPs;
-	}
-
-	public void setPCPs(Set PCPs) {
-		this.PCPs = PCPs;
 	}
 
 	public Set getComments() {
