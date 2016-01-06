@@ -13,5 +13,11 @@
         <property name="address" type="java.lang.String">
             <column name="address" length="500" />
         </property>
+        <property name="aid" type="java.lang.Long">
+            <column name="aid" />
+        </property>
+        <property name="index" type="java.lang.Integer">
+            <column name="index" />
+        </property>
     </class>
 </hibernate-mapping>

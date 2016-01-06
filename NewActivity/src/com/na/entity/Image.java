@@ -10,6 +10,8 @@ public class Image implements java.io.Serializable {
 
 	private Long id;
 	private String address;
+	private Long aid;
+	private Integer index;
 
 	// Constructors
 
@@ -18,8 +20,10 @@ public class Image implements java.io.Serializable {
 	}
 
 	/** full constructor */
-	public Image(String address) {
+	public Image(String address, Long aid, Integer index) {
 		this.address = address;
+		this.aid = aid;
+		this.index = index;
 	}
 
 	// Property accessors
@@ -38,6 +42,22 @@ public class Image implements java.io.Serializable {
 
 	public void setAddress(String address) {
 		this.address = address;
+	}
+
+	public Long getAid() {
+		return this.aid;
+	}
+
+	public void setAid(Long aid) {
+		this.aid = aid;
+	}
+
+	public Integer getIndex() {
+		return this.index;
+	}
+
+	public void setIndex(Integer index) {
+		this.index = index;
 	}
 
 }
