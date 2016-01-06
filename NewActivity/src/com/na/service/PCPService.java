@@ -16,9 +16,15 @@ public interface PCPService {
 	
 	public PCP getPcp(long id);
 	
+	public PCP getPcp(long uid,long aid);
+	
 	public PCP getPcpByUID(long uid);
 	
 	public PCP getPcpByAID(long aid);
+	
+	public float setGrade(long id);
+	
+	public float getGrade(long id);
 	
 	public float getAvgGradeByUID(long uid);
 	
@@ -28,6 +34,5 @@ public interface PCPService {
 	
 	public int exitPCP(long id);
 	
-	public int exitPCP(long uid,long aid);
 	
 }

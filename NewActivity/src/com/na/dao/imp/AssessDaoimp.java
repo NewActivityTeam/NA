@@ -8,10 +8,10 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
-import com.na.dao.ActivityDao;
-import com.na.entity.Activity;
+import com.na.dao.AssessDao;
+import com.na.entity.Assess;
 
-public class ActivityDaoImp implements ActivityDao {
+public class AssessDaoimp implements AssessDao {
 
 	SessionFactory sessionFactory;
 	
@@ -22,13 +22,13 @@ public class ActivityDaoImp implements ActivityDao {
 	public void setSessionFactory(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
 	}
-	
-	//插入
-	public boolean insert(Activity activity) {
+
+	@Override
+	public boolean insert(Assess assess) {
 		try {
 			Session session = sessionFactory.getCurrentSession();
 			Transaction ts = session.beginTransaction();
-			session.saveOrUpdate(activity);
+			session.saveOrUpdate(assess);
 			ts.commit();
 			session.flush(); 
 			session.clear(); 
@@ -40,12 +40,12 @@ public class ActivityDaoImp implements ActivityDao {
 		}
 	}
 
-	//修改
-	public boolean update(Activity activity) {
+	@Override
+	public boolean update(Assess assess) {
 		try {
 			Session session = sessionFactory.getCurrentSession();
 			Transaction ts = session.beginTransaction();
-			session.saveOrUpdate(activity);
+			session.saveOrUpdate(assess);
 			ts.commit();
 			session.flush(); 
 			session.clear(); 
@@ -57,12 +57,12 @@ public class ActivityDaoImp implements ActivityDao {
 		}
 	}
 
-	//删除
-	public boolean delete(Activity activity) {
+	@Override
+	public boolean delete(Assess assess) {
 		try {
 			Session session = sessionFactory.getCurrentSession();
 			Transaction ts = session.beginTransaction();		
-			session.delete(activity);
+			session.delete(assess);
 			ts.commit();
 			session.flush(); 
 			session.clear();
@@ -76,7 +76,7 @@ public class ActivityDaoImp implements ActivityDao {
 
 	//查询hql
 	public Object selectHql(String hql) {
-		List<Activity> list = null;
+		List<Assess> list = null;
 		try {
 			Session session = sessionFactory.getCurrentSession();
 			Query query =  session.createQuery(hql);
@@ -90,7 +90,7 @@ public class ActivityDaoImp implements ActivityDao {
 
 	//查询SQL
 	public Object selectSql(String sql) {
-		List<Activity> list = null;
+		List<Assess> list = null;
 		try {
 			Session session = sessionFactory.getCurrentSession();
 			SQLQuery query =  session.createSQLQuery(sql);
@@ -100,13 +100,6 @@ public class ActivityDaoImp implements ActivityDao {
 			e.printStackTrace();
 		}
 		return list;
-	}
-
-	//通过ID获取
-	public Activity getActivity(long id) {
-		Session session = sessionFactory.getCurrentSession();
-		Activity activity = (Activity) session.get(Activity.class, id);
-		return activity;
 	}
 
 	//执行无查询HQL语句
@@ -139,4 +132,10 @@ public class ActivityDaoImp implements ActivityDao {
 		return false;
 	}
 
+	@Override
+	public Assess getAssess(long id) {
+		Session session = sessionFactory.getCurrentSession();
+		Assess assess = (Assess) session.get(Assess.class, id);
+		return assess;
+	}
 }

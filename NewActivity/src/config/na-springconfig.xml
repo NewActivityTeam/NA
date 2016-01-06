@@ -62,7 +62,19 @@
 		<property name="sessionFactory" ref="sessionFactory"/>
 	</bean>
 	
+	<bean id="assessDao" class="com.na.dao.imp.AssessDaoimp">
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
+	
 	<bean id="commentDao" class="com.na.dao.imp.CommentDaoImp">
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
+	
+	<bean id="groupDao" class="com.na.dao.imp.GroupDaoimp">
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
+	
+	<bean id="groupApplyDao" class="com.na.dao.imp.GroupApplyDaoimp">
 		<property name="sessionFactory" ref="sessionFactory"/>
 	</bean>
 	
@@ -92,28 +104,37 @@
 	<!-- Service层 -->
 	
 	<bean id="activityService" class="com.na.service.imp.ActivityServiceImp">
-		<property name="activityDao" ref="activityDao"></property>
+		<property name="activityDao" ref="activityDao"/>
+	</bean>
+	<bean id="assessService" class="com.na.service.imp.AssessServiceImp">
+		<property name="assessDao" ref="assessDao"/>
 	</bean>
 	<bean id="commentService" class="com.na.service.imp.CommentServiceImp">
-		<property name="commentDao" ref="commentDao"></property>
+		<property name="commentDao" ref="commentDao"/>
+	</bean>
+	<bean id="groupService" class="com.na.service.imp.GroupServiceImp">
+		<property name="groupDao" ref="groupDao"/>
+	</bean>
+	<bean id="groupApplyService" class="com.na.service.imp.GroupApplyServiceImp">
+		<property name="groupApplyDao" ref="groupApplyDao"/>
 	</bean>
 	<bean id="iamgeService" class="com.na.service.imp.ImageServiceImp">
-		<property name="imageDao" ref="imageDao"></property>
+		<property name="imageDao" ref="imageDao"/>
 	</bean>
 	<bean id="pcpService" class="com.na.service.imp.PCPServiceImp">
-		<property name="pcpDao" ref="pcpDao"></property>
+		<property name="pcpDao" ref="pcpDao"/>
 	</bean>
 	<bean id="userinfoService" class="com.na.service.imp.UserinfoServiceImp">
-		<property name="userinfoDao" ref="userinfoDao"></property>
+		<property name="userinfoDao" ref="userinfoDao"/>
 	</bean>
 	<bean id="voteService" class="com.na.service.imp.VoteServiceImp">
-		<property name="voteDao" ref="voteDao"></property>
+		<property name="voteDao" ref="voteDao"/>
 	</bean>
 	<bean id="voteDetailService" class="com.na.service.imp.VoteDetailServiceImp">
-		<property name="voteDetailDao" ref="voteDetailDao"></property>
+		<property name="voteDetailDao" ref="voteDetailDao"/>
 	</bean>
 	<bean id="voteItemService" class="com.na.service.imp.VoteItemServiceImp">
-		<property name="voteItemDao" ref="voteItemDao"></property>
+		<property name="voteItemDao" ref="voteItemDao"/>
 	</bean>
 	
 	</beans>
