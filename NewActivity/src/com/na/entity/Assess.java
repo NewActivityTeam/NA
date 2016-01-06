@@ -20,8 +20,7 @@ public class Assess implements java.io.Serializable {
 	}
 
 	/** full constructor */
-	public Assess(Long id, Long uid, Long aid, Float grade) {
-		this.id = id;
+	public Assess(Long uid, Long aid, Float grade) {
 		this.uid = uid;
 		this.aid = aid;
 		this.grade = grade;

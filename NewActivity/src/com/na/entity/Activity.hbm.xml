@@ -28,20 +28,11 @@
         <property name="manager" type="java.lang.String">
             <column name="manager" not-null="true" />
         </property>
-        <property name="grade" type="java.lang.Float">
-            <column name="grade" precision="12" scale="0" />
-        </property>
         <property name="webAddress" type="java.lang.String">
             <column name="web_address" />
         </property>
         <property name="mobileAddress" type="java.lang.String">
             <column name="mobile_address" />
         </property>
-        <set name="comments" inverse="true">
-            <key>
-                <column name="aid" />
-            </key>
-            <one-to-many class="com.na.entity.Comment" />
-        </set>
     </class>
 </hibernate-mapping>

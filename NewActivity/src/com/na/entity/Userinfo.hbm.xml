@@ -34,11 +34,5 @@
         <property name="email" type="java.lang.String">
             <column name="email" length="50" />
         </property>
-        <set name="comments" inverse="true">
-            <key>
-                <column name="uid" not-null="true" />
-            </key>
-            <one-to-many class="com.na.entity.Comment" />
-        </set>
     </class>
 </hibernate-mapping>

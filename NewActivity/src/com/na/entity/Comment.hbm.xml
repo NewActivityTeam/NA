@@ -8,14 +8,14 @@
     <class name="com.na.entity.Comment" table="tb_comment" catalog="na">
         <id name="id" type="java.lang.Long">
             <column name="id" />
-            <generator class="assigned" />
+            <generator class="identity" />
         </id>
-        <many-to-one name="activity" class="com.na.entity.Activity" fetch="select">
-            <column name="aid" />
-        </many-to-one>
-        <many-to-one name="userinfo" class="com.na.entity.Userinfo" fetch="select">
+        <property name="uid" type="java.lang.Long">
             <column name="uid" not-null="true" />
-        </many-to-one>
+        </property>
+        <property name="aid" type="java.lang.Long">
+            <column name="aid" />
+        </property>
         <property name="createtime" type="java.sql.Timestamp">
             <column name="createtime" length="19" not-null="true" />
         </property>

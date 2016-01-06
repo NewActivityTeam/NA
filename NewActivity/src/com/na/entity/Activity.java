@@ -1,8 +1,6 @@
 package com.na.entity;
 
 import java.sql.Timestamp;
-import java.util.HashSet;
-import java.util.Set;
 
 /**
  * Activity entity. @author MyEclipse Persistence Tools
@@ -19,10 +17,8 @@ public class Activity implements java.io.Serializable {
 	private Timestamp endtime;
 	private Timestamp createtime;
 	private String manager;
-	private Float grade;
 	private String webAddress;
 	private String mobileAddress;
-	private Set comments = new HashSet(0);
 
 	// Constructors
 
@@ -40,17 +36,15 @@ public class Activity implements java.io.Serializable {
 	/** full constructor */
 	public Activity(String title, String description, Timestamp starttime,
 			Timestamp endtime, Timestamp createtime, String manager,
-			Float grade, String webAddress, String mobileAddress, Set comments) {
+			String webAddress, String mobileAddress) {
 		this.title = title;
 		this.description = description;
 		this.starttime = starttime;
 		this.endtime = endtime;
 		this.createtime = createtime;
 		this.manager = manager;
-		this.grade = grade;
 		this.webAddress = webAddress;
 		this.mobileAddress = mobileAddress;
-		this.comments = comments;
 	}
 
 	// Property accessors
@@ -111,14 +105,6 @@ public class Activity implements java.io.Serializable {
 		this.manager = manager;
 	}
 
-	public Float getGrade() {
-		return this.grade;
-	}
-
-	public void setGrade(Float grade) {
-		this.grade = grade;
-	}
-
 	public String getWebAddress() {
 		return this.webAddress;
 	}
@@ -133,14 +119,6 @@ public class Activity implements java.io.Serializable {
 
 	public void setMobileAddress(String mobileAddress) {
 		this.mobileAddress = mobileAddress;
-	}
-
-	public Set getComments() {
-		return this.comments;
-	}
-
-	public void setComments(Set comments) {
-		this.comments = comments;
 	}
 
 }

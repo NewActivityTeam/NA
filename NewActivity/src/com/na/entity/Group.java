@@ -22,16 +22,13 @@ public class Group implements java.io.Serializable {
 	}
 
 	/** minimal constructor */
-	public Group(Long id, Long leader, Integer maxcount) {
-		this.id = id;
-		this.leader = leader;
-		this.maxcount = maxcount;
+	public Group(Long aid) {
+		this.aid = aid;
 	}
 
 	/** full constructor */
-	public Group(Long id, Long aid, String groupname, String description,
-			Long leader, Integer maxcount) {
-		this.id = id;
+	public Group(Long aid, String groupname, String description, Long leader,
+			Integer maxcount) {
 		this.aid = aid;
 		this.groupname = groupname;
 		this.description = description;

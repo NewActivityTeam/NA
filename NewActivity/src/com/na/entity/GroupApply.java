@@ -23,17 +23,14 @@ public class GroupApply implements java.io.Serializable {
 	}
 
 	/** minimal constructor */
-	public GroupApply(Long id, Long uid, Long gid, Integer state) {
-		this.id = id;
+	public GroupApply(Long uid, Long gid, Integer state) {
 		this.uid = uid;
 		this.gid = gid;
 		this.state = state;
 	}
 
 	/** full constructor */
-	public GroupApply(Long id, Long uid, Long gid, Integer state,
-			Timestamp createtime) {
-		this.id = id;
+	public GroupApply(Long uid, Long gid, Integer state, Timestamp createtime) {
 		this.uid = uid;
 		this.gid = gid;
 		this.state = state;

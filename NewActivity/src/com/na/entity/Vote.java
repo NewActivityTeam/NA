@@ -1,7 +1,6 @@
 package com.na.entity;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.sql.Timestamp;
 
 /**
  * Vote entity. @author MyEclipse Persistence Tools
@@ -13,9 +12,8 @@ public class Vote implements java.io.Serializable {
 
 	private Long id;
 	private String title;
-	private Integer type;
-	private Long manager;
-	private Set voteItems = new HashSet(0);
+	private String address;
+	private Timestamp createtime;
 
 	// Constructors
 
@@ -23,19 +21,11 @@ public class Vote implements java.io.Serializable {
 	public Vote() {
 	}
 
-	/** minimal constructor */
-	public Vote(Long id, String title) {
-		this.id = id;
-		this.title = title;
-	}
-
 	/** full constructor */
-	public Vote(Long id, String title, Integer type, Long manager, Set voteItems) {
-		this.id = id;
+	public Vote(String title, String address, Timestamp createtime) {
 		this.title = title;
-		this.type = type;
-		this.manager = manager;
-		this.voteItems = voteItems;
+		this.address = address;
+		this.createtime = createtime;
 	}
 
 	// Property accessors
@@ -56,28 +46,20 @@ public class Vote implements java.io.Serializable {
 		this.title = title;
 	}
 
-	public Integer getType() {
-		return this.type;
+	public String getAddress() {
+		return this.address;
 	}
 
-	public void setType(Integer type) {
-		this.type = type;
+	public void setAddress(String address) {
+		this.address = address;
 	}
 
-	public Long getManager() {
-		return this.manager;
+	public Timestamp getCreatetime() {
+		return this.createtime;
 	}
 
-	public void setManager(Long manager) {
-		this.manager = manager;
-	}
-
-	public Set getVoteItems() {
-		return this.voteItems;
-	}
-
-	public void setVoteItems(Set voteItems) {
-		this.voteItems = voteItems;
+	public void setCreatetime(Timestamp createtime) {
+		this.createtime = createtime;
 	}
 
 }

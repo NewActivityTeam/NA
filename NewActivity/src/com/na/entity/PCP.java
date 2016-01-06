@@ -24,17 +24,15 @@ public class PCP implements java.io.Serializable {
 	}
 
 	/** minimal constructor */
-	public PCP(Long id, Long uid, Long aid, Timestamp createtime) {
-		this.id = id;
+	public PCP(Long uid, Long aid, Timestamp createtime) {
 		this.uid = uid;
 		this.aid = aid;
 		this.createtime = createtime;
 	}
 
 	/** full constructor */
-	public PCP(Long id, Long uid, Long aid, Long groupid, Timestamp createtime,
+	public PCP(Long uid, Long aid, Long groupid, Timestamp createtime,
 			Float grade) {
-		this.id = id;
 		this.uid = uid;
 		this.aid = aid;
 		this.groupid = groupid;

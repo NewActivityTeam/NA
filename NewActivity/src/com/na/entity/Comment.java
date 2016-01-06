@@ -11,8 +11,8 @@ public class Comment implements java.io.Serializable {
 	// Fields
 
 	private Long id;
-	private Activity activity;
-	private Userinfo userinfo;
+	private Long uid;
+	private Long aid;
 	private Timestamp createtime;
 	private String content;
 
@@ -23,18 +23,15 @@ public class Comment implements java.io.Serializable {
 	}
 
 	/** minimal constructor */
-	public Comment(Long id, Userinfo userinfo, Timestamp createtime) {
-		this.id = id;
-		this.userinfo = userinfo;
+	public Comment(Long uid, Timestamp createtime) {
+		this.uid = uid;
 		this.createtime = createtime;
 	}
 
 	/** full constructor */
-	public Comment(Long id, Activity activity, Userinfo userinfo,
-			Timestamp createtime, String content) {
-		this.id = id;
-		this.activity = activity;
-		this.userinfo = userinfo;
+	public Comment(Long uid, Long aid, Timestamp createtime, String content) {
+		this.uid = uid;
+		this.aid = aid;
 		this.createtime = createtime;
 		this.content = content;
 	}
@@ -49,20 +46,20 @@ public class Comment implements java.io.Serializable {
 		this.id = id;
 	}
 
-	public Activity getActivity() {
-		return this.activity;
+	public Long getUid() {
+		return this.uid;
 	}
 
-	public void setActivity(Activity activity) {
-		this.activity = activity;
+	public void setUid(Long uid) {
+		this.uid = uid;
 	}
 
-	public Userinfo getUserinfo() {
-		return this.userinfo;
+	public Long getAid() {
+		return this.aid;
 	}
 
-	public void setUserinfo(Userinfo userinfo) {
-		this.userinfo = userinfo;
+	public void setAid(Long aid) {
+		this.aid = aid;
 	}
 
 	public Timestamp getCreatetime() {

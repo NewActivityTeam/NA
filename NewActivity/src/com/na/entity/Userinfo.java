@@ -1,8 +1,5 @@
 package com.na.entity;
 
-import java.util.HashSet;
-import java.util.Set;
-
 /**
  * Userinfo entity. @author MyEclipse Persistence Tools
  */
@@ -20,7 +17,6 @@ public class Userinfo implements java.io.Serializable {
 	private Integer sex;
 	private String phonenumber;
 	private String email;
-	private Set comments = new HashSet(0);
 
 	// Constructors
 
@@ -37,7 +33,7 @@ public class Userinfo implements java.io.Serializable {
 	/** full constructor */
 	public Userinfo(String ybaccount, Integer authority, Float height,
 			Float weight, Integer age, Integer sex, String phonenumber,
-			String email, Set comments) {
+			String email) {
 		this.ybaccount = ybaccount;
 		this.authority = authority;
 		this.height = height;
@@ -46,7 +42,6 @@ public class Userinfo implements java.io.Serializable {
 		this.sex = sex;
 		this.phonenumber = phonenumber;
 		this.email = email;
-		this.comments = comments;
 	}
 
 	// Property accessors
@@ -121,14 +116,6 @@ public class Userinfo implements java.io.Serializable {
 
 	public void setEmail(String email) {
 		this.email = email;
-	}
-
-	public Set getComments() {
-		return this.comments;
-	}
-
-	public void setComments(Set comments) {
-		this.comments = comments;
 	}
 
 }

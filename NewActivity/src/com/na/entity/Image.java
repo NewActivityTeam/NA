@@ -17,14 +17,8 @@ public class Image implements java.io.Serializable {
 	public Image() {
 	}
 
-	/** minimal constructor */
-	public Image(Long id) {
-		this.id = id;
-	}
-
 	/** full constructor */
-	public Image(Long id, String address) {
-		this.id = id;
+	public Image(String address) {
 		this.address = address;
 	}
 
