@@ -1,9 +1,12 @@
 package com.na.service.imp;
 
+import java.util.List;
+
 import com.na.dao.GroupApplyDao;
 import com.na.entity.GroupApply;
+import com.na.service.GroupApplyService;
 
-public class GroupApplyServiceImp implements GroupApplyDao {
+public class GroupApplyServiceImp implements GroupApplyService {
 
 	GroupApplyDao groupApplyDao;
 
@@ -15,53 +18,48 @@ public class GroupApplyServiceImp implements GroupApplyDao {
 		this.groupApplyDao = groupApplyDao;
 	}
 
+	//新的组队申请
 	@Override
-	public boolean insert(GroupApply groupApply) {
+	public int newGroupApply(long uid, long gid) {
 		// TODO Auto-generated method stub
-		return false;
+		return 0;
 	}
 
+	//接受申请
 	@Override
-	public boolean update(GroupApply groupApply) {
+	public int acceptApply(long id) {
 		// TODO Auto-generated method stub
-		return false;
+		return 0;
 	}
 
+	//拒绝申请
 	@Override
-	public boolean delete(GroupApply groupApply) {
+	public int refuseApply(long id) {
 		// TODO Auto-generated method stub
-		return false;
+		return 0;
 	}
 
-	@Override
-	public Object selectHql(String hql) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Object selectSql(String sql) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public boolean otherHql(String hql) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean otherSql(String sql) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
+	//获取组队申请
 	@Override
 	public GroupApply getGroupApply(long id) {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	//获取小组的所有组队申请
+	@Override
+	public List<GroupApply> getGroupAppliesByGID(long gid) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	//获取用户发出的所有组队申请
+	@Override
+	public List<GroupApply> getGroupAppliesByUID(long uid) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	
 	
 }
