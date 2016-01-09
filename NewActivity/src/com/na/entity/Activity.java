@@ -16,7 +16,7 @@ public class Activity implements java.io.Serializable {
 	private Timestamp starttime;
 	private Timestamp endtime;
 	private Timestamp createtime;
-	private String manager;
+	private Long manager;
 	private String webAddress;
 	private String mobileAddress;
 
@@ -27,7 +27,7 @@ public class Activity implements java.io.Serializable {
 	}
 
 	/** minimal constructor */
-	public Activity(String title, Timestamp createtime, String manager) {
+	public Activity(String title, Timestamp createtime, Long manager) {
 		this.title = title;
 		this.createtime = createtime;
 		this.manager = manager;
@@ -35,7 +35,7 @@ public class Activity implements java.io.Serializable {
 
 	/** full constructor */
 	public Activity(String title, String description, Timestamp starttime,
-			Timestamp endtime, Timestamp createtime, String manager,
+			Timestamp endtime, Timestamp createtime, Long manager,
 			String webAddress, String mobileAddress) {
 		this.title = title;
 		this.description = description;
@@ -97,11 +97,11 @@ public class Activity implements java.io.Serializable {
 		this.createtime = createtime;
 	}
 
-	public String getManager() {
+	public Long getManager() {
 		return this.manager;
 	}
 
-	public void setManager(String manager) {
+	public void setManager(Long manager) {
 		this.manager = manager;
 	}
 

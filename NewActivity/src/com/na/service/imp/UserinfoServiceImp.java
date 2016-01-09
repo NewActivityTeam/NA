@@ -265,7 +265,10 @@ public class UserinfoServiceImp implements UserinfoService {
 	public List<Userinfo> getUserinfos(long[] ids) {
 		List<Userinfo> list = new ArrayList<Userinfo>();
 		for (long uid : ids) {
-			list.add(userinfoDao.getUserinfo(uid));
+			Userinfo userinfo = userinfoDao.getUserinfo(uid);
+			if (userinfo!=null) {
+				list.add(userinfo);
+			}
 		}
 		if (list.size()!=0) {
 			return list;
