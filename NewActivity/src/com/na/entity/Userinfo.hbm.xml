@@ -8,7 +8,7 @@
     <class name="com.na.entity.Userinfo" table="tb_userinfo" catalog="na">
         <id name="uid" type="java.lang.Long">
             <column name="uid" />
-            <generator class="identity" />
+            <generator class="assigned" />
         </id>
         <property name="ybaccount" type="java.lang.String">
             <column name="ybaccount" not-null="true" />

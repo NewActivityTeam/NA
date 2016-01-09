@@ -25,15 +25,17 @@ public class Userinfo implements java.io.Serializable {
 	}
 
 	/** minimal constructor */
-	public Userinfo(String ybaccount, Integer authority) {
+	public Userinfo(Long uid, String ybaccount, Integer authority) {
+		this.uid = uid;
 		this.ybaccount = ybaccount;
 		this.authority = authority;
 	}
 
 	/** full constructor */
-	public Userinfo(String ybaccount, Integer authority, Float height,
-			Float weight, Integer age, Integer sex, String phonenumber,
-			String email) {
+	public Userinfo(Long uid, String ybaccount, Integer authority,
+			Float height, Float weight, Integer age, Integer sex,
+			String phonenumber, String email) {
+		this.uid = uid;
 		this.ybaccount = ybaccount;
 		this.authority = authority;
 		this.height = height;
