@@ -2,20 +2,23 @@ package com.na.service.imp;
 
 import java.util.List;
 
+import javax.annotation.Resource;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Service;
+
 import com.na.dao.CommentDao;
 import com.na.entity.Comment;
 import com.na.service.CommentService;
 
+@Service("commentService")
 public class CommentServiceImp implements CommentService {
+	
+	@Autowired
+	@Qualifier("commentDao")
 	CommentDao commentDao;
 
-	public CommentDao getCommentDao() {
-		return commentDao;
-	}
-
-	public void setCommentDao(CommentDao commentDao) {
-		this.commentDao = commentDao;
-	}
 
 	//创建评论
 	@Override

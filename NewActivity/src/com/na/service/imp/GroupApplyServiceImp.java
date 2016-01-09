@@ -2,21 +2,23 @@ package com.na.service.imp;
 
 import java.util.List;
 
+import javax.annotation.Resource;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Service;
+
 import com.na.dao.GroupApplyDao;
 import com.na.entity.GroupApply;
 import com.na.service.GroupApplyService;
 
+@Service("groupApplyService")
 public class GroupApplyServiceImp implements GroupApplyService {
 
+	@Autowired
+	@Qualifier("groupApplyDao")
 	GroupApplyDao groupApplyDao;
 
-	public GroupApplyDao getGroupApplyDao() {
-		return groupApplyDao;
-	}
-
-	public void setGroupApplyDao(GroupApplyDao groupApplyDao) {
-		this.groupApplyDao = groupApplyDao;
-	}
 
 	//新的组队申请
 	@Override

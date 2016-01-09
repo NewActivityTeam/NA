@@ -2,21 +2,21 @@ package com.na.service.imp;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Service;
+
 import com.na.dao.AssessDao;
 import com.na.entity.Assess;
 import com.na.service.AssessService;
 
+@Service("assessService")
 public class AssessServiceImp implements AssessService {
 
+	@Autowired
+	@Qualifier("assessDao")
 	AssessDao assessDao;
 
-	public AssessDao getAssessDao() {
-		return assessDao;
-	}
-
-	public void setAssessDao(AssessDao assessDao) {
-		this.assessDao = assessDao;
-	}
 
 	//新的评分
 	@Override

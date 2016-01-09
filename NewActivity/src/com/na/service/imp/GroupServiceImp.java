@@ -2,21 +2,21 @@ package com.na.service.imp;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Service;
+
 import com.na.dao.GroupDao;
 import com.na.entity.Group;
 import com.na.service.GroupService;
 
+@Service("groupService")
 public class GroupServiceImp implements GroupService {
 
+	@Autowired
+	@Qualifier("groupDao")
 	GroupDao groupDao;
 
-	public GroupDao getGroupDao() {
-		return groupDao;
-	}
-
-	public void setGroupDao(GroupDao groupDao) {
-		this.groupDao = groupDao;
-	}
 
 	//创建新的小组
 	@Override

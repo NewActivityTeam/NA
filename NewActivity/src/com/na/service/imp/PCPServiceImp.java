@@ -2,21 +2,21 @@ package com.na.service.imp;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Service;
+
 import com.na.dao.PCPDao;
 import com.na.entity.PCP;
 import com.na.service.PCPService;
 
+@Service("pcpService")
 public class PCPServiceImp implements PCPService {
 
+	@Autowired
+	@Qualifier("pcpDao")
 	PCPDao pcpDao;
 
-	public PCPDao getPcpDao() {
-		return pcpDao;
-	}
-
-	public void setPcpDao(PCPDao pcpDao) {
-		this.pcpDao = pcpDao;
-	}
 
 	//参与活动
 	@Override

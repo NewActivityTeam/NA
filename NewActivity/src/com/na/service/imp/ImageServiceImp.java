@@ -2,20 +2,20 @@ package com.na.service.imp;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Service;
+
 import com.na.dao.ImageDao;
 import com.na.entity.Image;
 import com.na.service.ImageService;
 
+@Service("imageService")
 public class ImageServiceImp implements ImageService {
+	
+	@Autowired
+	@Qualifier("imageDao")
 	ImageDao imageDao;
-
-	public ImageDao getImageDao() {
-		return imageDao;
-	}
-
-	public void setImageDao(ImageDao imageDao) {
-		this.imageDao = imageDao;
-	}
 
 	//新图片
 	@Override

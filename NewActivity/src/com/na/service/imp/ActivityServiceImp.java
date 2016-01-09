@@ -5,20 +5,23 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.annotation.Resource;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Service;
+
 import com.na.dao.ActivityDao;
 import com.na.entity.Activity;
 import com.na.service.ActivityService;
 
+@Service("activityService")
 public class ActivityServiceImp implements ActivityService {
-	ActivityDao activityDao;
+	
+	@Autowired
+	@Qualifier("activityDao")
+	private ActivityDao activityDao;
 
-	public ActivityDao getActivityDao() {
-		return activityDao;
-	}
-
-	public void setActivityDao(ActivityDao activityDao) {
-		this.activityDao = activityDao;
-	}
 
 	//新增活动
 	@Override
@@ -132,9 +135,14 @@ public class ActivityServiceImp implements ActivityService {
 	public int deleteActicity(long[] ids) {
 		
 		int code = 12034;
-		String hql = "delete Acitcity where id in " + ids;
+		String hql = "delete Acitcity a where a.id in (" + ids+")";
 		try {
-			
+			if(activityDao.otherHql(hql)){
+				code = 12031;
+			}
+			else{
+				code = 12033;
+			}
 		} 
 		catch (Exception e) {
 			e.printStackTrace();

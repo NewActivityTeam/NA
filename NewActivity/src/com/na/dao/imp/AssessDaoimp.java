@@ -2,26 +2,26 @@ package com.na.dao.imp;
 
 import java.util.List;
 
+import javax.annotation.Resource;
+
 import org.hibernate.Query;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Repository;
 
 import com.na.dao.AssessDao;
 import com.na.entity.Assess;
 
+@Repository("assessDao")
 public class AssessDaoimp implements AssessDao {
 
+	@Autowired
+	@Qualifier("sessionFactory")
 	SessionFactory sessionFactory;
-	
-	public SessionFactory getSessionFactory() {
-		return sessionFactory;
-	}
-
-	public void setSessionFactory(SessionFactory sessionFactory) {
-		this.sessionFactory = sessionFactory;
-	}
 
 	@Override
 	public boolean insert(Assess assess) {

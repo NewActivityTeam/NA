@@ -3,21 +3,21 @@ package com.na.service.imp;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Service;
+
 import com.na.dao.UserinfoDao;
 import com.na.entity.Userinfo;
 import com.na.service.UserinfoService;
 
+@Service("userinfoService")
 public class UserinfoServiceImp implements UserinfoService {
 	
+	@Autowired
+	@Qualifier("userinfoDao")
 	UserinfoDao userinfoDao;
 
-	public UserinfoDao getUserinfoDao() {
-		return userinfoDao;
-	}
-
-	public void setUserinfoDao(UserinfoDao userinfoDao) {
-		this.userinfoDao = userinfoDao;
-	}
 
 	//创建并设置用户信息
 	@Override

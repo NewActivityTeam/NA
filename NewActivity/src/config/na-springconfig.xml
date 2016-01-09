@@ -20,19 +20,19 @@
 	<bean id="dataSource"
 		class="org.apache.commons.dbcp.BasicDataSource">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver"/>
-		<!-- 本地数据库 -->
-		
+
+		<!-- 服务器 -->
+		 <!-- 
+		<property name="url" value=""></property>
+		<property name="" value=""></property>
+		<property name="" value=""></property>
+		-->
+		<!-- 本地 -->	
+			
 		<property name="url" value="jdbc:mysql://127.0.0.1:3306/na"></property>
 		<property name="username" value="root"></property>
-		<property name="password" value="123456"></property>
+		<property name="password" value="123456"></property> 
 		
-		<!-- 服务器数据库 -->
-		<!-- 
-			<property name="url" value="jdbc:mysql://"></property>
-			<property name="" value=""></property>
-			<property name="" value=""></property>
-		 -->
-		 
 	</bean>
 	<bean id="sessionFactory"
 		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
@@ -66,6 +66,7 @@
 	
 	<!-- 各层结构注入 -->
 	<!-- DAO层 -->
+	<!--  
 	<bean id="activityDao" class="com.na.dao.imp.ActivityDaoImp">
 		<property name="sessionFactory" ref="sessionFactory"/>
 	</bean>
@@ -100,12 +101,13 @@
 	<bean id="voteDao" class="com.na.dao.imp.VoteDaoImp">
 		<property name="sessionFactory" ref="sessionFactory"/>
 	</bean>
-	
+	-->
 	<!-- Service层 -->
 	
+	<!-- 
 	<bean id="activityService" class="com.na.service.imp.ActivityServiceImp">
 		<property name="activityDao" ref="activityDao"/>
-	</bean>
+	</bean> 
 	<bean id="assessService" class="com.na.service.imp.AssessServiceImp">
 		<property name="assessDao" ref="assessDao"/>
 	</bean>
@@ -130,5 +132,5 @@
 	<bean id="voteService" class="com.na.service.imp.VoteServiceImp">
 		<property name="voteDao" ref="voteDao"/>
 	</bean>
-	
-	</beans>
+	-->
+</beans>

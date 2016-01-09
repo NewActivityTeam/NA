@@ -1,20 +1,20 @@
 package com.na.service.imp;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Service;
+
 import com.na.dao.VoteDao;
 import com.na.entity.Vote;
 import com.na.service.VoteService;
 
+@Service("voteService")
 public class VoteServiceImp implements VoteService {
 
+	@Autowired
+	@Qualifier("voteDao")
 	VoteDao voteDao;
 
-	public VoteDao getVoteDao() {
-		return voteDao;
-	}
-
-	public void setVoteDao(VoteDao voteDao) {
-		this.voteDao = voteDao;
-	}
 
 	//新增投票
 	@Override

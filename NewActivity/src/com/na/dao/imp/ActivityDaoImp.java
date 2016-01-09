@@ -2,27 +2,27 @@ package com.na.dao.imp;
 
 import java.util.List;
 
+import javax.annotation.Resource;
+
 import org.hibernate.Query;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Repository;
 
 import com.na.dao.ActivityDao;
 import com.na.entity.Activity;
 
+@Repository("activityDao")
 public class ActivityDaoImp implements ActivityDao {
 
+	@Autowired
+	@Qualifier("sessionFactory")
 	SessionFactory sessionFactory;
-	
-	public SessionFactory getSessionFactory() {
-		return sessionFactory;
-	}
 
-	public void setSessionFactory(SessionFactory sessionFactory) {
-		this.sessionFactory = sessionFactory;
-	}
-	
 	//插入
 	public boolean insert(Activity activity) {
 		try {
