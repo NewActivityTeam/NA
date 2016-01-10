@@ -1,9 +1,17 @@
 package com.na.entity;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import static javax.persistence.GenerationType.IDENTITY;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 /**
  * Group entity. @author MyEclipse Persistence Tools
  */
-
+@Entity
+@Table(name = "tb_group")
 public class Group implements java.io.Serializable {
 
 	// Fields
@@ -37,7 +45,9 @@ public class Group implements java.io.Serializable {
 	}
 
 	// Property accessors
-
+	@Id
+	@GeneratedValue(strategy = IDENTITY)
+	@Column(name = "id", unique = true, nullable = false)
 	public Long getId() {
 		return this.id;
 	}
@@ -46,6 +56,7 @@ public class Group implements java.io.Serializable {
 		this.id = id;
 	}
 
+	@Column(name = "aid", nullable = false)
 	public Long getAid() {
 		return this.aid;
 	}
@@ -54,6 +65,7 @@ public class Group implements java.io.Serializable {
 		this.aid = aid;
 	}
 
+	@Column(name = "groupname")
 	public String getGroupname() {
 		return this.groupname;
 	}
@@ -62,6 +74,7 @@ public class Group implements java.io.Serializable {
 		this.groupname = groupname;
 	}
 
+	@Column(name = "description")
 	public String getDescription() {
 		return this.description;
 	}
@@ -70,6 +83,7 @@ public class Group implements java.io.Serializable {
 		this.description = description;
 	}
 
+	@Column(name = "leader")
 	public Long getLeader() {
 		return this.leader;
 	}
@@ -78,6 +92,7 @@ public class Group implements java.io.Serializable {
 		this.leader = leader;
 	}
 
+	@Column(name = "maxcount")
 	public Integer getMaxcount() {
 		return this.maxcount;
 	}

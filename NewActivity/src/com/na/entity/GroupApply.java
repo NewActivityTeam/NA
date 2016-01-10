@@ -1,11 +1,18 @@
 package com.na.entity;
 
 import java.sql.Timestamp;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import static javax.persistence.GenerationType.IDENTITY;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 /**
  * GroupApply entity. @author MyEclipse Persistence Tools
  */
-
+@Entity
+@Table(name = "tb_group_apply")
 public class GroupApply implements java.io.Serializable {
 
 	// Fields
@@ -38,7 +45,9 @@ public class GroupApply implements java.io.Serializable {
 	}
 
 	// Property accessors
-
+	@Id
+	@GeneratedValue(strategy = IDENTITY)
+	@Column(name = "id", unique = true, nullable = false)
 	public Long getId() {
 		return this.id;
 	}
@@ -47,6 +56,7 @@ public class GroupApply implements java.io.Serializable {
 		this.id = id;
 	}
 
+	@Column(name = "uid", nullable = false)
 	public Long getUid() {
 		return this.uid;
 	}
@@ -55,6 +65,7 @@ public class GroupApply implements java.io.Serializable {
 		this.uid = uid;
 	}
 
+	@Column(name = "gid", nullable = false)
 	public Long getGid() {
 		return this.gid;
 	}
@@ -63,6 +74,7 @@ public class GroupApply implements java.io.Serializable {
 		this.gid = gid;
 	}
 
+	@Column(name = "state", nullable = false)
 	public Integer getState() {
 		return this.state;
 	}
@@ -71,6 +83,7 @@ public class GroupApply implements java.io.Serializable {
 		this.state = state;
 	}
 
+	@Column(name = "createtime", length = 19)
 	public Timestamp getCreatetime() {
 		return this.createtime;
 	}

@@ -1,9 +1,15 @@
 package com.na.entity;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 /**
  * Userinfo entity. @author MyEclipse Persistence Tools
  */
-
+@Entity
+@Table(name = "tb_userinfo")
 public class Userinfo implements java.io.Serializable {
 
 	// Fields
@@ -25,10 +31,8 @@ public class Userinfo implements java.io.Serializable {
 	}
 
 	/** minimal constructor */
-	public Userinfo(Long uid, String ybaccount, Integer authority) {
+	public Userinfo(Long uid) {
 		this.uid = uid;
-		this.ybaccount = ybaccount;
-		this.authority = authority;
 	}
 
 	/** full constructor */
@@ -47,7 +51,8 @@ public class Userinfo implements java.io.Serializable {
 	}
 
 	// Property accessors
-
+	@Id
+	@Column(name = "uid", unique = true, nullable = false)
 	public Long getUid() {
 		return this.uid;
 	}
@@ -56,6 +61,7 @@ public class Userinfo implements java.io.Serializable {
 		this.uid = uid;
 	}
 
+	@Column(name = "ybaccount")
 	public String getYbaccount() {
 		return this.ybaccount;
 	}
@@ -64,6 +70,7 @@ public class Userinfo implements java.io.Serializable {
 		this.ybaccount = ybaccount;
 	}
 
+	@Column(name = "authority")
 	public Integer getAuthority() {
 		return this.authority;
 	}
@@ -72,6 +79,7 @@ public class Userinfo implements java.io.Serializable {
 		this.authority = authority;
 	}
 
+	@Column(name = "height", precision = 12, scale = 0)
 	public Float getHeight() {
 		return this.height;
 	}
@@ -80,6 +88,7 @@ public class Userinfo implements java.io.Serializable {
 		this.height = height;
 	}
 
+	@Column(name = "weight", precision = 12, scale = 0)
 	public Float getWeight() {
 		return this.weight;
 	}
@@ -88,6 +97,7 @@ public class Userinfo implements java.io.Serializable {
 		this.weight = weight;
 	}
 
+	@Column(name = "age")
 	public Integer getAge() {
 		return this.age;
 	}
@@ -96,6 +106,7 @@ public class Userinfo implements java.io.Serializable {
 		this.age = age;
 	}
 
+	@Column(name = "sex")
 	public Integer getSex() {
 		return this.sex;
 	}
@@ -104,6 +115,7 @@ public class Userinfo implements java.io.Serializable {
 		this.sex = sex;
 	}
 
+	@Column(name = "phonenumber", length = 20)
 	public String getPhonenumber() {
 		return this.phonenumber;
 	}
@@ -112,6 +124,7 @@ public class Userinfo implements java.io.Serializable {
 		this.phonenumber = phonenumber;
 	}
 
+	@Column(name = "email", length = 50)
 	public String getEmail() {
 		return this.email;
 	}

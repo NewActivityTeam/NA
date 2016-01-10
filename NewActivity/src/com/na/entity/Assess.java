@@ -1,9 +1,17 @@
 package com.na.entity;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import static javax.persistence.GenerationType.IDENTITY;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 /**
  * Assess entity. @author MyEclipse Persistence Tools
  */
-
+@Entity
+@Table(name = "tb_assess")
 public class Assess implements java.io.Serializable {
 
 	// Fields
@@ -27,7 +35,9 @@ public class Assess implements java.io.Serializable {
 	}
 
 	// Property accessors
-
+	@Id
+	@GeneratedValue(strategy = IDENTITY)
+	@Column(name = "id", unique = true, nullable = false)
 	public Long getId() {
 		return this.id;
 	}
@@ -36,6 +46,7 @@ public class Assess implements java.io.Serializable {
 		this.id = id;
 	}
 
+	@Column(name = "uid", nullable = false)
 	public Long getUid() {
 		return this.uid;
 	}
@@ -44,6 +55,7 @@ public class Assess implements java.io.Serializable {
 		this.uid = uid;
 	}
 
+	@Column(name = "aid", nullable = false)
 	public Long getAid() {
 		return this.aid;
 	}
@@ -52,6 +64,7 @@ public class Assess implements java.io.Serializable {
 		this.aid = aid;
 	}
 
+	@Column(name = "grade", nullable = false, precision = 12, scale = 0)
 	public Float getGrade() {
 		return this.grade;
 	}

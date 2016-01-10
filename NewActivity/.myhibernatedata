@@ -1,6 +1,6 @@
 #MyEclipse Hibernate Properties
-#Sun Jan 10 01:47:52 CST 2016
-genBasicCompId=false
+#Sun Jan 10 12:44:34 CST 2016
+genBasicCompId=true
 sessionFactoryName=
 profile=
 daoSFId=
@@ -14,7 +14,7 @@ keyGenerator=
 genVersionTag=false
 sessionFactoryId=sessionFactory
 basePersistenceClass=
-genAnnotations=false
+genAnnotations=true
 reSettingsFile=/NewActivity/hibernate.reveng.xml
 configFile=/NewActivity/src/config/na-springconfig.xml
 createConfigFile=true

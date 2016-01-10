@@ -1,9 +1,17 @@
 package com.na.entity;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import static javax.persistence.GenerationType.IDENTITY;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 /**
  * Image entity. @author MyEclipse Persistence Tools
  */
-
+@Entity
+@Table(name = "tb_image")
 public class Image implements java.io.Serializable {
 
 	// Fields
@@ -27,7 +35,9 @@ public class Image implements java.io.Serializable {
 	}
 
 	// Property accessors
-
+	@Id
+	@GeneratedValue(strategy = IDENTITY)
+	@Column(name = "id", unique = true, nullable = false)
 	public Long getId() {
 		return this.id;
 	}
@@ -36,6 +46,7 @@ public class Image implements java.io.Serializable {
 		this.id = id;
 	}
 
+	@Column(name = "address", length = 500)
 	public String getAddress() {
 		return this.address;
 	}
@@ -44,6 +55,7 @@ public class Image implements java.io.Serializable {
 		this.address = address;
 	}
 
+	@Column(name = "aid")
 	public Long getAid() {
 		return this.aid;
 	}
@@ -52,6 +64,7 @@ public class Image implements java.io.Serializable {
 		this.aid = aid;
 	}
 
+	@Column(name = "index")
 	public Integer getIndex() {
 		return this.index;
 	}

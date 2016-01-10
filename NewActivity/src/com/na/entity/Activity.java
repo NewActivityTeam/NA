@@ -1,11 +1,18 @@
 package com.na.entity;
 
 import java.sql.Timestamp;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import static javax.persistence.GenerationType.IDENTITY;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 /**
  * Activity entity. @author MyEclipse Persistence Tools
  */
-
+@Entity
+@Table(name = "tb_activity")
 public class Activity implements java.io.Serializable {
 
 	// Fields
@@ -48,7 +55,9 @@ public class Activity implements java.io.Serializable {
 	}
 
 	// Property accessors
-
+	@Id
+	@GeneratedValue(strategy = IDENTITY)
+	@Column(name = "id", unique = true, nullable = false)
 	public Long getId() {
 		return this.id;
 	}
@@ -57,6 +66,7 @@ public class Activity implements java.io.Serializable {
 		this.id = id;
 	}
 
+	@Column(name = "title", nullable = false, length = 40)
 	public String getTitle() {
 		return this.title;
 	}
@@ -65,6 +75,7 @@ public class Activity implements java.io.Serializable {
 		this.title = title;
 	}
 
+	@Column(name = "description", length = 5000)
 	public String getDescription() {
 		return this.description;
 	}
@@ -73,6 +84,7 @@ public class Activity implements java.io.Serializable {
 		this.description = description;
 	}
 
+	@Column(name = "starttime", length = 19)
 	public Timestamp getStarttime() {
 		return this.starttime;
 	}
@@ -81,6 +93,7 @@ public class Activity implements java.io.Serializable {
 		this.starttime = starttime;
 	}
 
+	@Column(name = "endtime", length = 19)
 	public Timestamp getEndtime() {
 		return this.endtime;
 	}
@@ -89,6 +102,7 @@ public class Activity implements java.io.Serializable {
 		this.endtime = endtime;
 	}
 
+	@Column(name = "createtime", nullable = false, length = 19)
 	public Timestamp getCreatetime() {
 		return this.createtime;
 	}
@@ -97,6 +111,7 @@ public class Activity implements java.io.Serializable {
 		this.createtime = createtime;
 	}
 
+	@Column(name = "manager", nullable = false)
 	public Long getManager() {
 		return this.manager;
 	}
@@ -105,6 +120,7 @@ public class Activity implements java.io.Serializable {
 		this.manager = manager;
 	}
 
+	@Column(name = "web_address")
 	public String getWebAddress() {
 		return this.webAddress;
 	}
@@ -113,6 +129,7 @@ public class Activity implements java.io.Serializable {
 		this.webAddress = webAddress;
 	}
 
+	@Column(name = "mobile_address")
 	public String getMobileAddress() {
 		return this.mobileAddress;
 	}

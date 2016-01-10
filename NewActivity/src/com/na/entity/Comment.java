@@ -1,11 +1,18 @@
 package com.na.entity;
 
 import java.sql.Timestamp;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import static javax.persistence.GenerationType.IDENTITY;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 /**
  * Comment entity. @author MyEclipse Persistence Tools
  */
-
+@Entity
+@Table(name = "tb_comment")
 public class Comment implements java.io.Serializable {
 
 	// Fields
@@ -37,7 +44,9 @@ public class Comment implements java.io.Serializable {
 	}
 
 	// Property accessors
-
+	@Id
+	@GeneratedValue(strategy = IDENTITY)
+	@Column(name = "id", unique = true, nullable = false)
 	public Long getId() {
 		return this.id;
 	}
@@ -46,6 +55,7 @@ public class Comment implements java.io.Serializable {
 		this.id = id;
 	}
 
+	@Column(name = "uid", nullable = false)
 	public Long getUid() {
 		return this.uid;
 	}
@@ -54,6 +64,7 @@ public class Comment implements java.io.Serializable {
 		this.uid = uid;
 	}
 
+	@Column(name = "aid")
 	public Long getAid() {
 		return this.aid;
 	}
@@ -62,6 +73,7 @@ public class Comment implements java.io.Serializable {
 		this.aid = aid;
 	}
 
+	@Column(name = "createtime", nullable = false, length = 19)
 	public Timestamp getCreatetime() {
 		return this.createtime;
 	}
@@ -70,6 +82,7 @@ public class Comment implements java.io.Serializable {
 		this.createtime = createtime;
 	}
 
+	@Column(name = "content", length = 2000)
 	public String getContent() {
 		return this.content;
 	}
