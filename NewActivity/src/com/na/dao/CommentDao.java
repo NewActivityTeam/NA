@@ -8,7 +8,7 @@ public interface CommentDao {
 	public boolean delete(Comment comment);
 	public Object selectHql(String hql);
 	public Object selectSql(String sql);
-	public boolean otherHql(String hql);
-	public boolean otherSql(String sql);
+	public int otherHql(String hql);
+	public int otherSql(String sql);
 	public Comment getComment(long id);
 }

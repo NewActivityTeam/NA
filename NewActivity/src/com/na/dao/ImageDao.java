@@ -9,7 +9,7 @@ public interface ImageDao {
 	public boolean delete(Image image);
 	public Object selectHql(String hql);
 	public Object selectSql(String sql);
-	public boolean otherHql(String hql);
-	public boolean otherSql(String sql);
+	public int otherHql(String hql);
+	public int otherSql(String sql);
 	public Image getImage(long id);
 }

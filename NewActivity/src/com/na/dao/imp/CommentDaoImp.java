@@ -116,33 +116,29 @@ public class CommentDaoImp implements CommentDao {
 	}
 
 	//执行无查询HQL语句
-	public boolean otherHql(String hql) {
+	public int otherHql(String hql) {
 		try {
 			Session session = sessionFactory.getCurrentSession();
 			Query query = session.createQuery(hql);
-			if (query.executeUpdate()!=0) {
-				return true;
-			}
+			return query.executeUpdate();
 		}
 		catch(Exception e){
 			e.printStackTrace();
 		}
-		return false;
+		return -1;
 	}
 
 	//执行无查询SQL语句
-	public boolean otherSql(String sql) {
+	public int otherSql(String sql) {
 		try {
 			Session session = sessionFactory.getCurrentSession();
 			SQLQuery query = session.createSQLQuery(sql);
-			if (query.executeUpdate()!=0) {
-				return true;
-			}
+			return query.executeUpdate();
 		}
 		catch(Exception e){
 			e.printStackTrace();
 		}
-		return false;
+		return -1;
 	}
 
 }

@@ -16,4 +16,8 @@ public interface CommentService {
 	
 	public List<Comment> getAllCommentsByAID(long aid);
 	
+	public boolean deleteAllCommentsByAID(long aid);
+	
+	public boolean deleteAllCommentsByUID(long uid);
+	
 }

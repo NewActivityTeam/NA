@@ -20,28 +20,68 @@ public class ImageServiceImp implements ImageService {
 	//新图片
 	@Override
 	public int newImage(String address, long aid, int index) {
-		// TODO Auto-generated method stub
-		return 0;
+
+		int code = 17014;
+		
+		try {
+			Image image = new Image();
+			image.setAid(aid);
+			image.setAddress(address);
+			image.setIndex(index);
+			if (imageDao.insert(image)) {
+				code = 17011;
+			}
+			else{
+				code = 17013;
+			}
+		} 
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		return code;
 	}
 
 	//删除图片
 	@Override
 	public int deleteImage(long id) {
-		// TODO Auto-generated method stub
-		return 0;
+
+		int code = 17024;
+		
+		try {
+			Image image = imageDao.getImage(id);
+			if (imageDao.delete(image)) {
+				code = 17021;
+			}
+			else{
+				code = 17023;
+			}
+		} 
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		return code;
 	}
 
 	//获取图片
 	@Override
 	public Image getImage(long id) {
-		// TODO Auto-generated method stub
-		return null;
+		return imageDao.getImage(id);
 	}
 
 	//获取活动的所有图片
 	@Override
 	public List<Image> getImagesByAID(long aid) {
-		// TODO Auto-generated method stub
+
+		String hql = "from Image where aid="+aid;
+		try {
+			List<Image> list = (List<Image>) imageDao.selectHql(hql);
+			if (list!=null&&list.size()!=0) {
+				return list;
+			}
+		} 
+		catch (Exception e) {
+			e.printStackTrace();
+		}
 		return null;
 	}
 	

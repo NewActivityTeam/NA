@@ -8,6 +8,16 @@ public interface PCPService {
 
 	public int newPCP(long uid,long aid);
 	
+	public int exitPCP(long id);
+	
+	public int exitPCP(long uid,long aid);
+	
+	public int joinGroup(long id,long gid);
+	
+	public int exitGroup(long id);
+	
+	public int getGroupCount(long gid);
+	
 	public List<Long> getUIDsByAID(long aid);
 	
 	public List<Long> getAIDsByUID(long uid);
@@ -24,7 +34,9 @@ public interface PCPService {
 	
 	public List<PCP> getPcpByAIDOrderGroup(long aid);
 	
-	public float setGrade(long id);
+	public int setGrade(long id,float grade);
+	
+	public int setMutiUserGrade(long ids[],float grade);
 	
 	public float getGrade(long id);
 	
@@ -33,8 +45,6 @@ public interface PCPService {
 	public int deletePCPsByAID(long aid);
 	
 	public int deletePCPsByUID(long uid);
-	
-	public int exitPCP(long id);
 	
 	public int fastAllot(long[] ids,List<Long> groups,int nop);
 }

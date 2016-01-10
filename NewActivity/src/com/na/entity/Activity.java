@@ -8,9 +8,6 @@ import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-/**
- * Activity entity. @author MyEclipse Persistence Tools
- */
 @Entity
 @Table(name = "tb_activity")
 public class Activity implements java.io.Serializable {

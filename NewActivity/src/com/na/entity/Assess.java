@@ -7,9 +7,6 @@ import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-/**
- * Assess entity. @author MyEclipse Persistence Tools
- */
 @Entity
 @Table(name = "tb_assess")
 public class Assess implements java.io.Serializable {

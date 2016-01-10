@@ -10,7 +10,9 @@ public interface AssessService {
 	
 	public int updateGrade(long id,float newGrade);
 	
-	public int deleteGrade(long id);
+	public int deleteAssess(long id);
+	
+	public int deleteAssess(long uid,long aid);
 	
 	public Assess getAssess(long id);
 	
@@ -20,5 +22,7 @@ public interface AssessService {
 	
 	public float getAvgGradeByAID(long aid);
 	
+	public boolean deleteAllAssessByAID(long aid);
 	
+	public boolean deleteAllAssessByUID(long uid);
 }

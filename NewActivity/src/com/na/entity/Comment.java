@@ -8,9 +8,6 @@ import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-/**
- * Comment entity. @author MyEclipse Persistence Tools
- */
 @Entity
 @Table(name = "tb_comment")
 public class Comment implements java.io.Serializable {

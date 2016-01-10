@@ -8,9 +8,6 @@ import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-/**
- * PCP entity. @author MyEclipse Persistence Tools
- */
 @Entity
 @Table(name = "tb_participation")
 public class PCP implements java.io.Serializable {

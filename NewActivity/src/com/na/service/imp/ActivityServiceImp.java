@@ -137,7 +137,7 @@ public class ActivityServiceImp implements ActivityService {
 		int code = 12034;
 		String hql = "delete Acitcity a where a.id in (" + ids+")";
 		try {
-			if(activityDao.otherHql(hql)){
+			if(activityDao.otherHql(hql)==ids.length){
 				code = 12031;
 			}
 			else{

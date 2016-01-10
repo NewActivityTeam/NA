@@ -7,9 +7,6 @@ import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-/**
- * Group entity. @author MyEclipse Persistence Tools
- */
 @Entity
 @Table(name = "tb_group")
 public class Group implements java.io.Serializable {
