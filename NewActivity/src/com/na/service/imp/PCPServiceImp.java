@@ -243,6 +243,27 @@ public class PCPServiceImp implements PCPService {
 		return null;
 	}
 
+	//获取某活动所有未分组成员ID
+	public List<Long> getUIDsByAIDNoGroup(long aid){
+		String hql = "from PCP where aid = "+ aid +" and gid is null";
+		try {
+			List<Long> list = new ArrayList<Long>();
+			List<PCP> pcps = (List<PCP>) pcpDao.selectHql(hql);
+			if (pcps!=null&&pcps.size()!=0) {
+				for (PCP pcp : pcps) {
+					list.add(pcp.getUid());
+				}
+				return list;
+			}
+			
+		} catch (Exception e) {
+			
+			e.printStackTrace();
+			
+		}
+		return null;
+	}
+	
 	//获取参与情况
 	@Override
 	public PCP getPcp(long id) {

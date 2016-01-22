@@ -25,15 +25,15 @@ public class ActivityServiceImp implements ActivityService {
 
 	//新增活动
 	@Override
-	public int newActicity(String title, String description, long starttime,
-			long endtime, long manager) {
+	public int newActicity(String title, String content, long starttime,
+			long endtime, long endsigntime, String voteaddress,long manager) {
 		
 		int code = 12014;
 		
 		try {
 			Activity activity = new Activity();
 			activity.setTitle(title);
-			activity.setDescription(description);
+			activity.setContent(content);
 			activity.setManager(manager);
 			Date date = new Date();
 			activity.setCreatetime(new Timestamp(date.getTime()));
@@ -63,6 +63,8 @@ public class ActivityServiceImp implements ActivityService {
 	 * 		5	manager			管理员id
 	 * 		6	web_address		Web端地址
 	 * 		7	mobile_address	手机端地址
+	 * 		8	voteddress		投票地址
+	 * 		9	endsigntime		报名截止时间
 	 */
 	@Override
 	public int updateActicity(long id, int subject, Object newcontent) {
@@ -80,7 +82,7 @@ public class ActivityServiceImp implements ActivityService {
 				change = true;
 				break;
 			case 2:
-				activity.setDescription(content);
+				activity.setContent(content);
 				change = true;
 				break;
 			case 3:
@@ -106,7 +108,15 @@ public class ActivityServiceImp implements ActivityService {
 				activity.setWebAddress(content);
 				change = true;
 				break;
-
+			case 8:
+				activity.setVoteaddress(content);
+				change = true;
+				break;
+			case 9:
+				long endsigntime = Long.parseLong(content);
+				activity.setEndsigntime(new Timestamp(endsigntime));
+				change = true;
+				break;
 			default:
 				break;
 			}

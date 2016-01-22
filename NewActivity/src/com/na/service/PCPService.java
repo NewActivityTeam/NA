@@ -24,6 +24,8 @@ public interface PCPService {
 	
 	public List<Long> getUIDsByGID(long gid);
 	
+	public List<Long> getUIDsByAIDNoGroup(long aid);
+	
 	public PCP getPcp(long id);
 	
 	public PCP getPcp(long uid,long aid);

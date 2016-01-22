@@ -32,7 +32,7 @@ public class ActivityTestController {
 		Date date = new Date();
 		int code = 12015;
 		try{
-			code=activityService.newActicity(UnicodeAndStringTools.stringToUnicode("标题"), UnicodeAndStringTools.stringToUnicode("描述"), date.getTime(), date.getTime(), 1);
+			//code=activityService.newActicity(UnicodeAndStringTools.stringToUnicode("标题"), UnicodeAndStringTools.stringToUnicode("描述"), date.getTime(), date.getTime(), 1);
 		
 		}
 		catch(Exception e){
