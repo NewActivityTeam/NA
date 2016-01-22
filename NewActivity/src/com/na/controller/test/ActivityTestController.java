@@ -2,16 +2,19 @@ package com.na.controller.test;
 
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.na.entity.Activity;
 import com.na.service.ActivityService;
 import com.na.tools.UnicodeAndStringTools;
 
@@ -20,7 +23,6 @@ import com.na.tools.UnicodeAndStringTools;
 public class ActivityTestController {
 
 	@Autowired
-	@Qualifier("activityService")
 	ActivityService activityService;
 	
 	@ResponseBody
@@ -38,5 +40,25 @@ public class ActivityTestController {
 		}
 		map.put("code", code);
 		return map;
+	}
+	
+	@RequestMapping("/activity_input")
+	public String inputActivity(Model model){
+		Activity activity = new Activity();
+		model.addAttribute("activity", activity);
+		return "test/ActivityAddForm";
+	}
+	
+	@RequestMapping("/activity_save")
+	public String saveActivity(@ModelAttribute Activity activity,HttpServletRequest request){
+		System.out.println(activity.getTitle());
+		System.out.println(activity.getStarttime());
+		return "redirect:test/activity_list";
+	}
+	@RequestMapping("/activity_list")
+	public String listActivities(Model model){
+		List<Activity> list = activityService.getAllActivities();
+		model.addAttribute("activities", list);
+		return "test/ActivityList";
 	}
 }
