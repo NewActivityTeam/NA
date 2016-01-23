@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50624
 File Encoding         : 65001
 
-Date: 2016-01-08 16:57:52
+Date: 2016-01-23 10:50:56
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -22,15 +22,17 @@ DROP TABLE IF EXISTS `tb_activity`;
 CREATE TABLE `tb_activity` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `title` varchar(40) NOT NULL,
-  `description` varchar(5000) DEFAULT NULL,
+  `content` varchar(5000) DEFAULT NULL,
   `starttime` datetime DEFAULT NULL,
   `endtime` datetime DEFAULT NULL,
+  `endsigntime` datetime DEFAULT NULL,
   `createtime` datetime NOT NULL,
-  `manager` varchar(255) NOT NULL,
+  `manager` bigint(20) DEFAULT NULL,
+  `voteaddress` varchar(255) DEFAULT NULL,
   `web_address` varchar(255) DEFAULT NULL,
   `mobile_address` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for tb_assess
@@ -119,9 +121,9 @@ CREATE TABLE `tb_participation` (
 -- ----------------------------
 DROP TABLE IF EXISTS `tb_userinfo`;
 CREATE TABLE `tb_userinfo` (
-  `uid` bigint(20) NOT NULL AUTO_INCREMENT,
-  `ybaccount` varchar(255) NOT NULL,
-  `authority` int(11) NOT NULL DEFAULT '0',
+  `uid` bigint(20) NOT NULL,
+  `ybaccount` varchar(255) DEFAULT NULL,
+  `authority` int(11) DEFAULT '0',
   `height` float DEFAULT NULL,
   `weight` float DEFAULT NULL,
   `age` int(11) DEFAULT NULL,
@@ -141,4 +143,4 @@ CREATE TABLE `tb_vote` (
   `address` varchar(200) DEFAULT NULL,
   `createtime` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
