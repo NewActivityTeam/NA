@@ -178,7 +178,7 @@ public class ActivityServiceImp implements ActivityService {
 	public List<Activity> getAllActivities() {
 		String hql = "from Activity where id>0";
 		List<Activity> list = (List<Activity>) activityDao.selectHql(hql);
-		if (list.size()!=0) {
+		if (list!=null&&list.size()!=0) {
 			return list;
 		}
 		return null;
@@ -190,7 +190,7 @@ public class ActivityServiceImp implements ActivityService {
 	public List<Activity> getActivitiesByManager(long uid) {
 		String hql = "from Activity where manager="+uid;
 		List<Activity> list = (List<Activity>) activityDao.selectHql(hql);
-		if (list.size()!=0) {
+		if (list!=null&&list.size()!=0) {
 			return list;
 		}
 		return null;
@@ -206,7 +206,7 @@ public class ActivityServiceImp implements ActivityService {
 				list.add(activity);
 			}
 		}
-		if (list.size()!=0) {
+		if (list!=null&&list.size()!=0) {
 			return list;
 		}
 		return null;
@@ -241,7 +241,7 @@ public class ActivityServiceImp implements ActivityService {
 			}
 		}
 		List<Activity> list = (List<Activity>) activityDao.selectHql(hql);
-		if(list.size() > 0){
+		if(list!=null && list.size() > 0){
 			return list;
 		}
 		return null;
