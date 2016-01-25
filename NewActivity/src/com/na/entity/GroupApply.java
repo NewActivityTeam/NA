@@ -8,6 +8,9 @@ import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+/**
+ * GroupApply entity. @author MyEclipse Persistence Tools
+ */
 @Entity
 @Table(name = "tb_group_apply")
 public class GroupApply implements java.io.Serializable {

@@ -28,6 +28,7 @@ public class Activity implements java.io.Serializable {
 	private String voteaddress;
 	private String webAddress;
 	private String mobileAddress;
+	private String address;
 
 	// Constructors
 
@@ -45,7 +46,7 @@ public class Activity implements java.io.Serializable {
 	public Activity(String title, String content, Timestamp starttime,
 			Timestamp endtime, Timestamp endsigntime, Timestamp createtime,
 			Long manager, String voteaddress, String webAddress,
-			String mobileAddress) {
+			String mobileAddress, String address) {
 		this.title = title;
 		this.content = content;
 		this.starttime = starttime;
@@ -56,6 +57,7 @@ public class Activity implements java.io.Serializable {
 		this.voteaddress = voteaddress;
 		this.webAddress = webAddress;
 		this.mobileAddress = mobileAddress;
+		this.address = address;
 	}
 
 	// Property accessors
@@ -158,6 +160,15 @@ public class Activity implements java.io.Serializable {
 
 	public void setMobileAddress(String mobileAddress) {
 		this.mobileAddress = mobileAddress;
+	}
+
+	@Column(name = "address")
+	public String getAddress() {
+		return this.address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
 	}
 
 }

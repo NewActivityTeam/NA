@@ -5,31 +5,11 @@
 	xmlns:p="http://www.springframework.org/schema/p"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.1.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd" xmlns:tx="http://www.springframework.org/schema/tx">
 
-	<!-- JSON返回 -->
-     <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter"  
-          p:ignoreDefaultModelOnRedirect="true" >  
-              <property name="messageConverters">  
-                  <list>  
-                      <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter"/>  
-                  </list>  
-              </property>  
-    </bean> 
-    
-    
-	<!-- Hibernate配置 -->
+
 	<bean id="dataSource"
 		class="org.apache.commons.dbcp.BasicDataSource">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver"/>
-
-		<!-- 服务器 -->
-		 <!-- 
-		<property name="url" value=""></property>
-		<property name="" value=""></property>
-		<property name="" value=""></property>
-		-->
-		<!-- 本地 -->	
-			
-		<property name="url" value="jdbc:mysql://127.0.0.1:3306/na"></property>
+		<property name="url" value="jdbc:mysql://127.0.0.1:3306/na?useUnicode=true&amp;characterEncoding=utf-8"></property>
 		<property name="username" value="root"></property>
 		<property name="password" value="123456"></property> 
 		
@@ -46,92 +26,21 @@
 				</prop>
 			</props>
 		</property>
-		<property name="packagesToScan" value="com.na.entity"/>
 		<property name="annotatedClasses">
 			<list>
 				<value>com.na.entity.Vote</value>
 				<value>com.na.entity.PCP</value>
 				<value>com.na.entity.Userinfo</value>
 				<value>com.na.entity.GroupApply</value>
-				<value>com.na.entity.Activity</value>
 				<value>com.na.entity.Assess</value>
 				<value>com.na.entity.Comment</value>
+				<value>com.na.entity.Acitvity</value>
 				<value>com.na.entity.Group</value>
-				<value>com.na.entity.Image</value></list>
+				<value>com.na.entity.Image</value>
+				<value>com.na.entity.Activity</value></list>
 		</property></bean>
 	<bean id="transactionManager"
 		class="org.springframework.orm.hibernate4.HibernateTransactionManager">
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
-	<tx:annotation-driven transaction-manager="transactionManager" />
-	
-	<!-- 各层结构注入 -->
-	<!-- DAO层 -->
-	<!--  
-	<bean id="activityDao" class="com.na.dao.imp.ActivityDaoImp">
-		<property name="sessionFactory" ref="sessionFactory"/>
-	</bean>
-	
-	<bean id="assessDao" class="com.na.dao.imp.AssessDaoimp">
-		<property name="sessionFactory" ref="sessionFactory"/>
-	</bean>
-	
-	<bean id="commentDao" class="com.na.dao.imp.CommentDaoImp">
-		<property name="sessionFactory" ref="sessionFactory"/>
-	</bean>
-	
-	<bean id="groupDao" class="com.na.dao.imp.GroupDaoimp">
-		<property name="sessionFactory" ref="sessionFactory"/>
-	</bean>
-	
-	<bean id="groupApplyDao" class="com.na.dao.imp.GroupApplyDaoimp">
-		<property name="sessionFactory" ref="sessionFactory"/>
-	</bean>
-	
-	<bean id="imageDao" class="com.na.dao.imp.ImageDaoImp">
-		<property name="sessionFactory" ref="sessionFactory"/>
-	</bean>
-	
-	<bean id="pcpDao" class="com.na.dao.imp.PCPDaoImp">
-		<property name="sessionFactory" ref="sessionFactory"/>
-	</bean>
-	
-	<bean id="userinfoDao" class="com.na.dao.imp.UserinfoDaoImp">
-		<property name="sessionFactory" ref="sessionFactory"/>
-	</bean>
-	<bean id="voteDao" class="com.na.dao.imp.VoteDaoImp">
-		<property name="sessionFactory" ref="sessionFactory"/>
-	</bean>
-	-->
-	<!-- Service层 -->
-	
-	<!-- 
-	<bean id="activityService" class="com.na.service.imp.ActivityServiceImp">
-		<property name="activityDao" ref="activityDao"/>
-	</bean> 
-	<bean id="assessService" class="com.na.service.imp.AssessServiceImp">
-		<property name="assessDao" ref="assessDao"/>
-	</bean>
-	<bean id="commentService" class="com.na.service.imp.CommentServiceImp">
-		<property name="commentDao" ref="commentDao"/>
-	</bean>
-	<bean id="groupService" class="com.na.service.imp.GroupServiceImp">
-		<property name="groupDao" ref="groupDao"/>
-	</bean>
-	<bean id="groupApplyService" class="com.na.service.imp.GroupApplyServiceImp">
-		<property name="groupApplyDao" ref="groupApplyDao"/>
-	</bean>
-	<bean id="iamgeService" class="com.na.service.imp.ImageServiceImp">
-		<property name="imageDao" ref="imageDao"/>
-	</bean>
-	<bean id="pcpService" class="com.na.service.imp.PCPServiceImp">
-		<property name="pcpDao" ref="pcpDao"/>
-	</bean>
-	<bean id="userinfoService" class="com.na.service.imp.UserinfoServiceImp">
-		<property name="userinfoDao" ref="userinfoDao"/>
-	</bean>
-	<bean id="voteService" class="com.na.service.imp.VoteServiceImp">
-		<property name="voteDao" ref="voteDao"/>
-	</bean>
-	-->
-</beans>
+	<tx:annotation-driven transaction-manager="transactionManager" /></beans>

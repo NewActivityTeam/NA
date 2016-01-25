@@ -264,6 +264,7 @@ public class PCPServiceImp implements PCPService {
 		return null;
 	}
 	
+
 	//获取参与情况
 	@Override
 	public PCP getPcp(long id) {

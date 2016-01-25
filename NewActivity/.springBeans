@@ -10,7 +10,6 @@
 		<config>src/config/na-springconfig.xml</config>
 	</configs>
 	<autoconfigs>
-		<config>src/config/springmvc-servlet.xml</config>
 	</autoconfigs>
 	<configSets>
 	</configSets>

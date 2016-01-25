@@ -7,6 +7,9 @@ import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+/**
+ * Image entity. @author MyEclipse Persistence Tools
+ */
 @Entity
 @Table(name = "tb_image")
 public class Image implements java.io.Serializable {

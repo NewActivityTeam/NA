@@ -2,8 +2,6 @@ package com.na.dao.imp;
 
 import java.util.List;
 
-import javax.annotation.Resource;
-
 import org.hibernate.Query;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
@@ -134,5 +132,4 @@ public class ActivityDaoImp implements ActivityDao {
 		}
 		return -1;
 	}
-
 }

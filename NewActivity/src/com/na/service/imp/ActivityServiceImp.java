@@ -22,7 +22,13 @@ public class ActivityServiceImp implements ActivityService {
 	@Qualifier("activityDao")
 	private ActivityDao activityDao;
 
-
+	@Override
+	public int addActivity(Activity activity) {
+		// TODO Auto-generated method stub
+		activityDao.insert(activity);
+		return 0;
+	}
+	
 	//新增活动
 	@Override
 	public int newActicity(String title, String content, long starttime,
@@ -206,4 +212,38 @@ public class ActivityServiceImp implements ActivityService {
 		return null;
 	}
 	
+	@Override
+	public List<Activity> getActivitiesByConditions(String title,Timestamp start,Timestamp end) {
+		// TODO Auto-generated method stub
+		int count = 0;
+		String hql = "from Activity where";
+		if(title != null){
+			if(count == 0){
+				hql += " title = '"+title+"'";
+				count++;
+			}	
+		}
+		if(start != null){
+			if(count == 0){
+				hql += " starttime >= '"+start+"'";
+				count++;
+			}else{
+				hql += " and starttime >= '"+start+"'";
+			}
+		}
+		if(end != null){
+			if(count == 0){
+				hql += " endtime <= '"+end+"'";
+				count++;
+			}else{
+				System.out.println("------");
+				hql += " and endtime <= '"+end+"'";
+			}
+		}
+		List<Activity> list = (List<Activity>) activityDao.selectHql(hql);
+		if(list.size() > 0){
+			return list;
+		}
+		return null;
+	}
 }

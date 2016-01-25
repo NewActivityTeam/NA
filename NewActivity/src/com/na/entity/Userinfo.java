@@ -5,6 +5,9 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+/**
+ * Userinfo entity. @author MyEclipse Persistence Tools
+ */
 @Entity
 @Table(name = "tb_userinfo")
 public class Userinfo implements java.io.Serializable {

@@ -8,6 +8,9 @@ import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+/**
+ * Vote entity. @author MyEclipse Persistence Tools
+ */
 @Entity
 @Table(name = "tb_vote")
 public class Vote implements java.io.Serializable {
