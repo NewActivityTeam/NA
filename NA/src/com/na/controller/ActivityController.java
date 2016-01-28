@@ -8,8 +8,11 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+
 
 
 
@@ -33,6 +36,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.na.entity.Activity;
@@ -48,7 +52,7 @@ public class ActivityController extends BaseController{
 	@Qualifier("activityService")
 	public ActivityService activityService;
 	
-	@RequestMapping("PublishActivity")
+	/*@RequestMapping("PublishActivity")
 	public String publishActivity() throws ParseException{
 		Activity activity = new Activity();
 		activity.setTitle(request.getParameter("title"));
@@ -62,6 +66,47 @@ public class ActivityController extends BaseController{
 		activity.setManager((long)Integer.parseInt(request.getParameter("manager")));
 		activityService.addActivity(activity);
 		return "/jsp/PublishActivity";
+	}*/
+	
+	/*@RequestMapping("PublishActivity")
+	public String publishActivity() throws ParseException{
+		
+		String title = request.getParameter("title");
+		Timestamp starttime = Timestamp.valueOf(request.getParameter("startDate") + " " + request.getParameter("startTime") + ":00");
+		Timestamp endtime = Timestamp.valueOf(request.getParameter("endDate") + " " + request.getParameter("endTime") + ":00");
+		Timestamp endsigntime = Timestamp.valueOf(request.getParameter("endSignDate") + " " + request.getParameter("endSignTime") + ":00");
+		Timestamp createtime = Timestamp.valueOf(request.getParameter("createDate") + " " + request.getParameter("createTime") + ":00");
+		String address = request.getParameter("address");
+		String voteAddress = request.getParameter("voteaddress");
+		String description = request.getParameter("content");
+		long manager = Long.parseLong(request.getParameter("manager"));
+		if(activityService.newActicity(title, description, starttime, endtime, endsigntime, address, voteAddress, manager)==12011){
+			System.out.print("成功");
+		}
+		return "/jsp/PublishActivity";
+	}*/
+	@ResponseBody
+	@RequestMapping("PublishActivity")
+	public Map<String, Integer> publishActivityTest(){
+		Map<String, Integer> map  = new HashMap<String, Integer>();
+		int code = 12015;
+		try{
+			String title = request.getParameter("title");
+			Timestamp starttime = Timestamp.valueOf(request.getParameter("startDate") + " " + request.getParameter("startTime") + ":00");
+			Timestamp endtime = Timestamp.valueOf(request.getParameter("endDate") + " " + request.getParameter("endTime") + ":00");
+			Timestamp endsigntime = Timestamp.valueOf(request.getParameter("endSignDate") + " " + request.getParameter("endSignTime") + ":00");
+			Timestamp createtime = Timestamp.valueOf(request.getParameter("createDate") + " " + request.getParameter("createTime") + ":00");
+			String address = request.getParameter("address");
+			String voteAddress = request.getParameter("voteaddress");
+			String description = request.getParameter("content");
+			long manager = Long.parseLong(request.getParameter("manager"));
+			code = activityService.newActicity(title, description, starttime, endtime, endsigntime, address, voteAddress, manager);
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}
+		map.put("code", code);
+		return map;
 	}
 	
 	@RequestMapping("GetActivities")

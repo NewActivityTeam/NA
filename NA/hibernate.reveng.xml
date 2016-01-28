@@ -2,25 +2,25 @@
 <!DOCTYPE hibernate-reverse-engineering PUBLIC "-//Hibernate/Hibernate Reverse Engineering DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-reverse-engineering-3.0.dtd" >
 
 <hibernate-reverse-engineering>
-<table name="tb_activity" catalog="na" class="com.na.entity.Activity">
+<table name="tb_activity" class="com.na.entity.Activity">
 	<primary-key>
 		<generator class="native"></generator>
 	</primary-key>
 </table>
-<table name="tb_assess" catalog="na" class="com.na.entity.Assess"></table>
-	<table name="tb_comment" catalog="na"
+<table name="tb_assess" class="com.na.entity.Assess"></table>
+	<table name="tb_comment"
 		class="com.na.entity.Comment">
 	</table>
-	<table name="tb_group_apply" catalog="na"
+	<table name="tb_group_apply"
 		class="com.na.entity.GroupApply">
 	</table>
-	<table name="tb_group" catalog="na" class="com.na.entity.Group"></table>
-	<table name="tb_image" catalog="na" class="com.na.entity.Image"></table>
-	<table name="tb_participation" catalog="na"
+	<table name="tb_group" class="com.na.entity.Group"></table>
+	<table name="tb_image" class="com.na.entity.Image"></table>
+	<table name="tb_participation"
 		class="com.na.entity.PCP">
 	</table>
-	<table name="tb_userinfo" catalog="na"
+	<table name="tb_userinfo"
 		class="com.na.entity.Userinfo">
 	</table>
-	<table name="tb_vote" catalog="na" class="com.na.entity.Vote"></table>
+	<table name="tb_vote" class="com.na.entity.Vote"></table>
 </hibernate-reverse-engineering>

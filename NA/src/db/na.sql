@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50624
 File Encoding         : 65001
 
-Date: 2016-01-28 18:12:36
+Date: 2016-01-28 20:38:40
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -32,8 +32,9 @@ CREATE TABLE `tb_activity` (
   `web_address` varchar(255) DEFAULT NULL,
   `mobile_address` varchar(255) DEFAULT NULL,
   `address` varchar(255) DEFAULT NULL,
+  `number` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for tb_assess

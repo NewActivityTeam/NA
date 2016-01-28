@@ -11,7 +11,7 @@ import javax.persistence.Table;
  * Activity entity. @author MyEclipse Persistence Tools
  */
 @Entity
-@Table(name = "tb_activity", catalog = "na")
+@Table(name = "tb_activity")
 public class Activity implements java.io.Serializable {
 
 	// Fields
@@ -22,12 +22,13 @@ public class Activity implements java.io.Serializable {
 	private Timestamp starttime;
 	private Timestamp endtime;
 	private Timestamp endsigntime;
-	private String address;
 	private Timestamp createtime;
-	private String voteaddress;
 	private Long manager;
+	private String voteaddress;
 	private String webAddress;
 	private String mobileAddress;
+	private String address;
+	private Integer number;
 
 	// Constructors
 
@@ -36,28 +37,28 @@ public class Activity implements java.io.Serializable {
 	}
 
 	/** minimal constructor */
-	public Activity(String title, Timestamp createtime, Long manager) {
+	public Activity(String title, Timestamp createtime) {
 		this.title = title;
 		this.createtime = createtime;
-		this.manager = manager;
 	}
 
 	/** full constructor */
 	public Activity(String title, String description, Timestamp starttime,
-			Timestamp endtime, Timestamp endsigntime, String address,
-			Timestamp createtime, String voteaddress, Long manager,
-			String webAddress, String mobileAddress) {
+			Timestamp endtime, Timestamp endsigntime, Timestamp createtime,
+			Long manager, String voteaddress, String webAddress,
+			String mobileAddress, String address, Integer number) {
 		this.title = title;
 		this.description = description;
 		this.starttime = starttime;
 		this.endtime = endtime;
 		this.endsigntime = endsigntime;
-		this.address = address;
 		this.createtime = createtime;
-		this.voteaddress = voteaddress;
 		this.manager = manager;
+		this.voteaddress = voteaddress;
 		this.webAddress = webAddress;
 		this.mobileAddress = mobileAddress;
+		this.address = address;
+		this.number = number;
 	}
 
 	// Property accessors
@@ -117,15 +118,6 @@ public class Activity implements java.io.Serializable {
 		this.endsigntime = endsigntime;
 	}
 
-	@Column(name = "address")
-	public String getAddress() {
-		return this.address;
-	}
-
-	public void setAddress(String address) {
-		this.address = address;
-	}
-
 	@Column(name = "createtime", nullable = false, length = 19)
 	public Timestamp getCreatetime() {
 		return this.createtime;
@@ -135,6 +127,15 @@ public class Activity implements java.io.Serializable {
 		this.createtime = createtime;
 	}
 
+	@Column(name = "manager")
+	public Long getManager() {
+		return this.manager;
+	}
+
+	public void setManager(Long manager) {
+		this.manager = manager;
+	}
+
 	@Column(name = "voteaddress")
 	public String getVoteaddress() {
 		return this.voteaddress;
@@ -142,15 +143,6 @@ public class Activity implements java.io.Serializable {
 
 	public void setVoteaddress(String voteaddress) {
 		this.voteaddress = voteaddress;
-	}
-
-	@Column(name = "manager", nullable = false)
-	public Long getManager() {
-		return this.manager;
-	}
-
-	public void setManager(Long manager) {
-		this.manager = manager;
 	}
 
 	@Column(name = "web_address")
@@ -169,6 +161,24 @@ public class Activity implements java.io.Serializable {
 
 	public void setMobileAddress(String mobileAddress) {
 		this.mobileAddress = mobileAddress;
+	}
+
+	@Column(name = "address")
+	public String getAddress() {
+		return this.address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	@Column(name = "number")
+	public Integer getNumber() {
+		return this.number;
+	}
+
+	public void setNumber(Integer number) {
+		this.number = number;
 	}
 
 }
