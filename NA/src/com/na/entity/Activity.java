@@ -24,7 +24,8 @@ public class Activity implements java.io.Serializable {
 	private Timestamp endsigntime;
 	private String address;
 	private Timestamp createtime;
-	private String manager;
+	private String voteaddress;
+	private Long manager;
 	private String webAddress;
 	private String mobileAddress;
 
@@ -35,7 +36,7 @@ public class Activity implements java.io.Serializable {
 	}
 
 	/** minimal constructor */
-	public Activity(String title, Timestamp createtime, String manager) {
+	public Activity(String title, Timestamp createtime, Long manager) {
 		this.title = title;
 		this.createtime = createtime;
 		this.manager = manager;
@@ -44,8 +45,8 @@ public class Activity implements java.io.Serializable {
 	/** full constructor */
 	public Activity(String title, String description, Timestamp starttime,
 			Timestamp endtime, Timestamp endsigntime, String address,
-			Timestamp createtime, String manager, String webAddress,
-			String mobileAddress) {
+			Timestamp createtime, String voteaddress, Long manager,
+			String webAddress, String mobileAddress) {
 		this.title = title;
 		this.description = description;
 		this.starttime = starttime;
@@ -53,6 +54,7 @@ public class Activity implements java.io.Serializable {
 		this.endsigntime = endsigntime;
 		this.address = address;
 		this.createtime = createtime;
+		this.voteaddress = voteaddress;
 		this.manager = manager;
 		this.webAddress = webAddress;
 		this.mobileAddress = mobileAddress;
@@ -133,12 +135,21 @@ public class Activity implements java.io.Serializable {
 		this.createtime = createtime;
 	}
 
+	@Column(name = "voteaddress")
+	public String getVoteaddress() {
+		return this.voteaddress;
+	}
+
+	public void setVoteaddress(String voteaddress) {
+		this.voteaddress = voteaddress;
+	}
+
 	@Column(name = "manager", nullable = false)
-	public String getManager() {
+	public Long getManager() {
 		return this.manager;
 	}
 
-	public void setManager(String manager) {
+	public void setManager(Long manager) {
 		this.manager = manager;
 	}
 

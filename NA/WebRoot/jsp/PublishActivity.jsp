@@ -134,7 +134,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   		<hr style="width:80%;height:5px;border:none;border-top:5px ridge green;" />
   		<input type="text" name="createDate" id="createDate" style="display:none;"/>
   		<input type="text" name="createTime" id="createTime" style="display:none;"/>
-  		<input type="hidden" name="manager" value="陈豪" > 
+  		<input type="hidden" name="manager" value="1" > 
   		<center><input type="submit" id="sub" class="btn btn-info" value="发布活动"></center>
 	</form>
 	

@@ -59,7 +59,7 @@ public class ActivityController extends BaseController{
 		activity.setAddress(request.getParameter("address"));
 		activity.setWebAddress(request.getParameter("voteaddress"));
 		activity.setDescription(request.getParameter("content"));
-		activity.setManager(request.getParameter("manager"));
+		activity.setManager((long)Integer.parseInt(request.getParameter("manager")));
 		activityService.addActivity(activity);
 		return "/jsp/PublishActivity";
 	}
@@ -119,5 +119,14 @@ public class ActivityController extends BaseController{
 		Long id = (long) Integer.parseInt(request.getParameter("id"));
 		activityService.deleteActivity(id);
 		return new ModelAndView("redirect:/GetActivities?current=" + currentPage + "&title=" + title + "&startDate=" + start + "&endDate=" + end);
+	}
+	
+	@RequestMapping("UpdateActivity")
+	public ModelAndView UpdateActivity(){
+		long id = Integer.parseInt(request.getParameter("id"));	
+		Activity activity = activityService.getActicity(id);
+		System.out.println(activity.getStarttime());
+		request.setAttribute("activity", activity);
+		return new ModelAndView("/jsp/UpdateActivity");
 	}
 }

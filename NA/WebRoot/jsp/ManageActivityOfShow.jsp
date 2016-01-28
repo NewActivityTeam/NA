@@ -94,7 +94,7 @@ a:hover{ text-decoration:none;}
     			<td><%=activity.getStarttime() %></td>
     			<td><%=activity.getEndsigntime() %></td>
     			<td><%=activity.getAddress() %></td>
-    			<td><span class="glyphicon glyphicon-pencil"></span></td>
+    			<td><a href="UpdateActivity?id=<%=activity.getId()%>" target="right"><span class="glyphicon glyphicon-pencil"></span></a></td>
     			<td><a href="DeleteActivity?id=<%=activity.getId()%>&current=${current}&title=${title}&startDate=${start}&endDate=${end}"><img src="" /><span class="glyphicon glyphicon-remove"></span></a></td>
     			<td><img src="" /><span class="glyphicon glyphicon-user"></span></td>
     		</tr>
