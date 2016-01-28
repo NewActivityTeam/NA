@@ -7,7 +7,8 @@ import com.na.entity.Activity;
 
 public interface ActivityService {
 
-	public int newActicity(String title,String description,long starttime,long endtime,long manager);
+	public int newActicity(String title, String description, Timestamp starttime,
+			Timestamp endtime, Timestamp endsigntime,String address,String voteAddress,long manager);
 	
 	/*
 	 * 陈豪 2016-1-16

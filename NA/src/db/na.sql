@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50624
 File Encoding         : 65001
 
-Date: 2016-01-23 13:39:23
+Date: 2016-01-28 18:12:36
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -22,7 +22,7 @@ DROP TABLE IF EXISTS `tb_activity`;
 CREATE TABLE `tb_activity` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `title` varchar(40) NOT NULL,
-  `content` varchar(5000) DEFAULT NULL,
+  `description` varchar(5000) DEFAULT NULL,
   `starttime` datetime DEFAULT NULL,
   `endtime` datetime DEFAULT NULL,
   `endsigntime` datetime DEFAULT NULL,

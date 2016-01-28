@@ -22,12 +22,10 @@ public class ActivityServiceImp implements ActivityService {
 	@Qualifier("activityDao")
 	private ActivityDao activityDao;
 
-	/*
-
 	//新增活动
 	@Override
-	public int newActicity(String title, String description, long starttime,
-			long endtime, long manager) {
+	public int newActicity(String title, String description, Timestamp starttime,
+			Timestamp endtime, Timestamp endsigntime,String address,String voteAddress,long manager) {
 		
 		int code = 12014;
 		
@@ -36,10 +34,13 @@ public class ActivityServiceImp implements ActivityService {
 			activity.setTitle(title);
 			activity.setDescription(description);
 			activity.setManager(manager);
+			activity.setEndsigntime(endsigntime);
+			activity.setAddress(address);
+			activity.setVoteaddress(voteAddress);
 			Date date = new Date();
 			activity.setCreatetime(new Timestamp(date.getTime()));
-			activity.setStarttime(new Timestamp(starttime));
-			activity.setEndtime(new Timestamp(endtime));
+			activity.setStarttime(starttime);
+			activity.setEndtime(endtime);
 			if(activityDao.insert(activity)){
 				code = 12011;
 			}
@@ -53,8 +54,7 @@ public class ActivityServiceImp implements ActivityService {
 		
 		return code;
 	}
-	
-	*/
+
 
 	/***
 	 * 更新活动信息
@@ -66,8 +66,10 @@ public class ActivityServiceImp implements ActivityService {
 	 * 		5	manager			管理员id
 	 * 		6	web_address		Web端地址
 	 * 		7	mobile_address	手机端地址
+	 * 		8	address			活动地址
+	 * 		9	endsigntime		报名截止时间
+	 * 		10	voteAddress		投票地址
 	 */
-	/*
 	@Override
 	public int updateActicity(long id, int subject, Object newcontent) {
 		
@@ -88,13 +90,13 @@ public class ActivityServiceImp implements ActivityService {
 				change = true;
 				break;
 			case 3:
-				long starttime = Long.parseLong(content);
-				activity.setStarttime(new Timestamp(starttime));
+				Timestamp starttime = (Timestamp)newcontent;
+				activity.setStarttime(starttime);
 				change = true;
 				break;
 			case 4:
-				long endtime = Long.parseLong(content);
-				activity.setEndtime(new Timestamp(endtime));
+				Timestamp endtime = (Timestamp)newcontent;
+				activity.setEndtime(endtime);
 				change = true;
 				break;
 			case 5:
@@ -110,7 +112,19 @@ public class ActivityServiceImp implements ActivityService {
 				activity.setWebAddress(content);
 				change = true;
 				break;
-
+			case 8:
+				activity.setAddress(content);
+				change = true;
+				break;
+			case 9:
+				Timestamp endsigntime = (Timestamp)newcontent;
+				activity.setEndsigntime(endsigntime);
+				change = true;
+				break;
+			case 10:
+				activity.setVoteaddress(content);
+				change = true;
+				break;
 			default:
 				break;
 			}
@@ -133,7 +147,7 @@ public class ActivityServiceImp implements ActivityService {
 		
 		return code;
 	}
-	*/
+
 	//删除活动
 	@Override
 	public int deleteActivity(long[] ids) {
@@ -207,18 +221,6 @@ public class ActivityServiceImp implements ActivityService {
 		return 0;
 	}
 
-	@Override
-	public int newActicity(String title, String description, long starttime,
-			long endtime, long manager) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public int updateActicity(long id, int subject, Object newcontent) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
 
 	@Override
 	public List<Activity> getActivitiesByConditions(String title,Timestamp start,Timestamp end,int currentPage,int pageSize) {
