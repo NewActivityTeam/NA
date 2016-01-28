@@ -25,7 +25,7 @@ public class ActivityServiceImp implements ActivityService {
 	//新增活动
 	@Override
 	public int newActicity(String title, String description, Timestamp starttime,
-			Timestamp endtime, Timestamp endsigntime,String address,String voteAddress,long manager) {
+			Timestamp endtime, Timestamp endsigntime,String address,String voteAddress,long manager,int number) {
 		
 		int code = 12014;
 		
@@ -41,6 +41,7 @@ public class ActivityServiceImp implements ActivityService {
 			activity.setCreatetime(new Timestamp(date.getTime()));
 			activity.setStarttime(starttime);
 			activity.setEndtime(endtime);
+			activity.setNumber(number);
 			if(activityDao.insert(activity)){
 				code = 12011;
 			}

@@ -100,7 +100,11 @@ public class ActivityController extends BaseController{
 			String voteAddress = request.getParameter("voteaddress");
 			String description = request.getParameter("content");
 			long manager = Long.parseLong(request.getParameter("manager"));
-			code = activityService.newActicity(title, description, starttime, endtime, endsigntime, address, voteAddress, manager);
+			int number = 1;
+			if (!request.getParameter("number").equals("")) {
+				number = Integer.parseInt(request.getParameter("number"));
+			}
+			code = activityService.newActicity(title, description, starttime, endtime, endsigntime, address, voteAddress, manager,number);
 		}
 		catch(Exception e){
 			e.printStackTrace();
