@@ -41,7 +41,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   
   <body>
   	
-    <form class="form-horizontal" action="PublishActivity" method="post" id="form" style="margin-top:30px;" target="right" OnSubmit="return check()">
+    <form class="form-horizontal" action="PublishActivity" method="post" id="form" style="margin-top:30px;" OnSubmit="return check()">
   		<div class="form-group">
     		<label for="inputEmail3" class="col-sm-2 control-label">活动名称</label>
     		<div class="col-sm-7">
@@ -134,6 +134,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   		<hr style="width:80%;height:5px;border:none;border-top:5px ridge green;" />
   		<input type="text" name="createDate" id="createDate" style="display:none;"/>
   		<input type="text" name="createTime" id="createTime" style="display:none;"/>
+  		<input type="hidden" name="manager" value="陈豪" > 
   		<center><input type="submit" id="sub" class="btn btn-info" value="发布活动"></center>
 	</form>
 	
@@ -218,6 +219,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			});
 			$('#oneperson').click(function(){
 				$('#inputperson').hide();
+			});
+			$('#sub').click(function(){
+				$('#form').submit();
 			});
 		});
 	</script>

@@ -22,24 +22,19 @@ public class ActivityServiceImp implements ActivityService {
 	@Qualifier("activityDao")
 	private ActivityDao activityDao;
 
-	@Override
-	public int addActivity(Activity activity) {
-		// TODO Auto-generated method stub
-		activityDao.insert(activity);
-		return 0;
-	}
-	
+	/*
+
 	//新增活动
 	@Override
-	public int newActicity(String title, String content, long starttime,
-			long endtime, long endsigntime, String voteaddress,long manager) {
+	public int newActicity(String title, String description, long starttime,
+			long endtime, long manager) {
 		
 		int code = 12014;
 		
 		try {
 			Activity activity = new Activity();
 			activity.setTitle(title);
-			activity.setContent(content);
+			activity.setDescription(description);
 			activity.setManager(manager);
 			Date date = new Date();
 			activity.setCreatetime(new Timestamp(date.getTime()));
@@ -58,6 +53,8 @@ public class ActivityServiceImp implements ActivityService {
 		
 		return code;
 	}
+	
+	*/
 
 	/***
 	 * 更新活动信息
@@ -69,9 +66,8 @@ public class ActivityServiceImp implements ActivityService {
 	 * 		5	manager			管理员id
 	 * 		6	web_address		Web端地址
 	 * 		7	mobile_address	手机端地址
-	 * 		8	voteddress		投票地址
-	 * 		9	endsigntime		报名截止时间
 	 */
+	/*
 	@Override
 	public int updateActicity(long id, int subject, Object newcontent) {
 		
@@ -88,7 +84,7 @@ public class ActivityServiceImp implements ActivityService {
 				change = true;
 				break;
 			case 2:
-				activity.setContent(content);
+				activity.setDescription(content);
 				change = true;
 				break;
 			case 3:
@@ -114,15 +110,7 @@ public class ActivityServiceImp implements ActivityService {
 				activity.setWebAddress(content);
 				change = true;
 				break;
-			case 8:
-				activity.setVoteaddress(content);
-				change = true;
-				break;
-			case 9:
-				long endsigntime = Long.parseLong(content);
-				activity.setEndsigntime(new Timestamp(endsigntime));
-				change = true;
-				break;
+
 			default:
 				break;
 			}
@@ -145,10 +133,10 @@ public class ActivityServiceImp implements ActivityService {
 		
 		return code;
 	}
-
+	*/
 	//删除活动
 	@Override
-	public int deleteActicity(long[] ids) {
+	public int deleteActivity(long[] ids) {
 		
 		int code = 12034;
 		String hql = "delete Acitcity a where a.id in (" + ids+")";
@@ -175,10 +163,10 @@ public class ActivityServiceImp implements ActivityService {
 
 	//获取所有活动,若为空返回null
 	@Override
-	public List<Activity> getAllActivities() {
+	public List<Activity> getAllActivitiesByPage(int currentPage,int pageSize) {
 		String hql = "from Activity where id>0";
-		List<Activity> list = (List<Activity>) activityDao.selectHql(hql);
-		if (list!=null&&list.size()!=0) {
+		List<Activity> list = (List<Activity>) activityDao.selectHqlByPage(hql,currentPage,pageSize);
+		if (list.size()!=0) {
 			return list;
 		}
 		return null;
@@ -190,7 +178,7 @@ public class ActivityServiceImp implements ActivityService {
 	public List<Activity> getActivitiesByManager(long uid) {
 		String hql = "from Activity where manager="+uid;
 		List<Activity> list = (List<Activity>) activityDao.selectHql(hql);
-		if (list!=null&&list.size()!=0) {
+		if (list.size()!=0) {
 			return list;
 		}
 		return null;
@@ -206,14 +194,34 @@ public class ActivityServiceImp implements ActivityService {
 				list.add(activity);
 			}
 		}
-		if (list!=null&&list.size()!=0) {
+		if (list.size()!=0) {
 			return list;
 		}
 		return null;
 	}
-	
+
 	@Override
-	public List<Activity> getActivitiesByConditions(String title,Timestamp start,Timestamp end) {
+	public int addActivity(Activity activity) {
+		// TODO Auto-generated method stub
+		activityDao.add(activity);
+		return 0;
+	}
+
+	@Override
+	public int newActicity(String title, String description, long starttime,
+			long endtime, long manager) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int updateActicity(long id, int subject, Object newcontent) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public List<Activity> getActivitiesByConditions(String title,Timestamp start,Timestamp end,int currentPage,int pageSize) {
 		// TODO Auto-generated method stub
 		int count = 0;
 		String hql = "from Activity where";
@@ -236,14 +244,34 @@ public class ActivityServiceImp implements ActivityService {
 				hql += " endtime <= '"+end+"'";
 				count++;
 			}else{
-				System.out.println("------");
 				hql += " and endtime <= '"+end+"'";
 			}
 		}
-		List<Activity> list = (List<Activity>) activityDao.selectHql(hql);
-		if(list!=null && list.size() > 0){
+		List<Activity> list = (List<Activity>) activityDao.selectHqlByPage(hql,currentPage,pageSize);
+		if(list.size() > 0){
 			return list;
 		}
 		return null;
+	}
+
+	@Override
+	public int deleteActivity(long id) {
+		// TODO Auto-generated method stub
+		
+		int code = 12034;
+		String hql = "delete Activity a where a.id =" + id;
+		try {
+			if(activityDao.otherHql(hql)==1){
+				code = 12031;
+			}
+			else{
+				code = 12033;
+			}
+		} 
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return code;
 	}
 }

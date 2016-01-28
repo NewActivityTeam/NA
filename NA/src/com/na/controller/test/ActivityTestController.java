@@ -56,8 +56,8 @@ public class ActivityTestController {
 	}
 	@RequestMapping("/activity_list")
 	public String listActivities(Model model){
-		List<Activity> list = activityService.getAllActivities();
-		model.addAttribute("activities", list);
+		//List<Activity> list = activityService.getAllActivities();
+		//model.addAttribute("activities", list);
 		return "test/ActivityList";
 	}
 }

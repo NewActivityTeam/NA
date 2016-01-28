@@ -1,5 +1,8 @@
 package com.na.controller;
 
+
+
+
 import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -7,6 +10,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+
 
 
 
@@ -33,10 +37,13 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.na.entity.Activity;
 import com.na.service.ActivityService;
+import com.na.tools.Pager;
+
+
 
 @Controller
 public class ActivityController extends BaseController{
-	
+	private int currentPage = 1;
 	@Autowired
 	@Qualifier("activityService")
 	public ActivityService activityService;
@@ -50,46 +57,67 @@ public class ActivityController extends BaseController{
 		activity.setEndsigntime(Timestamp.valueOf(request.getParameter("endSignDate") + " " + request.getParameter("endSignTime") + ":00"));
 		activity.setCreatetime(Timestamp.valueOf(request.getParameter("createDate") + " " + request.getParameter("createTime") + ":00"));
 		activity.setAddress(request.getParameter("address"));
-		activity.setVoteaddress(request.getParameter("voteaddress"));
-		activity.setContent(request.getParameter("content"));
+		activity.setWebAddress(request.getParameter("voteaddress"));
+		activity.setDescription(request.getParameter("content"));
+		activity.setManager(request.getParameter("manager"));
 		activityService.addActivity(activity);
-		return "redirect:GetAllActivities";
+		return "/jsp/PublishActivity";
 	}
 	
 	@RequestMapping("GetActivities")
-	public String GetActivities(ModelMap map){
+	public ModelAndView GetActivities(ModelMap map){
+		currentPage = Integer.parseInt(request.getParameter("current"));
 		Timestamp start = null;
 		Timestamp end = null;
 		String title = null;
-		if(!request.getParameter("title").equals("")){
+		if(request.getParameter("title") != ""){
 			title = request.getParameter("title");
 		}
-		if(!request.getParameter("startDate").equals("")){
+		if(request.getParameter("startDate") != ""){
 			start = Timestamp.valueOf(request.getParameter("startDate") + " 00:00:00");
 		}
-		if(!request.getParameter("endDate").equals("")){
+		if( request.getParameter("endDate") != ""){
 			end = Timestamp.valueOf(request.getParameter("endDate") + " 23:59:59");
 		}
 		if(title == null && start == null && end == null){
-			return "redirect:GetAllActivities";
+			request.setAttribute("current", currentPage);
+			 return new ModelAndView("redirect:/GetAllActivities?current=" + currentPage + "&method=GetAllActivities");
 		}
 		else{
-			System.out.println("oh no no no");
-			List<Activity> list = activityService.getActivitiesByConditions(title,start,end);
+			int totalSize = 6;
+			Pager page = new Pager(currentPage,totalSize);
+			currentPage = Integer.parseInt(request.getParameter("current"));
+			request.setAttribute("current", currentPage);
+			request.setAttribute("pageCount", 6);
+			request.setAttribute("func", "GetActivities");
+			request.setAttribute("title", title);
+			request.setAttribute("start", request.getParameter("startDate"));
+			request.setAttribute("end", request.getParameter("endDate"));
+			List<Activity> list = activityService.getActivitiesByConditions(title,start,end,currentPage,page.getPageSize());
 			map.addAttribute("activities",list);
-			//System.out.println(list.size());
-			return "/jsp/ManageActivity";
+			return new ModelAndView("/jsp/ManageActivityOfShow");
 		}
 	}
 	@RequestMapping("GetAllActivities")
-	public String GetAllAcitvities(ModelMap map){
-		List<Activity> list = activityService.getAllActivities();
+	public String GetAllActivities(ModelMap map){
+		int totalSize = 6;
+		currentPage = Integer.parseInt(request.getParameter("current"));
+		request.setAttribute("current", currentPage);
+		request.setAttribute("pageCount", 6);
+		request.setAttribute("func", "GetAllActivities");
+		Pager page = new Pager(currentPage,totalSize);
+		List<Activity> list = activityService.getAllActivitiesByPage(currentPage,page.getPageSize());
 		map.addAttribute("activities", list);
-		return "/jsp/ManageActivity";
+		return "/jsp/ManageActivityOfShow";
 	}
-	@RequestMapping(value = "test1", method = RequestMethod.POST)
-	public String test(ModelMap map){
-		System.out.println("123");
-		return "redirect:/hello";
+	@RequestMapping("DeleteActivity")
+	public ModelAndView DeleteActivity(){
+		currentPage = Integer.parseInt(request.getParameter("current"));
+		String start = request.getParameter("startDate");
+		String end = request.getParameter("endDate");
+		String title = request.getParameter("title");
+		Long id = (long) Integer.parseInt(request.getParameter("id"));
+		activityService.deleteActivity(id);
+		return new ModelAndView("redirect:/GetActivities?current=" + currentPage + "&title=" + title + "&startDate=" + start + "&endDate=" + end);
 	}
 }

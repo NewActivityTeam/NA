@@ -30,11 +30,11 @@
 				<value>com.na.entity.PCP</value>
 				<value>com.na.entity.Userinfo</value>
 				<value>com.na.entity.GroupApply</value>
-				<value>com.na.entity.Activity</value>
 				<value>com.na.entity.Assess</value>
 				<value>com.na.entity.Comment</value>
 				<value>com.na.entity.Group</value>
-				<value>com.na.entity.Image</value></list>
+				<value>com.na.entity.Image</value>
+				<value>com.na.entity.Activity</value></list>
 		</property></bean>
 	<bean id="transactionManager"
 		class="org.springframework.orm.hibernate4.HibernateTransactionManager">

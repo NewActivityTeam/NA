@@ -1,17 +1,17 @@
-package com.na.common;
+package com.na.tools;
 
 public class Pager {
 	private int currentPage;
-	private int pageSize =10;
+	private int pageSize=5;
 	private int totalSize;
 	private int totalPage;
 	private boolean hasFirst;
 	private boolean hasPrevious;
 	private boolean hasNext;
 	private boolean hasLast;
-	private Pager(int currentPage,int totalSize){
-		this.currentPage = currentPage;
-		this.totalPage = totalSize;
+	public Pager(int currentPage,int totalSize){
+		this.currentPage=currentPage;
+		this.totalSize=totalSize;
 	}
 	public int getCurrentPage() {
 		return currentPage;

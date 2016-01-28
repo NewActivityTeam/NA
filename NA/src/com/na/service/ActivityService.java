@@ -7,27 +7,24 @@ import com.na.entity.Activity;
 
 public interface ActivityService {
 
-	public int newActicity(String title, String content, long starttime,
-			long endtime, long endsigntime, String voteaddress,long manager);
+	public int newActicity(String title,String description,long starttime,long endtime,long manager);
 	
 	/*
 	 * 陈豪 2016-1-16
 	 * 添加活动
 	 */
 	public int addActivity(Activity activity);
-	
 	public int updateActicity(long id,int subject,Object newcontent);
 	
-	public int deleteActicity(long []ids);
-	
+	public int deleteActivity(long []ids);
+	public int deleteActivity(long id);
 	public Activity getActicity(long id);
 	
-	public List<Activity> getAllActivities();
+	public List<Activity> getAllActivitiesByPage(int currentPage,int pageSize);
 	
 	public List<Activity> getActivitiesByManager(long uid);
 	
 	public List<Activity> getActivitiesByIds(long[] ids);
 	
-	public List<Activity> getActivitiesByConditions(String title,Timestamp start,Timestamp end);
-
+	public List<Activity> getActivitiesByConditions(String title,Timestamp start,Timestamp end,int currentPage,int pageSize);
 }

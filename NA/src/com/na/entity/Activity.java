@@ -4,31 +4,29 @@ import java.sql.Timestamp;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
 /**
- * Activity entity.
+ * Activity entity. @author MyEclipse Persistence Tools
  */
 @Entity
-@Table(name = "tb_activity")
+@Table(name = "tb_activity", catalog = "na")
 public class Activity implements java.io.Serializable {
 
 	// Fields
 
 	private Long id;
 	private String title;
-	private String content;
+	private String description;
 	private Timestamp starttime;
 	private Timestamp endtime;
 	private Timestamp endsigntime;
+	private String address;
 	private Timestamp createtime;
-	private Long manager;
-	private String voteaddress;
+	private String manager;
 	private String webAddress;
 	private String mobileAddress;
-	private String address;
 
 	// Constructors
 
@@ -37,32 +35,32 @@ public class Activity implements java.io.Serializable {
 	}
 
 	/** minimal constructor */
-	public Activity(String title, Timestamp createtime) {
+	public Activity(String title, Timestamp createtime, String manager) {
 		this.title = title;
 		this.createtime = createtime;
+		this.manager = manager;
 	}
 
 	/** full constructor */
-	public Activity(String title, String content, Timestamp starttime,
-			Timestamp endtime, Timestamp endsigntime, Timestamp createtime,
-			Long manager, String voteaddress, String webAddress,
-			String mobileAddress, String address) {
+	public Activity(String title, String description, Timestamp starttime,
+			Timestamp endtime, Timestamp endsigntime, String address,
+			Timestamp createtime, String manager, String webAddress,
+			String mobileAddress) {
 		this.title = title;
-		this.content = content;
+		this.description = description;
 		this.starttime = starttime;
 		this.endtime = endtime;
 		this.endsigntime = endsigntime;
+		this.address = address;
 		this.createtime = createtime;
 		this.manager = manager;
-		this.voteaddress = voteaddress;
 		this.webAddress = webAddress;
 		this.mobileAddress = mobileAddress;
-		this.address = address;
 	}
 
 	// Property accessors
 	@Id
-	@GeneratedValue(strategy = IDENTITY)
+	@GeneratedValue
 	@Column(name = "id", unique = true, nullable = false)
 	public Long getId() {
 		return this.id;
@@ -81,13 +79,13 @@ public class Activity implements java.io.Serializable {
 		this.title = title;
 	}
 
-	@Column(name = "content", length = 5000)
-	public String getContent() {
-		return this.content;
+	@Column(name = "description", length = 5000)
+	public String getDescription() {
+		return this.description;
 	}
 
-	public void setContent(String content) {
-		this.content = content;
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 	@Column(name = "starttime", length = 19)
@@ -117,6 +115,15 @@ public class Activity implements java.io.Serializable {
 		this.endsigntime = endsigntime;
 	}
 
+	@Column(name = "address")
+	public String getAddress() {
+		return this.address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
 	@Column(name = "createtime", nullable = false, length = 19)
 	public Timestamp getCreatetime() {
 		return this.createtime;
@@ -126,22 +133,13 @@ public class Activity implements java.io.Serializable {
 		this.createtime = createtime;
 	}
 
-	@Column(name = "manager")
-	public Long getManager() {
+	@Column(name = "manager", nullable = false)
+	public String getManager() {
 		return this.manager;
 	}
 
-	public void setManager(Long manager) {
+	public void setManager(String manager) {
 		this.manager = manager;
-	}
-
-	@Column(name = "voteaddress")
-	public String getVoteaddress() {
-		return this.voteaddress;
-	}
-
-	public void setVoteaddress(String voteaddress) {
-		this.voteaddress = voteaddress;
 	}
 
 	@Column(name = "web_address")
@@ -160,15 +158,6 @@ public class Activity implements java.io.Serializable {
 
 	public void setMobileAddress(String mobileAddress) {
 		this.mobileAddress = mobileAddress;
-	}
-
-	@Column(name = "address")
-	public String getAddress() {
-		return this.address;
-	}
-
-	public void setAddress(String address) {
-		this.address = address;
 	}
 
 }

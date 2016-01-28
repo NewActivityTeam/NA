@@ -2,6 +2,8 @@ package com.na.dao.imp;
 
 import java.util.List;
 
+import javax.annotation.Resource;
+
 import org.hibernate.Query;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
@@ -132,4 +134,44 @@ public class ActivityDaoImp implements ActivityDao {
 		}
 		return -1;
 	}
+
+	@Override
+	public boolean add(Activity activity) {
+		// TODO Auto-generated method stub
+		
+		try {
+			Session session = sessionFactory.getCurrentSession();
+			Transaction ts = session.beginTransaction();
+			session.saveOrUpdate(activity);
+			ts.commit();
+			session.flush(); 
+			session.clear(); 
+			//session.close();
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+
+	@Override
+	public Object selectHqlByPage(String hql, int currentPage, int pageSize) {
+		// TODO Auto-generated method stub
+		List<Activity> list = null;
+		try {
+			Session session = sessionFactory.getCurrentSession();
+			Query query =  session.createQuery(hql);
+			int startRow=(currentPage-1)*pageSize;
+			query.setFirstResult(startRow);
+			query.setMaxResults(pageSize);
+			list = query.list();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
+
+
+
 }
