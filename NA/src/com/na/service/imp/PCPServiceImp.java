@@ -161,7 +161,7 @@ public class PCPServiceImp implements PCPService {
 	//获取某小组当前人数
 	@Override
 	public int getGroupCount(long gid) {
-		String hql = "from PCP where gid="+gid;
+		String hql = "from PCP where groupid="+gid;
 		try{
 			List<PCP> list = (List<PCP>) pcpDao.selectHql(hql);
 			if (list!=null&&list.size()!=0) {
@@ -224,7 +224,7 @@ public class PCPServiceImp implements PCPService {
 	//获取某小组全部成员ID
 	@Override
 	public List<Long> getUIDsByGID(long gid) {
-		String hql = "from PCP where gid="+gid;
+		String hql = "from PCP where groupid="+gid;
 		try {
 			List<Long> list = new ArrayList<Long>();
 			List<PCP> pcps = (List<PCP>) pcpDao.selectHql(hql);
@@ -243,9 +243,9 @@ public class PCPServiceImp implements PCPService {
 		return null;
 	}
 
-	//获取某活动所有未分组成员ID
+	//获取某活动所有未分组成员UID
 	public List<Long> getUIDsByAIDNoGroup(long aid){
-		String hql = "from PCP where aid = "+ aid +" and gid is null";
+		String hql = "from PCP where aid = "+ aid +" and groupid is null";
 		try {
 			List<Long> list = new ArrayList<Long>();
 			List<PCP> pcps = (List<PCP>) pcpDao.selectHql(hql);
@@ -264,7 +264,26 @@ public class PCPServiceImp implements PCPService {
 		return null;
 	}
 	
-
+	//获取某活动所有未分组成员的PCPID
+	public List<Long> getPCPIDsByAIDNoGroup(long aid){
+		String hql = "from PCP where aid = "+ aid +" and groupid is null";
+		try {
+			List<Long> list = new ArrayList<Long>();
+			List<PCP> pcps = (List<PCP>) pcpDao.selectHql(hql);
+			if (pcps!=null&&pcps.size()!=0) {
+				for (PCP pcp : pcps) {
+					list.add(pcp.getId());
+				}
+				return list;
+			}
+			
+		} catch (Exception e) {
+			
+			e.printStackTrace();
+			
+		}
+		return null;
+	}
 	//获取参与情况
 	@Override
 	public PCP getPcp(long id) {
@@ -325,7 +344,7 @@ public class PCPServiceImp implements PCPService {
 	//获取某活动所有参与情况，以小组形式排列
 	@Override
 	public List<PCP> getPcpByAIDOrderGroup(long aid) {
-		String hql = "from PCP where aid="+aid+" order by gid asc";
+		String hql = "from PCP where aid="+aid+" order by groupid asc";
 		try {
 			List<PCP> list = (List<PCP>) pcpDao.selectHql(hql);
 			if(list!=null&&list.size()!=0){
@@ -466,11 +485,18 @@ public class PCPServiceImp implements PCPService {
 		return code;
 	}
 
+	/***
+	 * 
+	 * @param ids		PCP集合
+	 * @param groups	组集合
+	 * @param nop		每组人数
+	 * @return
+	 */
 	//快速分组（nop表示每组人数上限）
-	public int fastAllot(long[] ids, List<Long> groups, int nop) {
+	public int fastAllot(List<Long> pcpids, List<Long> groups, int nop) {
 
 		int code = 14004;
-		int idCount = ids.length;
+		int idCount = pcpids.size();
 		int groupCount = groups.size();
 		//组数不够
 		if ((groupCount*nop)<idCount) {
@@ -480,8 +506,9 @@ public class PCPServiceImp implements PCPService {
 			try {
 				int gindex = -1;
 				int success = 0;
-				for (int i = 0; i < ids.length; i++) {
-					PCP pcp = pcpDao.getPcp(ids[i]);
+				int i=0;
+				for (Long id : pcpids) {
+					PCP pcp = pcpDao.getPcp(id);
 					//组满人则gindex+1，填入下一组 
 					if (i%nop==0) {
 						gindex++;
@@ -490,9 +517,10 @@ public class PCPServiceImp implements PCPService {
 					if (pcpDao.update(pcp)) {
 						success++;
 					}
+					i++;
 				}
 				//所有分配均成功
-				if (success==ids.length) {
+				if (success==idCount) {
 					code = 14001;
 				}
 				else{

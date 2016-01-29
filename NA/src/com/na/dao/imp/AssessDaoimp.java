@@ -27,6 +27,9 @@ public class AssessDaoimp implements AssessDao {
 	public boolean insert(Assess assess) {
 		try {
 			Session session = sessionFactory.getCurrentSession();
+			if (!session.isOpen()) {
+				session = sessionFactory.openSession();
+			}
 			Transaction ts = session.beginTransaction();
 			session.saveOrUpdate(assess);
 			ts.commit();
@@ -44,6 +47,9 @@ public class AssessDaoimp implements AssessDao {
 	public boolean update(Assess assess) {
 		try {
 			Session session = sessionFactory.getCurrentSession();
+			if (!session.isOpen()) {
+				session = sessionFactory.openSession();
+			}
 			Transaction ts = session.beginTransaction();
 			session.saveOrUpdate(assess);
 			ts.commit();
@@ -61,6 +67,9 @@ public class AssessDaoimp implements AssessDao {
 	public boolean delete(Assess assess) {
 		try {
 			Session session = sessionFactory.getCurrentSession();
+			if (!session.isOpen()) {
+				session = sessionFactory.openSession();
+			}
 			Transaction ts = session.beginTransaction();		
 			session.delete(assess);
 			ts.commit();
@@ -79,6 +88,9 @@ public class AssessDaoimp implements AssessDao {
 		List<Assess> list = null;
 		try {
 			Session session = sessionFactory.getCurrentSession();
+			if (!session.isOpen()) {
+				session = sessionFactory.openSession();
+			}
 			Query query =  session.createQuery(hql);
 			list = query.list();
 		} catch (Exception e) {
@@ -93,6 +105,9 @@ public class AssessDaoimp implements AssessDao {
 		List<Assess> list = null;
 		try {
 			Session session = sessionFactory.getCurrentSession();
+			if (!session.isOpen()) {
+				session = sessionFactory.openSession();
+			}
 			SQLQuery query =  session.createSQLQuery(sql);
 			list = query.list();
 		}
@@ -106,6 +121,9 @@ public class AssessDaoimp implements AssessDao {
 	public int otherHql(String hql) {
 		try {
 			Session session = sessionFactory.getCurrentSession();
+			if (!session.isOpen()) {
+				session = sessionFactory.openSession();
+			}
 			Query query = session.createQuery(hql);
 			return query.executeUpdate();
 		}
@@ -119,6 +137,9 @@ public class AssessDaoimp implements AssessDao {
 	public int otherSql(String sql) {
 		try {
 			Session session = sessionFactory.getCurrentSession();
+			if (!session.isOpen()) {
+				session = sessionFactory.openSession();
+			}
 			SQLQuery query = session.createSQLQuery(sql);
 			return query.executeUpdate();
 		}
@@ -131,6 +152,9 @@ public class AssessDaoimp implements AssessDao {
 	@Override
 	public Assess getAssess(long id) {
 		Session session = sessionFactory.getCurrentSession();
+		if (!session.isOpen()) {
+			session = sessionFactory.openSession();
+		}
 		Assess assess = (Assess) session.get(Assess.class, id);
 		return assess;
 	}

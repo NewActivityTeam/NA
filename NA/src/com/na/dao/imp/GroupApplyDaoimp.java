@@ -27,6 +27,9 @@ public class GroupApplyDaoimp implements GroupApplyDao {
 	public boolean insert(GroupApply groupApply) {
 		try {
 			Session session = sessionFactory.getCurrentSession();
+			if (!session.isOpen()) {
+				session = sessionFactory.openSession();
+			}
 			Transaction ts = session.beginTransaction();
 			session.saveOrUpdate(groupApply);
 			ts.commit();
@@ -44,6 +47,9 @@ public class GroupApplyDaoimp implements GroupApplyDao {
 	public boolean update(GroupApply groupApply) {
 		try {
 			Session session = sessionFactory.getCurrentSession();
+			if (!session.isOpen()) {
+				session = sessionFactory.openSession();
+			}
 			Transaction ts = session.beginTransaction();
 			session.saveOrUpdate(groupApply);
 			ts.commit();
@@ -61,6 +67,9 @@ public class GroupApplyDaoimp implements GroupApplyDao {
 	public boolean delete(GroupApply groupApply) {
 		try {
 			Session session = sessionFactory.getCurrentSession();
+			if (!session.isOpen()) {
+				session = sessionFactory.openSession();
+			}
 			Transaction ts = session.beginTransaction();		
 			session.delete(groupApply);
 			ts.commit();
@@ -79,6 +88,9 @@ public class GroupApplyDaoimp implements GroupApplyDao {
 		List<GroupApply> list = null;
 		try {
 			Session session = sessionFactory.getCurrentSession();
+			if (!session.isOpen()) {
+				session = sessionFactory.openSession();
+			}
 			Query query =  session.createQuery(hql);
 			list = query.list();
 		} catch (Exception e) {
@@ -93,6 +105,9 @@ public class GroupApplyDaoimp implements GroupApplyDao {
 		List<GroupApply> list = null;
 		try {
 			Session session = sessionFactory.getCurrentSession();
+			if (!session.isOpen()) {
+				session = sessionFactory.openSession();
+			}
 			SQLQuery query =  session.createSQLQuery(sql);
 			list = query.list();
 		}
@@ -106,6 +121,9 @@ public class GroupApplyDaoimp implements GroupApplyDao {
 	public int otherHql(String hql) {
 		try {
 			Session session = sessionFactory.getCurrentSession();
+			if (!session.isOpen()) {
+				session = sessionFactory.openSession();
+			}
 			Query query = session.createQuery(hql);
 			return query.executeUpdate();
 		}
@@ -119,6 +137,9 @@ public class GroupApplyDaoimp implements GroupApplyDao {
 	public int otherSql(String sql) {
 		try {
 			Session session = sessionFactory.getCurrentSession();
+			if (!session.isOpen()) {
+				session = sessionFactory.openSession();
+			}
 			SQLQuery query = session.createSQLQuery(sql);
 			return query.executeUpdate();
 		}
@@ -131,6 +152,9 @@ public class GroupApplyDaoimp implements GroupApplyDao {
 	@Override
 	public GroupApply getGroupApply(long id) {
 		Session session = sessionFactory.getCurrentSession();
+		if (!session.isOpen()) {
+			session = sessionFactory.openSession();
+		}
 		GroupApply groupApply = (GroupApply) session.get(GroupApply.class, id);
 		return groupApply;
 	}

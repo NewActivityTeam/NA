@@ -26,6 +26,8 @@ public interface PCPService {
 	
 	public List<Long> getUIDsByAIDNoGroup(long aid);
 	
+	public List<Long> getPCPIDsByAIDNoGroup(long aid);
+	
 	public PCP getPcp(long id);
 	
 	public PCP getPcp(long uid,long aid);
@@ -48,5 +50,5 @@ public interface PCPService {
 	
 	public int deletePCPsByUID(long uid);
 	
-	public int fastAllot(long[] ids,List<Long> groups,int nop);
+	public int fastAllot(List<Long> pcpids,List<Long> groups,int nop);
 }

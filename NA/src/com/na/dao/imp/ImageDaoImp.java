@@ -28,6 +28,9 @@ public class ImageDaoImp implements ImageDao {
 	public boolean insert(Image image) {
 		try {
 			Session session = sessionFactory.getCurrentSession();
+			if (!session.isOpen()) {
+				session = sessionFactory.openSession();
+			}
 			Transaction ts = session.beginTransaction();
 			session.saveOrUpdate(image);
 			ts.commit();
@@ -46,6 +49,9 @@ public class ImageDaoImp implements ImageDao {
 	public boolean update(Image image) {
 		try {
 			Session session = sessionFactory.getCurrentSession();
+			if (!session.isOpen()) {
+				session = sessionFactory.openSession();
+			}
 			Transaction ts = session.beginTransaction();
 			session.saveOrUpdate(image);
 			ts.commit();
@@ -64,6 +70,9 @@ public class ImageDaoImp implements ImageDao {
 	public boolean delete(Image image) {
 		try {
 			Session session = sessionFactory.getCurrentSession();
+			if (!session.isOpen()) {
+				session = sessionFactory.openSession();
+			}
 			Transaction ts = session.beginTransaction();		
 			session.delete(image);
 			ts.commit();
@@ -83,6 +92,9 @@ public class ImageDaoImp implements ImageDao {
 		List<Image> list = null;
 		try {
 			Session session = sessionFactory.getCurrentSession();
+			if (!session.isOpen()) {
+				session = sessionFactory.openSession();
+			}
 			Query query =  session.createQuery(hql);
 			list = query.list();
 		} catch (Exception e) {
@@ -97,6 +109,9 @@ public class ImageDaoImp implements ImageDao {
 		List<Image> list = null;
 		try {
 			Session session = sessionFactory.getCurrentSession();
+			if (!session.isOpen()) {
+				session = sessionFactory.openSession();
+			}
 			SQLQuery query =  session.createSQLQuery(sql);
 			list = query.list();
 		}
@@ -109,6 +124,9 @@ public class ImageDaoImp implements ImageDao {
 	@Override
 	public Image getImage(long id) {
 		Session session = sessionFactory.getCurrentSession();
+		if (!session.isOpen()) {
+			session = sessionFactory.openSession();
+		}
 		Image image = (Image) session.get(Image.class, id);
 		return image;
 	}
@@ -117,6 +135,9 @@ public class ImageDaoImp implements ImageDao {
 	public int otherHql(String hql) {
 		try {
 			Session session = sessionFactory.getCurrentSession();
+			if (!session.isOpen()) {
+				session = sessionFactory.openSession();
+			}
 			Query query = session.createQuery(hql);
 			return query.executeUpdate();
 		}
@@ -130,6 +151,9 @@ public class ImageDaoImp implements ImageDao {
 	public int otherSql(String sql) {
 		try {
 			Session session = sessionFactory.getCurrentSession();
+			if (!session.isOpen()) {
+				session = sessionFactory.openSession();
+			}
 			SQLQuery query = session.createSQLQuery(sql);
 			return query.executeUpdate();
 		}

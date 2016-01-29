@@ -218,6 +218,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				$('#inputperson').show();
 			});
 			$('#oneperson').click(function(){
+				$('#inputperson').val("");
 				$('#inputperson').hide();
 			});
 			//AJAX访问

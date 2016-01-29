@@ -28,6 +28,9 @@ public class UserinfoDaoImp implements UserinfoDao {
 	public boolean insert(Userinfo userinfo) {
 		try {
 			Session session = sessionFactory.getCurrentSession();
+			if (!session.isOpen()) {
+				session = sessionFactory.openSession();
+			}
 			Transaction ts = session.beginTransaction();
 			session.saveOrUpdate(userinfo);
 			ts.commit();
@@ -46,6 +49,9 @@ public class UserinfoDaoImp implements UserinfoDao {
 	public boolean update(Userinfo userinfo) {
 		try {
 			Session session = sessionFactory.getCurrentSession();
+			if (!session.isOpen()) {
+				session = sessionFactory.openSession();
+			}
 			Transaction ts = session.beginTransaction();
 			session.saveOrUpdate(userinfo);
 			ts.commit();
@@ -64,6 +70,9 @@ public class UserinfoDaoImp implements UserinfoDao {
 	public boolean delete(Userinfo userinfo) {
 		try {
 			Session session = sessionFactory.getCurrentSession();
+			if (!session.isOpen()) {
+				session = sessionFactory.openSession();
+			}
 			Transaction ts = session.beginTransaction();		
 			session.delete(userinfo);
 			ts.commit();
@@ -83,6 +92,9 @@ public class UserinfoDaoImp implements UserinfoDao {
 		List<Userinfo> list = null;
 		try {
 			Session session = sessionFactory.getCurrentSession();
+			if (!session.isOpen()) {
+				session = sessionFactory.openSession();
+			}
 			Query query =  session.createQuery(hql);
 			list = query.list();
 		} catch (Exception e) {
@@ -98,6 +110,9 @@ public class UserinfoDaoImp implements UserinfoDao {
 		List<Userinfo> list = null;
 		try {
 			Session session = sessionFactory.getCurrentSession();
+			if (!session.isOpen()) {
+				session = sessionFactory.openSession();
+			}
 			SQLQuery query =  session.createSQLQuery(sql);
 			list = query.list();
 		}
@@ -111,6 +126,9 @@ public class UserinfoDaoImp implements UserinfoDao {
 	@Override
 	public Userinfo getUserinfo(long uid) {
 		Session session = sessionFactory.getCurrentSession();
+		if (!session.isOpen()) {
+			session = sessionFactory.openSession();
+		}
 		Userinfo userinfo = (Userinfo) session.get(Userinfo.class, uid);
 		return userinfo;
 	}
@@ -119,6 +137,9 @@ public class UserinfoDaoImp implements UserinfoDao {
 	public int otherHql(String hql) {
 		try {
 			Session session = sessionFactory.getCurrentSession();
+			if (!session.isOpen()) {
+				session = sessionFactory.openSession();
+			}
 			Query query = session.createQuery(hql);
 			return query.executeUpdate();
 		}
@@ -132,6 +153,9 @@ public class UserinfoDaoImp implements UserinfoDao {
 	public int otherSql(String sql) {
 		try {
 			Session session = sessionFactory.getCurrentSession();
+			if (!session.isOpen()) {
+				session = sessionFactory.openSession();
+			}
 			SQLQuery query = session.createSQLQuery(sql);
 			return query.executeUpdate();
 		}

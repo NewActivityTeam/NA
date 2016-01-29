@@ -28,6 +28,9 @@ public class CommentDaoImp implements CommentDao {
 	public boolean insert(Comment comment) {
 		try {
 			Session session = sessionFactory.getCurrentSession();
+			if (!session.isOpen()) {
+				session = sessionFactory.openSession();
+			}
 			Transaction ts = session.beginTransaction();
 			session.saveOrUpdate(comment);
 			ts.commit();
@@ -46,6 +49,9 @@ public class CommentDaoImp implements CommentDao {
 	public boolean update(Comment comment) {
 		try {
 			Session session = sessionFactory.getCurrentSession();
+			if (!session.isOpen()) {
+				session = sessionFactory.openSession();
+			}
 			Transaction ts = session.beginTransaction();
 			session.saveOrUpdate(comment);
 			ts.commit();
@@ -64,6 +70,9 @@ public class CommentDaoImp implements CommentDao {
 	public boolean delete(Comment comment) {
 		try {
 			Session session = sessionFactory.getCurrentSession();
+			if (!session.isOpen()) {
+				session = sessionFactory.openSession();
+			}
 			Transaction ts = session.beginTransaction();		
 			session.delete(comment);
 			ts.commit();
@@ -83,6 +92,9 @@ public class CommentDaoImp implements CommentDao {
 		List<Comment> list = null;
 		try {
 			Session session = sessionFactory.getCurrentSession();
+			if (!session.isOpen()) {
+				session = sessionFactory.openSession();
+			}
 			Query query =  session.createQuery(hql);
 			list = query.list();
 		} catch (Exception e) {
@@ -98,6 +110,9 @@ public class CommentDaoImp implements CommentDao {
 		List<Comment> list = null;
 		try {
 			Session session = sessionFactory.getCurrentSession();
+			if (!session.isOpen()) {
+				session = sessionFactory.openSession();
+			}
 			SQLQuery query =  session.createSQLQuery(sql);
 			list = query.list();
 		}
@@ -111,6 +126,9 @@ public class CommentDaoImp implements CommentDao {
 	@Override
 	public Comment getComment(long id) {
 		Session session = sessionFactory.getCurrentSession();
+		if (!session.isOpen()) {
+			session = sessionFactory.openSession();
+		}
 		Comment comment = (Comment) session.get(Comment.class, id);
 		return comment;
 	}
@@ -119,6 +137,9 @@ public class CommentDaoImp implements CommentDao {
 	public int otherHql(String hql) {
 		try {
 			Session session = sessionFactory.getCurrentSession();
+			if (!session.isOpen()) {
+				session = sessionFactory.openSession();
+			}
 			Query query = session.createQuery(hql);
 			return query.executeUpdate();
 		}
@@ -132,6 +153,9 @@ public class CommentDaoImp implements CommentDao {
 	public int otherSql(String sql) {
 		try {
 			Session session = sessionFactory.getCurrentSession();
+			if (!session.isOpen()) {
+				session = sessionFactory.openSession();
+			}
 			SQLQuery query = session.createSQLQuery(sql);
 			return query.executeUpdate();
 		}

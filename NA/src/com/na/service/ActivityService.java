@@ -10,10 +10,6 @@ public interface ActivityService {
 	public int newActicity(String title, String description, Timestamp starttime,
 			Timestamp endtime, Timestamp endsigntime,String address,String voteAddress,long manager,int number);
 	
-	/*
-	 * 陈豪 2016-1-16
-	 * 添加活动
-	 */
 	public int addActivity(Activity activity);
 	public int updateActicity(long id,int subject,Object newcontent);
 	

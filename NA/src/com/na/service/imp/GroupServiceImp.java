@@ -224,10 +224,10 @@ public class GroupServiceImp implements GroupService {
 			else{
 				String hql = "delete from Group g where g.aid="+aid+" and g.groupname is null";
 				if (groupDao.otherHql(hql)!=-1) {
-					code = 15001;
+					code = 15041;
 				}
 				else{
-					code = 15003;
+					code = 15043;
 				}
 			}
 		} 

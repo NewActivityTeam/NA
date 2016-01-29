@@ -2,11 +2,12 @@ package com.na.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
 /**
- * Userinfo entity.
+ * Userinfo entity. @author MyEclipse Persistence Tools
  */
 @Entity
 @Table(name = "tb_userinfo")
@@ -17,6 +18,7 @@ public class Userinfo implements java.io.Serializable {
 	private Long uid;
 	private String ybaccount;
 	private Integer authority;
+	private String name;
 	private Float height;
 	private Float weight;
 	private Integer age;
@@ -30,18 +32,13 @@ public class Userinfo implements java.io.Serializable {
 	public Userinfo() {
 	}
 
-	/** minimal constructor */
-	public Userinfo(Long uid) {
-		this.uid = uid;
-	}
-
 	/** full constructor */
-	public Userinfo(Long uid, String ybaccount, Integer authority,
+	public Userinfo(String ybaccount, Integer authority, String name,
 			Float height, Float weight, Integer age, Integer sex,
 			String phonenumber, String email) {
-		this.uid = uid;
 		this.ybaccount = ybaccount;
 		this.authority = authority;
+		this.name = name;
 		this.height = height;
 		this.weight = weight;
 		this.age = age;
@@ -52,6 +49,7 @@ public class Userinfo implements java.io.Serializable {
 
 	// Property accessors
 	@Id
+	@GeneratedValue
 	@Column(name = "uid", unique = true, nullable = false)
 	public Long getUid() {
 		return this.uid;
@@ -77,6 +75,15 @@ public class Userinfo implements java.io.Serializable {
 
 	public void setAuthority(Integer authority) {
 		this.authority = authority;
+	}
+
+	@Column(name = "name")
+	public String getName() {
+		return this.name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	@Column(name = "height", precision = 12, scale = 0)

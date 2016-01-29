@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50624
 File Encoding         : 65001
 
-Date: 2016-01-28 20:38:40
+Date: 2016-01-29 12:39:14
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -34,7 +34,7 @@ CREATE TABLE `tb_activity` (
   `address` varchar(255) DEFAULT NULL,
   `number` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for tb_assess
@@ -75,7 +75,7 @@ CREATE TABLE `tb_group` (
   `leader` bigint(20) DEFAULT NULL,
   `maxcount` int(11) DEFAULT '9999',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for tb_group_apply
@@ -116,7 +116,7 @@ CREATE TABLE `tb_participation` (
   PRIMARY KEY (`id`),
   KEY `pcp_uid` (`uid`),
   KEY `pcp_aid` (`aid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for tb_userinfo
@@ -126,6 +126,7 @@ CREATE TABLE `tb_userinfo` (
   `uid` bigint(20) NOT NULL,
   `ybaccount` varchar(255) DEFAULT NULL,
   `authority` int(11) DEFAULT '0',
+  `name` varchar(255) DEFAULT NULL,
   `height` float DEFAULT NULL,
   `weight` float DEFAULT NULL,
   `age` int(11) DEFAULT NULL,

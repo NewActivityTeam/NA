@@ -28,6 +28,9 @@ public class PCPDaoImp implements PCPDao {
 	public boolean insert(PCP pcp) {
 		try {
 			Session session = sessionFactory.getCurrentSession();
+			if (!session.isOpen()) {
+				session = sessionFactory.openSession();
+			}
 			Transaction ts = session.beginTransaction();
 			session.saveOrUpdate(pcp);
 			ts.commit();
@@ -46,6 +49,9 @@ public class PCPDaoImp implements PCPDao {
 	public boolean update(PCP pcp) {
 		try {
 			Session session = sessionFactory.getCurrentSession();
+			if (!session.isOpen()) {
+				session = sessionFactory.openSession();
+			}
 			Transaction ts = session.beginTransaction();
 			session.saveOrUpdate(pcp);
 			ts.commit();
@@ -64,6 +70,9 @@ public class PCPDaoImp implements PCPDao {
 	public boolean delete(PCP pcp) {
 		try {
 			Session session = sessionFactory.getCurrentSession();
+			if (!session.isOpen()) {
+				session = sessionFactory.openSession();
+			}
 			Transaction ts = session.beginTransaction();		
 			session.delete(pcp);
 			ts.commit();
@@ -83,6 +92,9 @@ public class PCPDaoImp implements PCPDao {
 		List<PCP> list = null;
 		try {
 			Session session = sessionFactory.getCurrentSession();
+			if (!session.isOpen()) {
+				session = sessionFactory.openSession();
+			}
 			Query query =  session.createQuery(hql);
 			list = query.list();
 		} catch (Exception e) {
@@ -98,6 +110,9 @@ public class PCPDaoImp implements PCPDao {
 		List<PCP> list = null;
 		try {
 			Session session = sessionFactory.getCurrentSession();
+			if (!session.isOpen()) {
+				session = sessionFactory.openSession();
+			}
 			SQLQuery query =  session.createSQLQuery(sql);
 			list = query.list();
 		}
@@ -111,6 +126,9 @@ public class PCPDaoImp implements PCPDao {
 	@Override
 	public PCP getPcp(long id) {
 		Session session = sessionFactory.getCurrentSession();
+		if (!session.isOpen()) {
+			session = sessionFactory.openSession();
+		}
 		PCP pcp = (PCP) session.get(PCP.class, id);
 		return pcp;
 	}
@@ -119,6 +137,9 @@ public class PCPDaoImp implements PCPDao {
 	public int otherHql(String hql) {
 		try {
 			Session session = sessionFactory.getCurrentSession();
+			if (!session.isOpen()) {
+				session = sessionFactory.openSession();
+			}
 			Query query = session.createQuery(hql);
 			return query.executeUpdate();
 		}
@@ -132,6 +153,9 @@ public class PCPDaoImp implements PCPDao {
 	public int otherSql(String sql) {
 		try {
 			Session session = sessionFactory.getCurrentSession();
+			if (!session.isOpen()) {
+				session = sessionFactory.openSession();
+			}
 			SQLQuery query = session.createSQLQuery(sql);
 			return query.executeUpdate();
 		}

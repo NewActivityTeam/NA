@@ -21,7 +21,7 @@ public class UserinfoServiceImp implements UserinfoService {
 
 	//创建并设置用户信息
 	@Override
-	public int createAndSetUserinfo(long uid,String ybaccount, int authority, float height,
+	public int createAndSetUserinfo(long uid,String ybaccount, int authority, String name,float height,
 			float weight, int age, int sex, String phonenumber, String email) {
 		
 		int code = 11014;
@@ -30,6 +30,7 @@ public class UserinfoServiceImp implements UserinfoService {
 			userinfo.setUid(uid);
 			userinfo.setYbaccount(ybaccount);
 			userinfo.setAuthority(0);
+			userinfo.setName(name);
 			userinfo.setHeight(height);
 			userinfo.setWeight(weight);
 			userinfo.setAge(age);
@@ -75,11 +76,12 @@ public class UserinfoServiceImp implements UserinfoService {
 
 	//设置用户信息（第一次参与活动）
 	@Override
-	public int setUserinfo(long uid,float height,float weight,int age,int sex,String phonenumber,String email){
+	public int setUserinfo(long uid,String name,float height,float weight,int age,int sex,String phonenumber,String email){
 		
 		int code = 11014;
 		try{
 			Userinfo userinfo = userinfoDao.getUserinfo(uid);
+			userinfo.setName(name);
 			userinfo.setHeight(height);
 			userinfo.setWeight(weight);
 			userinfo.setAge(age);
@@ -276,4 +278,13 @@ public class UserinfoServiceImp implements UserinfoService {
 		return null;
 	}
 
+	public List<Userinfo> getAllUserinfos(){
+		List<Userinfo> list = new ArrayList<Userinfo>();
+		String hql = "from Userinfo where uid>0";
+		list = (List<Userinfo>) userinfoDao.selectHql(hql);
+		if (list.size()!=0) {
+			return list;
+		}
+		return null;
+	}
 }

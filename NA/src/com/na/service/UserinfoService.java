@@ -6,11 +6,11 @@ import com.na.entity.Userinfo;
 
 public interface UserinfoService {
 
-	public int createAndSetUserinfo(long uid,String ybaccount,int authority,float height,float weight,int age,int sex,String phonenumber,String email);
+	public int createAndSetUserinfo(long uid,String ybaccount,int authority,String name, float height,float weight,int age,int sex,String phonenumber,String email);
 	
 	public int createUserinfo(long uid,String ybaccount);
 	
-	public int setUserinfo(long uid,float height,float weight,int age,int sex,String phonenumber,String email);
+	public int setUserinfo(long uid,String name,float height,float weight,int age,int sex,String phonenumber,String email);
 	
 	public boolean testUserinfo(long uid);
 	
@@ -26,5 +26,6 @@ public interface UserinfoService {
 	
 	public List<Userinfo> getUserinfos(long[] ids);
 	
+	public List<Userinfo> getAllUserinfos();
 	
 }

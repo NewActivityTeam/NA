@@ -27,6 +27,9 @@ public class ActivityDaoImp implements ActivityDao {
 	public boolean insert(Activity activity) {
 		try {
 			Session session = sessionFactory.getCurrentSession();
+			if (!session.isOpen()) {
+				session = sessionFactory.openSession();
+			}
 			Transaction ts = session.beginTransaction();
 			session.saveOrUpdate(activity);
 			ts.commit();
@@ -44,6 +47,9 @@ public class ActivityDaoImp implements ActivityDao {
 	public boolean update(Activity activity) {
 		try {
 			Session session = sessionFactory.getCurrentSession();
+			if (!session.isOpen()) {
+				session = sessionFactory.openSession();
+			}
 			Transaction ts = session.beginTransaction();
 			session.saveOrUpdate(activity);
 			ts.commit();
@@ -61,6 +67,9 @@ public class ActivityDaoImp implements ActivityDao {
 	public boolean delete(Activity activity) {
 		try {
 			Session session = sessionFactory.getCurrentSession();
+			if (!session.isOpen()) {
+				session = sessionFactory.openSession();
+			}
 			Transaction ts = session.beginTransaction();		
 			session.delete(activity);
 			ts.commit();
@@ -79,6 +88,9 @@ public class ActivityDaoImp implements ActivityDao {
 		List<Activity> list = null;
 		try {
 			Session session = sessionFactory.getCurrentSession();
+			if (!session.isOpen()) {
+				session = sessionFactory.openSession();
+			}
 			Query query =  session.createQuery(hql);
 			list = query.list();
 		} catch (Exception e) {
@@ -93,6 +105,9 @@ public class ActivityDaoImp implements ActivityDao {
 		List<Activity> list = null;
 		try {
 			Session session = sessionFactory.getCurrentSession();
+			if (!session.isOpen()) {
+				session = sessionFactory.openSession();
+			}
 			SQLQuery query =  session.createSQLQuery(sql);
 			list = query.list();
 		}
@@ -105,6 +120,9 @@ public class ActivityDaoImp implements ActivityDao {
 	//通过ID获取
 	public Activity getActivity(long id) {
 		Session session = sessionFactory.getCurrentSession();
+		if (!session.isOpen()) {
+			session = sessionFactory.openSession();
+		}
 		Activity activity = (Activity) session.get(Activity.class, id);
 		return activity;
 	}
@@ -113,6 +131,9 @@ public class ActivityDaoImp implements ActivityDao {
 	public int otherHql(String hql) {
 		try {
 			Session session = sessionFactory.getCurrentSession();
+			if (!session.isOpen()) {
+				session = sessionFactory.openSession();
+			}
 			Query query = session.createQuery(hql);
 			return query.executeUpdate();
 		}
@@ -126,6 +147,9 @@ public class ActivityDaoImp implements ActivityDao {
 	public int otherSql(String sql) {
 		try {
 			Session session = sessionFactory.getCurrentSession();
+			if (!session.isOpen()) {
+				session = sessionFactory.openSession();
+			}
 			SQLQuery query = session.createSQLQuery(sql);
 			return query.executeUpdate();
 		}
@@ -141,6 +165,9 @@ public class ActivityDaoImp implements ActivityDao {
 		
 		try {
 			Session session = sessionFactory.getCurrentSession();
+			if (!session.isOpen()) {
+				session = sessionFactory.openSession();
+			}
 			Transaction ts = session.beginTransaction();
 			session.saveOrUpdate(activity);
 			ts.commit();
@@ -160,6 +187,9 @@ public class ActivityDaoImp implements ActivityDao {
 		List<Activity> list = null;
 		try {
 			Session session = sessionFactory.getCurrentSession();
+			if (!session.isOpen()) {
+				session = sessionFactory.openSession();
+			}
 			Query query =  session.createQuery(hql);
 			int startRow=(currentPage-1)*pageSize;
 			query.setFirstResult(startRow);

@@ -27,6 +27,9 @@ public class GroupDaoimp implements GroupDao {
 	public boolean insert(Group group) {
 		try {
 			Session session = sessionFactory.getCurrentSession();
+			if (!session.isOpen()) {
+				session = sessionFactory.openSession();
+			}
 			Transaction ts = session.beginTransaction();
 			session.saveOrUpdate(group);
 			ts.commit();
@@ -44,6 +47,9 @@ public class GroupDaoimp implements GroupDao {
 	public boolean update(Group group) {
 		try {
 			Session session = sessionFactory.getCurrentSession();
+			if (!session.isOpen()) {
+				session = sessionFactory.openSession();
+			}
 			Transaction ts = session.beginTransaction();
 			session.saveOrUpdate(group);
 			ts.commit();
@@ -61,6 +67,9 @@ public class GroupDaoimp implements GroupDao {
 	public boolean delete(Group group) {
 		try {
 			Session session = sessionFactory.getCurrentSession();
+			if (!session.isOpen()) {
+				session = sessionFactory.openSession();
+			}
 			Transaction ts = session.beginTransaction();		
 			session.delete(group);
 			ts.commit();
@@ -79,6 +88,9 @@ public class GroupDaoimp implements GroupDao {
 		List<Group> list = null;
 		try {
 			Session session = sessionFactory.getCurrentSession();
+			if (!session.isOpen()) {
+				session = sessionFactory.openSession();
+			}
 			Query query =  session.createQuery(hql);
 			list = query.list();
 		} catch (Exception e) {
@@ -93,6 +105,9 @@ public class GroupDaoimp implements GroupDao {
 		List<Group> list = null;
 		try {
 			Session session = sessionFactory.getCurrentSession();
+			if (!session.isOpen()) {
+				session = sessionFactory.openSession();
+			}
 			SQLQuery query =  session.createSQLQuery(sql);
 			list = query.list();
 		}
@@ -106,6 +121,9 @@ public class GroupDaoimp implements GroupDao {
 	public int otherHql(String hql) {
 		try {
 			Session session = sessionFactory.getCurrentSession();
+			if (!session.isOpen()) {
+				session = sessionFactory.openSession();
+			}
 			Query query = session.createQuery(hql);
 			return query.executeUpdate();
 		}
@@ -119,6 +137,9 @@ public class GroupDaoimp implements GroupDao {
 	public int otherSql(String sql) {
 		try {
 			Session session = sessionFactory.getCurrentSession();
+			if (!session.isOpen()) {
+				session = sessionFactory.openSession();
+			}
 			SQLQuery query = session.createSQLQuery(sql);
 			return query.executeUpdate();
 		}
@@ -131,6 +152,9 @@ public class GroupDaoimp implements GroupDao {
 	@Override
 	public Group getGroup(long id) {
 		Session session = sessionFactory.getCurrentSession();
+		if (!session.isOpen()) {
+			session = sessionFactory.openSession();
+		}
 		Group group = (Group) session.get(Group.class, id);
 		return group;
 	}
