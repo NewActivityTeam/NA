@@ -2,7 +2,6 @@ package com.na.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -10,7 +9,7 @@ import javax.persistence.Table;
  * Userinfo entity. @author MyEclipse Persistence Tools
  */
 @Entity
-@Table(name = "tb_userinfo")
+@Table(name = "tb_userinfo", catalog = "na")
 public class Userinfo implements java.io.Serializable {
 
 	// Fields
@@ -32,10 +31,16 @@ public class Userinfo implements java.io.Serializable {
 	public Userinfo() {
 	}
 
+	/** minimal constructor */
+	public Userinfo(Long uid) {
+		this.uid = uid;
+	}
+
 	/** full constructor */
-	public Userinfo(String ybaccount, Integer authority, String name,
+	public Userinfo(Long uid, String ybaccount, Integer authority, String name,
 			Float height, Float weight, Integer age, Integer sex,
 			String phonenumber, String email) {
+		this.uid = uid;
 		this.ybaccount = ybaccount;
 		this.authority = authority;
 		this.name = name;
@@ -49,7 +54,6 @@ public class Userinfo implements java.io.Serializable {
 
 	// Property accessors
 	@Id
-	@GeneratedValue
 	@Column(name = "uid", unique = true, nullable = false)
 	public Long getUid() {
 		return this.uid;
@@ -122,7 +126,7 @@ public class Userinfo implements java.io.Serializable {
 		this.sex = sex;
 	}
 
-	@Column(name = "phonenumber", length = 20)
+	@Column(name = "phonenumber")
 	public String getPhonenumber() {
 		return this.phonenumber;
 	}
@@ -131,7 +135,7 @@ public class Userinfo implements java.io.Serializable {
 		this.phonenumber = phonenumber;
 	}
 
-	@Column(name = "email", length = 50)
+	@Column(name = "email")
 	public String getEmail() {
 		return this.email;
 	}
