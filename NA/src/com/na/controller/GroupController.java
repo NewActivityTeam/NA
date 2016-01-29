@@ -79,15 +79,17 @@ public class GroupController {
 				List<Group> groups = groupService.getGroupsByAID(aid);
 				for (Group group : groups) {
 					List<Long> uidlList = pcpService.getUIDsByGID(group.getId());
-					long[] ids = new long[uidlList.size()];
-					for (int i = 0; i < uidlList.size(); i++) {
-						ids[i] = uidlList.get(i);
+						if(uidlList!=null&&uidlList.size()!=0){
+						long[] ids = new long[uidlList.size()];
+						for (int i = 0; i < uidlList.size(); i++) {
+							ids[i] = uidlList.get(i);
+						}
+						List<Userinfo> members = userinfoService.getUserinfos(ids);
+						ReturnInfo returnInfo = new ReturnInfo();
+						returnInfo.setGroupName(group.getGroupname());
+						returnInfo.setMembers(members);
+						returnList.add(returnInfo);
 					}
-					List<Userinfo> members = userinfoService.getUserinfos(ids);
-					ReturnInfo returnInfo = new ReturnInfo();
-					returnInfo.setGroupName(group.getGroupname());
-					returnInfo.setMembers(members);
-					returnList.add(returnInfo);
 				}
 				//未分组部分
 				List<Long> uidlList = pcpService.getUIDsByAIDNoGroup(aid);
@@ -139,16 +141,21 @@ public class GroupController {
 				for (Group group : groups) {
 					//获得小组内所有用户UID
 					List<Long> uidlList = pcpService.getUIDsByGID(group.getId());
-					long[] ids = new long[uidlList.size()];
-					for (int i = 0; i < uidlList.size(); i++) {
-						ids[i] = uidlList.get(i);
+					if(uidlList!=null&&uidlList.size()!=0){
+						long[] ids = new long[uidlList.size()];
+						for (int i = 0; i < uidlList.size(); i++) {
+							ids[i] = uidlList.get(i);
+						}
+						//获得小组内所有用户
+						List<Userinfo> members = userinfoService.getUserinfos(ids);
+						ReturnInfo returnInfo = new ReturnInfo();
+						returnInfo.setGroupName(group.getGroupname());
+						returnInfo.setMembers(members);
+						returnList.add(returnInfo);
 					}
-					//获得小组内所有用户
-					List<Userinfo> members = userinfoService.getUserinfos(ids);
-					ReturnInfo returnInfo = new ReturnInfo();
-					returnInfo.setGroupName(group.getGroupname());
-					returnInfo.setMembers(members);
-					returnList.add(returnInfo);
+					else{
+						code = 90152;
+					}
 				}
 				
 				code = 90151;
