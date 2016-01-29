@@ -125,11 +125,12 @@ a:hover{ text-decoration:none;}
 	<script>
 	var current = <%=request.getAttribute("current")%>;
 	var method = $('#func').val();
+	var pageCount = <%=request.getAttribute("pageCount") %>
 	var parameters = "title=" + $('#title').val() + "&startDate=" + $('#startDate').val() + "&endDate=" + $('#endDate').val();
 	if(current == null)
 		current = 1;
     $(".tcdPageCode").createPage({
-        pageCount:6,
+        pageCount:pageCount,
         current:current,
         tag:method,
         parm:parameters,

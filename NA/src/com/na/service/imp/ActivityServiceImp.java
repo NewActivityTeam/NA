@@ -277,4 +277,45 @@ public class ActivityServiceImp implements ActivityService {
 		
 		return code;
 	}
+
+
+	@Override
+	public int getAllActivityNumber() {
+		// TODO Auto-generated method stub
+		String hql = "from Activity";
+		List<Activity> list = (List<Activity>) activityDao.selectHql(hql);
+		return list.size();
+	}
+
+
+	@Override
+	public int getPartActivityNumber(String title,Timestamp start,Timestamp end) {
+		// TODO Auto-generated method stub
+		int count = 0;
+		String hql = "from Activity where";
+		if(title != null){
+			if(count == 0){
+				hql += " title = '"+title+"'";
+				count++;
+			}	
+		}
+		if(start != null){
+			if(count == 0){
+				hql += " starttime >= '"+start+"'";
+				count++;
+			}else{
+				hql += " and starttime >= '"+start+"'";
+			}
+		}
+		if(end != null){
+			if(count == 0){
+				hql += " endtime <= '"+end+"'";
+				count++;
+			}else{
+				hql += " and endtime <= '"+end+"'";
+			}
+		}
+		List<Activity> list = (List<Activity>) activityDao.selectHql(hql);
+		return list.size();
+	}
 }

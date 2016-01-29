@@ -134,8 +134,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   		<hr style="width:80%;height:5px;border:none;border-top:5px ridge green;" />
   		<input type="text" name="createDate" id="createDate" style="display:none;"/>
   		<input type="text" name="createTime" id="createTime" style="display:none;"/>
-  		<input type="hidden" name="manager" value="1" > 
-  		<center><input type="submit" id="sub" class="btn btn-info" value="发布活动"></center>
+  		<input type="hidden" name="manager" id="manager" value="1" > 
+  		<center><input type="button" id="sub" class="btn btn-info" value="发布活动"></center>
 	</form>
 	
 	
@@ -150,7 +150,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript" src="<%=request.getContextPath() %>/dist/bootstrap-clockpicker.min.js"></script>
 	<script type="text/javascript" src="<%=request.getContextPath() %>/js/bootstrap-datetimepicker.js"></script>
 	<script type="text/javascript" src="<%=request.getContextPath() %>/js/bootstrap-datetimepicker.zh-CN.js"></script>
-		
+
 	<script type="text/javascript">
 		$('.clockpicker').clockpicker()
 		.find('input').change(function(){
@@ -220,8 +220,61 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			$('#oneperson').click(function(){
 				$('#inputperson').hide();
 			});
+			//AJAX访问
 			$('#sub').click(function(){
-				$('#form').submit();
+				var title = $('#title').val();
+				var startdate = $('#startDate').val();
+				var starttime = $('#startTime').val();
+				var enddate = $('#endDate').val();
+				var endtime = $('#endTime').val();
+				var endsigndate = $('#endSignDate').val();
+				var endsigntime = $('#endSignTime').val();
+				var date = new Date();
+				var month = date.getMonth() + 1;
+				var createdate = date.getFullYear() + "-" + month + "-" + date.getDate();
+				var createtime = date.getHours() + ":" + date.getMinutes();
+				var address = $('#address').val();
+				var voteaddress = $('#voteaddress').val();
+				var content = $('#content').val();
+				var manager = $('#manager').val();
+				var number = $('#inputperson').val();
+				if(check()==true){
+					$.ajax({ 
+					url: "PublishActivity", 
+					type:"POST",
+					data:{
+						title : title,
+						startDate : startdate,
+						startTime : starttime,
+						endDate : enddate,
+						endTime : endtime,
+						endSignDate : endsigndate,
+						endSignTime : endsigntime,
+						createDate : createdate,
+						createTime : createtime,
+						address : address,
+						voteaddress : voteaddress,
+						content : content,
+						manager : manager,
+						number : number
+					},
+					dataType : "json",
+					success: function(data,status){
+						if(status=="success"){
+	        				if(data.code==12011){
+	        					alert("成功了");
+	        				}
+	        				else{
+	        					alert("失败");
+	        				}
+	        			}
+	      			},
+	      			error: function(){
+	      				alert("出错了");
+	      			}
+	      		}
+	      		);
+      			}
 			});
 		});
 	</script>

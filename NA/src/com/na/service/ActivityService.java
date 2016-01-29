@@ -28,4 +28,7 @@ public interface ActivityService {
 	public List<Activity> getActivitiesByIds(long[] ids);
 	
 	public List<Activity> getActivitiesByConditions(String title,Timestamp start,Timestamp end,int currentPage,int pageSize);
+	
+	public int getAllActivityNumber();
+	public int getPartActivityNumber(String title,Timestamp start,Timestamp end);
 }

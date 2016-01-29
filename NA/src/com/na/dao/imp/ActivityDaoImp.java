@@ -170,8 +170,4 @@ public class ActivityDaoImp implements ActivityDao {
 		}
 		return list;
 	}
-
-
-
-
 }

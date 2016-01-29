@@ -95,7 +95,6 @@ public class ActivityController extends BaseController{
 			Timestamp starttime = Timestamp.valueOf(request.getParameter("startDate") + " " + request.getParameter("startTime") + ":00");
 			Timestamp endtime = Timestamp.valueOf(request.getParameter("endDate") + " " + request.getParameter("endTime") + ":00");
 			Timestamp endsigntime = Timestamp.valueOf(request.getParameter("endSignDate") + " " + request.getParameter("endSignTime") + ":00");
-			Timestamp createtime = Timestamp.valueOf(request.getParameter("createDate") + " " + request.getParameter("createTime") + ":00");
 			String address = request.getParameter("address");
 			String voteAddress = request.getParameter("voteaddress");
 			String description = request.getParameter("content");
@@ -116,6 +115,7 @@ public class ActivityController extends BaseController{
 	@RequestMapping("GetActivities")
 	public ModelAndView GetActivities(ModelMap map){
 		currentPage = Integer.parseInt(request.getParameter("current"));
+		request.setAttribute("current", currentPage);
 		Timestamp start = null;
 		Timestamp end = null;
 		String title = null;
@@ -129,15 +129,13 @@ public class ActivityController extends BaseController{
 			end = Timestamp.valueOf(request.getParameter("endDate") + " 23:59:59");
 		}
 		if(title == null && start == null && end == null){
-			request.setAttribute("current", currentPage);
 			 return new ModelAndView("redirect:/GetAllActivities?current=" + currentPage + "&method=GetAllActivities");
 		}
 		else{
-			int totalSize = 6;
+			int totalSize = getPartActivitiesNumber(title,start,end);
 			Pager page = new Pager(currentPage,totalSize);
-			currentPage = Integer.parseInt(request.getParameter("current"));
 			request.setAttribute("current", currentPage);
-			request.setAttribute("pageCount", 6);
+			request.setAttribute("pageCount", page.getTotalPage());
 			request.setAttribute("func", "GetActivities");
 			request.setAttribute("title", title);
 			request.setAttribute("start", request.getParameter("startDate"));
@@ -149,12 +147,12 @@ public class ActivityController extends BaseController{
 	}
 	@RequestMapping("GetAllActivities")
 	public String GetAllActivities(ModelMap map){
-		int totalSize = 6;
+		int totalSize = getAllActivitiesNumber();
+		Pager page = new Pager(currentPage,totalSize);
 		currentPage = Integer.parseInt(request.getParameter("current"));
 		request.setAttribute("current", currentPage);
-		request.setAttribute("pageCount", 6);
+		request.setAttribute("pageCount", page.getTotalPage());
 		request.setAttribute("func", "GetAllActivities");
-		Pager page = new Pager(currentPage,totalSize);
 		List<Activity> list = activityService.getAllActivitiesByPage(currentPage,page.getPageSize());
 		map.addAttribute("activities", list);
 		return "/jsp/ManageActivityOfShow";
@@ -177,5 +175,12 @@ public class ActivityController extends BaseController{
 		System.out.println(activity.getStarttime());
 		request.setAttribute("activity", activity);
 		return new ModelAndView("/jsp/UpdateActivity");
+	}
+	
+	public int getAllActivitiesNumber(){
+		return activityService.getAllActivityNumber();
+	}
+	public int getPartActivitiesNumber(String title,Timestamp start,Timestamp end){
+		return activityService.getPartActivityNumber(title, start, end);
 	}
 }
