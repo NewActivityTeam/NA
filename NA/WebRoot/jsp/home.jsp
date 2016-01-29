@@ -29,7 +29,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   		<tr>
   			<td width="15%" height="80%"><iframe name="left" src="<%=request.getContextPath()%>/jsp/navigation.jsp" width="100%" height="100%" scrolling="no"></iframe></td>
   			<td width="5%" style="background:white" height="80%"></td>
-  			<td width="80%" height="80%"><iframe name="right" src="<%=request.getContextPath()%>/jsp/PublishActivity.jsp" width="100%" height="100%" scrolling="no"></iframe></td>
+  			<td width="80%" height="80%"><iframe name="right" src="<%=request.getContextPath()%>/jsp/PublishActivity.jsp" width="100%" height="100%"></iframe></td>
   		</tr>
   		<tr height="80px">
   			<td colspan="3"><iframe name="foot" src="<%=request.getContextPath() %>/jsp/foot.jsp" height="80px" width="100%"></iframe></td>

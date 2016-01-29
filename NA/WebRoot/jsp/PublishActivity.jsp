@@ -21,14 +21,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<link rel="stylesheet" href="http://cdn.bootcss.com/twitter-bootstrap/3.0.3/css/bootstrap.min.css">
 	<link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
 	
-	<!-- include summernote css/js-->
-	<link rel="stylesheet" href="<%=request.getContextPath() %>/css/summernote.css" />
 	
 	
 	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/dist/bootstrap-clockpicker.min.css">
 	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/assets/css/github.min.css">
 	<link href="<%=request.getContextPath() %>/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
 	
+	
+	<SCRIPT type=text/javascript src="<%=request.getContextPath() %>/ueditor/ueditor.config.js"></SCRIPT>  
+	<SCRIPT type=text/javascript src="<%=request.getContextPath() %>/ueditor/ueditor.all.js"></SCRIPT>
 	
 	<style>
 		.input-group{
@@ -119,14 +120,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
     		</div>
   		</div>
+  		<div style="margin-left:auto;margin-right:auto;text-align:center;">
+  			<label for="inputEmail3" class="control-label"><font size="4">活动详情</font></label>
+  		</div>
   		
-  		<div class="form-group">
-    		<label for="inputEmail3" class="col-sm-2 control-label">活动详情</label>
-    		<div class="col-sm-7">
-    			<div class="summernote">请输入活动详情</div>
-				<input name="content" id="content" type="text" style="display:none;">
+  		<div class="form-group" style="margin-left:80px;">
+    		<div class="col-sm-11">
+    			<TEXTAREA id="myEditor" name="mycontent"></TEXTAREA>  	
   			</div>
   		</div>
+  		
+  		
   		<center>
   		<div id="error">
   		</div>
@@ -144,13 +148,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<!-- Bootstrap核心JavaScript文件 -->
 	<script src="http://cdn.bootcss.com/twitter-bootstrap/3.0.3/js/bootstrap.min.js"></script>
 	
-	<script type="text/javascript" src="<%=request.getContextPath() %>/js/summernote.min.js"></script>
-	<script type="text/javascript" src="<%=request.getContextPath() %>/js/summernote-zh-CN.js"></script>
+	
 	
 	<script type="text/javascript" src="<%=request.getContextPath() %>/dist/bootstrap-clockpicker.min.js"></script>
 	<script type="text/javascript" src="<%=request.getContextPath() %>/js/bootstrap-datetimepicker.js"></script>
 	<script type="text/javascript" src="<%=request.getContextPath() %>/js/bootstrap-datetimepicker.zh-CN.js"></script>
 
+
+				
+				
 	<script type="text/javascript">
 		$('.clockpicker').clockpicker()
 		.find('input').change(function(){
@@ -158,16 +164,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		});
 	</script>
 
-	<script>
-		$(document).ready(function() {
-  		$('.summernote').summernote({
-  			width:800,
-  			height:300,
-  			focus:true,
-  			});
-  		
-		});
-	</script>
 	<script type="text/javascript">
     $('.form_date').datetimepicker({
         language: 'zh-CN',
@@ -181,6 +177,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     });
 	</script>
 	<script>
+		var editor = new UE.ui.Editor({initialFrameHeight:300});  
+		editor.render("myEditor");  
+		
+		//1.2.4以后可以使用一下代码实例化编辑器 
+		//UE.getEditor('myEditor') 
+		
+		
 		function isAllSign(){
 			var title = $('#title').val();
 			var startdate = $('#startDate').val();
@@ -195,7 +198,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			var createtime = date.getHours() + ":" + date.getMinutes();
 			var address = $('#address').val();
 			var voteaddress = $('#voteaddress').val();
-			var markup = $('.summernote').summernote('code');
+			var markup = UE.getEditor("myEditor").getContent();
 			$('#content').attr("value",markup);
 			$('#createDate').attr("value",createdate);
 			$('#createTime').attr("value",createtime);
@@ -235,7 +238,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				var createtime = date.getHours() + ":" + date.getMinutes();
 				var address = $('#address').val();
 				var voteaddress = $('#voteaddress').val();
-				var content = $('#content').val();
+				var content = UE.getEditor("myEditor").getContent();
 				var manager = $('#manager').val();
 				var number = $('#inputperson').val();
 				if(check()==true){
@@ -277,6 +280,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
       			}
 			});
 		});
-	</script>
+		
+     </script>
   </body>
 </html>
