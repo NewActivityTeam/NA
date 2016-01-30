@@ -72,65 +72,23 @@ public class ActivityServiceImp implements ActivityService {
 	 * 		10	voteAddress		投票地址
 	 */
 	@Override
-	public int updateActicity(long id, int subject, Object newcontent) {
+	public int updateActicity(long id,String title, String description, Timestamp starttime,
+			Timestamp endtime, Timestamp endsigntime,String address,String voteAddress,long manager,int number) {
 		
 		int code = 12024;
 		
 		try {
 			Activity activity = activityDao.getActivity(id);
-			boolean change = false;
-			String content = newcontent.toString();
-			
-			switch (subject) {
-			case 1:
-				activity.setTitle(content);
-				change = true;
-				break;
-			case 2:
-				activity.setDescription(content);
-				change = true;
-				break;
-			case 3:
-				Timestamp starttime = (Timestamp)newcontent;
-				activity.setStarttime(starttime);
-				change = true;
-				break;
-			case 4:
-				Timestamp endtime = (Timestamp)newcontent;
-				activity.setEndtime(endtime);
-				change = true;
-				break;
-			case 5:
-				long uid = Long.parseLong(content);
-				activity.setManager(uid);;
-				change = true;
-				break;
-			case 6:
-				activity.setMobileAddress(content);
-				change = true;
-				break;
-			case 7:
-				activity.setWebAddress(content);
-				change = true;
-				break;
-			case 8:
-				activity.setAddress(content);
-				change = true;
-				break;
-			case 9:
-				Timestamp endsigntime = (Timestamp)newcontent;
+			if (activity!=null) {
+				activity.setTitle(title);
+				activity.setDescription(description);
+				activity.setManager(manager);
 				activity.setEndsigntime(endsigntime);
-				change = true;
-				break;
-			case 10:
-				activity.setVoteaddress(content);
-				change = true;
-				break;
-			default:
-				break;
-			}
-			
-			if (change) {
+				activity.setAddress(address);
+				activity.setVoteaddress(voteAddress);
+				activity.setStarttime(starttime);
+				activity.setEndtime(endtime);
+				activity.setNumber(number);
 				if (activityDao.update(activity)) {
 					code = 12021;
 				}

@@ -11,7 +11,8 @@ public interface ActivityService {
 			Timestamp endtime, Timestamp endsigntime,String address,String voteAddress,long manager,int number);
 	
 	public int addActivity(Activity activity);
-	public int updateActicity(long id,int subject,Object newcontent);
+	public int updateActicity(long id,String title, String description, Timestamp starttime,
+			Timestamp endtime, Timestamp endsigntime,String address,String voteAddress,long manager,int number);
 	
 	public int deleteActivity(long []ids);
 	public int deleteActivity(long id);

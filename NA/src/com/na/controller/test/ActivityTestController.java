@@ -60,4 +60,29 @@ public class ActivityTestController {
 		//model.addAttribute("activities", list);
 		return "test/ActivityList";
 	}
+	@RequestMapping("/activity_show")
+	public String showActivity(HttpServletRequest request){
+		
+		String part = request.getParameter("part");
+		int code = 90215;
+		try {
+			long aid = Long.parseLong(request.getParameter("aid"));
+			Activity activity = activityService.getActicity(aid);
+			if (activity!=null) {
+				request.setAttribute("activity", activity);
+				code = 90211;
+			}
+			else{
+				code = 90212;
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		request.setAttribute("code", code);
+		if (part!=null&&part.endsWith("mobile")) {
+			return "jsp/mobile/ActivityShow";
+		}
+		return "/jsp/ActivityContent";
+	}
 }
