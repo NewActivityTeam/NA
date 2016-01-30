@@ -42,7 +42,7 @@ public class ActivityServiceImp implements ActivityService {
 			activity.setStarttime(starttime);
 			activity.setEndtime(endtime);
 			activity.setNumber(number);
-			if(activityDao.insert(activity)){
+			if(activityDao.update(activity)){
 				code = 12011;
 			}
 			else{
