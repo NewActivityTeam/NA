@@ -31,6 +31,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<SCRIPT type=text/javascript src="<%=request.getContextPath() %>/ueditor/ueditor.config.js"></SCRIPT>  
 	<SCRIPT type=text/javascript src="<%=request.getContextPath() %>/ueditor/ueditor.all.js"></SCRIPT>
 	
+	<!-- jQuery文件，在bootstrap.min.js之前引入 -->
+	<script src="http://cdn.bootcss.com/jquery/1.10.2/jquery.min.js"></script>
+	<!-- Bootstrap核心JavaScript文件 -->
+	<script src="http://cdn.bootcss.com/twitter-bootstrap/3.0.3/js/bootstrap.min.js"></script>
+	
+	
+	
+	<script type="text/javascript" src="<%=request.getContextPath() %>/dist/bootstrap-clockpicker.min.js"></script>
+	<script type="text/javascript" src="<%=request.getContextPath() %>/js/bootstrap-datetimepicker.js"></script>
+	<script type="text/javascript" src="<%=request.getContextPath() %>/js/bootstrap-datetimepicker.zh-CN.js"></script>
+	
+	
 	<style>
 		.input-group{
 			width: 110px;
@@ -53,7 +65,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   		<div class="form-group">
     		<label for="inputEmail3" class="col-sm-2 control-label">活动时间</label>
             <div class="input-group date form_date" data-date="" data-date-format="" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd" style="float:left;margin-left:15px">
-                <input class="form-control" id="startDate" name="startDate" size="16" type="text" placeholder="开始时间" style="width:170px;">
+                <input class="form-control" readonly id="startDate" name="startDate" size="16" type="text" placeholder="开始时间" style="width:170px;">
                 <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
 				<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
             </div>
@@ -123,7 +135,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   		<div style="margin-left:auto;margin-right:auto;text-align:center;">
   			<label for="inputEmail3" class="control-label"><font size="4">活动详情</font></label>
   		</div>
-  		
+  		<script>
+			var editor = new UE.ui.Editor({initialFrameHeight:300});  
+			editor.render("myEditor");  
+		
+			//1.2.4以后可以使用一下代码实例化编辑器 
+			//UE.getEditor('myEditor') 
+		</script>
   		<div class="form-group" style="margin-left:80px;">
     		<div class="col-sm-11">
     			<TEXTAREA id="myEditor" name="mycontent"></TEXTAREA>  	
@@ -143,16 +161,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</form>
 	
 	
-	<!-- jQuery文件，在bootstrap.min.js之前引入 -->
-	<script src="http://cdn.bootcss.com/jquery/1.10.2/jquery.min.js"></script>
-	<!-- Bootstrap核心JavaScript文件 -->
-	<script src="http://cdn.bootcss.com/twitter-bootstrap/3.0.3/js/bootstrap.min.js"></script>
 	
-	
-	
-	<script type="text/javascript" src="<%=request.getContextPath() %>/dist/bootstrap-clockpicker.min.js"></script>
-	<script type="text/javascript" src="<%=request.getContextPath() %>/js/bootstrap-datetimepicker.js"></script>
-	<script type="text/javascript" src="<%=request.getContextPath() %>/js/bootstrap-datetimepicker.zh-CN.js"></script>
 
 
 				
@@ -177,13 +186,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     });
 	</script>
 	<script>
-		var editor = new UE.ui.Editor({initialFrameHeight:300});  
-		editor.render("myEditor");  
-		
-		//1.2.4以后可以使用一下代码实例化编辑器 
-		//UE.getEditor('myEditor') 
-		
-		
+		var start;
+		var end;
+		var sign;
 		function isAllSign(){
 			var title = $('#title').val();
 			var startdate = $('#startDate').val();
@@ -216,6 +221,23 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			}
 			return true;
 		}
+		function getTime(){
+			start = new Date(($('#startDate').val() + " " + $('#startTime').val() + ":00").replace("-", "/"));
+			end = new Date(($('#endDate').val() + " " + $('#endTime').val() + ":00").replace("-", "/"));
+			sign = new Date(($('#endSignDate').val() + " " + $('#endSignTime').val() + ":00").replace("-", "/"));
+		}
+		function isLegalTime(){
+			getTime();
+			if(sign > start){
+				alert("报名截止日期需要比活动开始日期早，请填写合理日期，谢谢！")
+				return false;
+			}
+			if(start > end){
+				alert("开始日期要比结束日期早，请填写合理日期，谢谢！");
+				return false;
+			}
+			return true;
+		}
 		$(document).ready(function(){
 			$('#mulperson').click(function(){
 				$('#inputperson').show();
@@ -241,7 +263,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				var content = UE.getEditor("myEditor").getContent();
 				var manager = $('#manager').val();
 				var number = $('#inputperson').val();
-				if(check()==true){
+				if(check()==true && isLegalTime() == true){
 					$.ajax({ 
 					url: "PublishActivity", 
 					type:"POST",

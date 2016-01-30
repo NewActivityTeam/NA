@@ -161,7 +161,34 @@ public class ActivityController extends BaseController{
 		return new ModelAndView("/jsp/UpdateActivity");
 	}
 	
-	
+	@ResponseBody
+	@RequestMapping("ChangeActivity")
+	public Map<String, Integer> ChangeActivity(){
+		Map<String, Integer> map  = new HashMap<String, Integer>();
+		int code = 12015;
+		try{
+			String title = request.getParameter("title");
+			Timestamp starttime = Timestamp.valueOf(request.getParameter("startDate") + " " + request.getParameter("startTime") + ":00");
+			Timestamp endtime = Timestamp.valueOf(request.getParameter("endDate") + " " + request.getParameter("endTime") + ":00");
+			Timestamp endsigntime = Timestamp.valueOf(request.getParameter("endSignDate") + " " + request.getParameter("endSignTime") + ":00");
+			String address = request.getParameter("address");
+			String voteAddress = request.getParameter("voteaddress");
+			String description = request.getParameter("content");
+			System.out.println("description:" + description);
+			long manager = Long.parseLong(request.getParameter("manager"));
+			int number = 1;
+			if (!request.getParameter("number").equals("")) {
+				number = Integer.parseInt(request.getParameter("number"));
+			}
+			System.out.println(title + " " + starttime + " " + endtime + " " + endsigntime + " " + voteAddress + " " + description);
+			//code = activityService.newActicity(title, description, starttime, endtime, endsigntime, address, voteAddress, manager,number);
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}
+		map.put("code", code);
+		return map;
+	}
 	/*
 	 
 	@RequestMapping(value="/album/uploadImage/{albumId}",method= RequestMethod.POST)

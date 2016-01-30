@@ -63,6 +63,7 @@ a:hover{ text-decoration:none;}
   </head>
   
   <body>
+ 
    	
 	<div class="content">
     	<center><h4>活动列表</h4></center>
@@ -109,11 +110,11 @@ a:hover{ text-decoration:none;}
     	</table>
     </div>
     
-    	<input id="func" name="func" value="${func}" type="text">
-   		<input id="title" name="title" value="${title}" type="text">
-    	<input id="startDate" name="startDate" value="${start}" type="text">
-    	<input id="endDate" name="endDate" value="${end}" type="text">
-    	<input id="current" name="current" value="${current }" type="text">
+    	<input id="func" name="func" value="${func}" type="hidden">
+   		<input id="title" name="title" value="${title}" type="hidden">
+    	<input id="startDate" name="startDate" value="${start}" type="hidden">
+    	<input id="endDate" name="endDate" value="${end}" type="hidden">
+    	<input id="current" name="current" value="${current }" type="hidden">
     
     <!-- jQuery文件，在bootstrap.min.js之前引入 -->
 	<script src="http://cdn.bootcss.com/jquery/1.10.2/jquery.min.js"></script>
