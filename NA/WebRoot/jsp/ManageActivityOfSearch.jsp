@@ -44,9 +44,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		.top{
 			margin-right:auto;
 			margin-left:auto;
-			width:95%;
+			width:100%;
 			height:100%;
-			border:1px solid black;
 		}
 		.content{
 			margin-right:auto;
@@ -67,28 +66,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     	<center><h4>活动查询条件</h4></center>
     	<form action="GetActivities?current=1" target="show" method="post" class="form-horizontal" id="form" style="margin-top:30px;">
 	  		<div class="form-group">
-	    		<label for="inputEmail3" class="col-sm-2 control-label">活动名称</label>
-	    		<div class="col-sm-3" style="float:left">
+	  			<div class="col-sm-3" style="float:left">
 	      			<input type="text" name="title" id="title" class="form-control" placeholder="请输入活动名称">
 	    		</div>
-	    		<label class="col-sm-2 control-label">活动状态</label> 
-	  			<div class="col-sm-3" style="float:left">
-	  				<select class="form-control">
-  						<option>正在进行</option>
-  						<option>活动结束</option>
-					</select>
-	  			</div>
-	  		</div>
-	  		<div class="form-group">
-	    		<label for="inputEmail3" class="col-sm-2 control-label">活动开始时间</label>
 	            <div class="input-group date form_date" data-date="" data-date-format="" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd" style="float:left;margin-left:15px">
 	                <input class="form-control" onfocus="this.blur()" id="startDate" name="startDate" size="16" type="text" placeholder="开始时间" style="width:170px;">
 	                <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
 					<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
 				</div>
-				<label for="inputEmail3" class="col-sm-2 control-label">截止时间</label>
-				 <div class="input-group date form_date" onfocus="this.blur()" data-date="" data-date-format="" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd" style="float:left">
-	                <input class="form-control" id="endDate" name="endDate" size="16" type="text" placeholder="结束时间" style="width:170px;">
+				 <div class="input-group date form_date" data-date="" data-date-format="" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd" style="float:left;margin-left:20px">
+	                <input class="form-control" id="endDate" onfocus="this.blur()" name="endDate" size="16" type="text" placeholder="结束时间" style="width:170px;">
 	                <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
 					<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
 	            </div>

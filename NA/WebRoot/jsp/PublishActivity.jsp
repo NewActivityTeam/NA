@@ -52,7 +52,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	
   </head>
   
-  <body>
+  <body style="overflow:scroll">
   	
     <form class="form-horizontal" action="PublishActivity" method="post" id="form" style="margin-top:30px;" OnSubmit="return check()">
   		<div class="form-group">
@@ -161,11 +161,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   			</div>
   		</div>
   		
-  		
+  		<center>
+  		<div id="error">
+  		</div>
+  		</center>
   		<hr style="width:80%;height:5px;border:none;border-top:5px ridge green;" />
   		<input type="text" name="createDate" id="createDate" style="display:none;"/>
   		<input type="text" name="createTime" id="createTime" style="display:none;"/>
   		<input type="hidden" name="manager" id="manager" value="1" > 
+  		
+  		
   		<center><input type="button" id="sub" class="btn btn-info" value="发布活动"></center>
 	</form>
 	
@@ -213,7 +218,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			var createtime = date.getHours() + ":" + date.getMinutes();
 			var address = $('#address').val();
 			var voteaddress = $('#voteaddress').val();
-			alert(parseInt($('#inputperson').val()));
 			if(parseInt($('#inputperson').val()) != 0){
 				person = parseInt($('#inputperson').val());
 			}

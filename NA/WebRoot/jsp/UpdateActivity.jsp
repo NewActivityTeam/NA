@@ -163,6 +163,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     			<TEXTAREA id="myEditor" name="mycontent"></TEXTAREA>
   			</div>
   		</div>
+  		<center>
+  		<div id="error">
+  		</div>
+  		</center>
   		<hr style="width:80%;height:5px;border:none;border-top:5px ridge green;" />
   		<input type="text" name="createDate" id="createDate" style="display:none;"/>
   		<input type="text" name="createTime" id="createTime" style="display:none;"/>

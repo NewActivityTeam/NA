@@ -26,12 +26,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
   
   <body>
-  <div style="height:600px,width:100%,overflow:hidden">
-  	<iframe src="<%=request.getContextPath() %>/jsp/ManageActivityOfSearch.jsp" frameborder="0" height="25%" width="100%" name="search"></iframe>
+  <div>
+  	<iframe src="<%=request.getContextPath() %>/jsp/ManageActivityOfSearch.jsp" frameborder="0" height="30%" width="100%" name="search" scrolling="no"></iframe>
   	 
   </div>
   <div>
-  	<iframe src="<%=request.getContextPath() %>/jsp/ManageActivityOfShow.jsp" frameborder="0" height="75%" width="100%" name="show"></iframe>
+  	<iframe src="<%=request.getContextPath() %>/jsp/ManageActivityOfShow.jsp" frameborder="0" height="120%" width="100%" name="show" scrolling="no"></iframe>
   </div>
  
   </body>

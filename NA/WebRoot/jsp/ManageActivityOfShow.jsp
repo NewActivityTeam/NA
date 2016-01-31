@@ -22,6 +22,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	-->
 	<!-- 新 Bootstrap 核心 CSS 文件 -->
 	<link rel="stylesheet" href="http://cdn.bootcss.com/twitter-bootstrap/3.0.3/css/bootstrap.min.css">
+	
+	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/css/public.css">
+	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/css/css.css">
 	<style>
 		.input-group{
 			width: 110px;
@@ -34,16 +37,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		.top{
 			margin-right:auto;
 			margin-left:auto;
-			width:95%;
-			height:25%;
-			border:1px solid black;
+			width:100%;
 		}
 		.content{
 			margin-right:auto;
 			margin-left:auto;
-			width:95%;
-			height:75%;
-			border:1px solid black;
 		}
 		th{
 			align:center;
@@ -65,18 +63,18 @@ a:hover{ text-decoration:none;}
   <body>
  
    	
-	<div class="content">
+	<div class="content conShow">
     	<center><h4>活动列表</h4></center>
-    	<table width="100%" border="1px" style="text-align:center">
+    	<table width="100%" border="1px" style="text-align:center" cellspacing="0" cellpadding="0">
     		<tr>
-    			<th>编号</th>
-    			<th>活动名称</th>
-    			<th>开始时间</th>
-    			<th>结束时间</th>
-    			<th>地点</th>
-    			<th>编辑</th>
-    			<th>删除</th>
-    			<th>管理</th>
+    			<td class="tdColor tdC">编号</td>
+    			<td class="tdColor">活动名称</td>
+    			<td class="tdColor">开始时间</td>
+    			<td class="tdColor">结束时间</td>
+    			<td class="tdColor">地点</td>
+    			<td class="tdColor">编辑</td>
+    			<td class="tdColor">删除</td>
+    			<td class="tdColor">管理</td>
     		</tr>
     		
     		<% int i = 1; %>
@@ -88,7 +86,7 @@ a:hover{ text-decoration:none;}
     				for(Activity activity : list ) {
     				System.out.println("title=" + activity.getTitle());%>
     				
-    		<tr>
+    		<tr height="30px">
     			<td><%= i++%></td>
     			<td><%=activity.getTitle() %></td>
     			
