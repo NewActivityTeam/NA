@@ -230,7 +230,7 @@ public class ActivityServiceImp implements ActivityService {
 		String hql = "from Activity where";
 		if(title != null){
 			if(count == 0){
-				hql += " title = '"+title+"'";
+				hql += " title like '%"+title+"%'";
 				count++;
 			}	
 		}
@@ -295,7 +295,7 @@ public class ActivityServiceImp implements ActivityService {
 		String hql = "from Activity where";
 		if(title != null){
 			if(count == 0){
-				hql += " title = '"+title+"'";
+				hql += " title like '%"+title+"%'";
 				count++;
 			}	
 		}

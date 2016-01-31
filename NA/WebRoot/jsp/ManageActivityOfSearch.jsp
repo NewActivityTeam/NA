@@ -4,7 +4,7 @@ String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
 
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!DOCTYPE>
 <html>
   <head>
     <base href="<%=basePath%>">
@@ -82,12 +82,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	  		<div class="form-group">
 	    		<label for="inputEmail3" class="col-sm-2 control-label">活动开始时间</label>
 	            <div class="input-group date form_date" data-date="" data-date-format="" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd" style="float:left;margin-left:15px">
-	                <input class="form-control" id="startDate" name="startDate" size="16" type="text" placeholder="开始时间" style="width:170px;">
+	                <input class="form-control" onfocus="this.blur()" id="startDate" name="startDate" size="16" type="text" placeholder="开始时间" style="width:170px;">
 	                <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
 					<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
 				</div>
 				<label for="inputEmail3" class="col-sm-2 control-label">截止时间</label>
-				 <div class="input-group date form_date" data-date="" data-date-format="" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd" style="float:left">
+				 <div class="input-group date form_date" onfocus="this.blur()" data-date="" data-date-format="" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd" style="float:left">
 	                <input class="form-control" id="endDate" name="endDate" size="16" type="text" placeholder="结束时间" style="width:170px;">
 	                <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
 					<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>

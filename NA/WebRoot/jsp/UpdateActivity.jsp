@@ -5,7 +5,7 @@ String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
 
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!DOCTYPE>
 <html>
   <head>
     <base href="<%=basePath%>">
@@ -65,24 +65,24 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   		<div class="form-group">
     		<label for="inputEmail3" class="col-sm-2 control-label">活动时间</label>
             <div class="input-group date form_date" data-date="" data-date-format="" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd" style="float:left;margin-left:15px">
-                <input class="form-control" id="startDate" value=<%=activity.getStarttime().toString().split(" ")[0]%> name="startDate" size="16" type="text" placeholder="开始时间" style="width:170px;">
+                <input class="form-control" onfocus="this.blur()" id="startDate" value=<%=activity.getStarttime().toString().split(" ")[0]%> name="startDate" size="16" type="text" placeholder="开始时间" style="width:170px;">
                 <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
 				<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
             </div>
     		<div class="input-group clockpicker" style="float:left;margin-left:10px;">
-				<input type="text" id="startTime" value=<%=activity.getStarttime().toString().split(" ")[1].substring(0,5)%> name="startTime" class="form-control" value="09:30">
+				<input type="text" id="startTime" onfocus="this.blur()" value=<%=activity.getStarttime().toString().split(" ")[1].substring(0,5)%> name="startTime" class="form-control" value="09:30">
 				<span class="input-group-addon">
 					<span class="glyphicon glyphicon-time"></span>
 				</span>
 			</div>
 			<hr style="margin-left:5px;margin-right:5px;float:left;height:1px;width:20px;border:none;border-top:1px solid #555555;" />
 			 <div class="input-group date form_date" data-date="" data-date-format="" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd" style="float:left">
-                <input class="form-control" id="endDate" value=<%=activity.getEndtime().toString().split(" ")[0] %> name="endDate" size="16" type="text" placeholder="结束时间" style="width:170px;">
+                <input class="form-control" onfocus="this.blur()" id="endDate" value=<%=activity.getEndtime().toString().split(" ")[0] %> name="endDate" size="16" type="text" placeholder="结束时间" style="width:170px;">
                 <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
 				<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
             </div>
     		<div class="input-group clockpicker" style="float:left;margin-left:10px;">
-				<input type="text" id="endTime" value=<%=activity.getEndtime().toString().split(" ")[1].substring(0,5) %> name="endTime" class="form-control" value="09:30">
+				<input type="text" id="endTime" onfocus="this.blur()" value=<%=activity.getEndtime().toString().split(" ")[1].substring(0,5) %> name="endTime" class="form-control" value="09:30">
 				<span class="input-group-addon">
 					<span class="glyphicon glyphicon-time"></span>
 				</span>
@@ -92,12 +92,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   		<div class="form-group">
     		<label for="inputEmail3" class="col-sm-2 control-label">报名截止时间</label>
     		<div class="input-group date form_date" data-date="" data-date-format="" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd" style="float:left;margin-left:15px;">
-                <input class="form-control" id="endSignDate" value=<%=activity.getEndsigntime().toString().split(" ")[0] %> name="endSignDate" size="16" type="text" placeholder="报名截止时间" style="width:170px;">
+                <input class="form-control" id="endSignDate" onfocus="this.blur()" value=<%=activity.getEndsigntime().toString().split(" ")[0] %> name="endSignDate" size="16" type="text" placeholder="报名截止时间" style="width:170px;">
                 <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
 				<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
             </div>
     		<div class="input-group clockpicker" style="float:left;margin-left:10px;">
-				<input type="text" id="endSignTime" value=<%=activity.getEndsigntime().toString().split(" ")[1].substring(0,5) %> name="endSignTime" class="form-control" value="09:30" >
+				<input type="text" id="endSignTime" onfocus="this.blur()" value=<%=activity.getEndsigntime().toString().split(" ")[1].substring(0,5) %> name="endSignTime" class="form-control" value="09:30" >
 				<span class="input-group-addon">
 					<span class="glyphicon glyphicon-time"></span>
 				</span>
@@ -126,8 +126,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     				<input type="radio" name="join" id="oneperson" checked="checked">单人报名&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     				<input type="radio" name="join" id="mulperson">组队报名
     			</div>
+    			
+
+    			
     			<div style="float:left;margin-left:30px;">
-    				<input class="form-control" style="width:200px;display:none;" id="inputperson" style="" placeholder="请输入每组人数"/>
+    				<select id="inputperson" style="display:none">
+					    <option value="0">请选择活动人数</option>
+					    <option value="1">1人</option>
+					    <option value="2">2人</option>
+					    <option value="3">3人</option>
+					    <option value="1">4人</option>
+					    <option value="2">5人</option>
+					    <option value="3">6人</option>
+					</select>
     			</div>
 
     		</div>
@@ -152,10 +163,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     			<TEXTAREA id="myEditor" name="mycontent"></TEXTAREA>
   			</div>
   		</div>
-  		<center>
-  		<div id="error">
-  		</div>
-  		</center>
   		<hr style="width:80%;height:5px;border:none;border-top:5px ridge green;" />
   		<input type="text" name="createDate" id="createDate" style="display:none;"/>
   		<input type="text" name="createTime" id="createTime" style="display:none;"/>
@@ -237,8 +244,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			return true;
 		}
 		
-		
 		$(document).ready(function(){
+			if(parseInt('<%=activity.getNumber() %>') > 1){
+				$('#mulperson').attr("checked","checked");
+				$('#inputperson').css('display','block');
+				$('#inputperson').find('option').eq('<%=activity.getNumber() %>').attr("selected",true);
+			}
 			$('#mulperson').click(function(){
 				$('#inputperson').show();
 			});
