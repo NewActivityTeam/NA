@@ -28,4 +28,20 @@ public class TurnPageController {
 		}
 		return "jsp/adminTurnError";
 	}
+	@RequestMapping("/mobilehome")
+	public String turnToMobileHome(HttpServletRequest request){
+		
+		request.getSession().setAttribute("uid", (long)1188164);
+		try{
+			long uid = (long) request.getSession().getAttribute("uid");
+			if (uid==1188164) {
+				return "jsp/mobile/Home";
+			}
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}
+		return "jsp/adminTurnError";
+		
+	}
 }

@@ -63,7 +63,7 @@ public class ActivityTestController {
 	@RequestMapping("/activity_show")
 	public String showActivity(HttpServletRequest request){
 		
-		String part = request.getParameter("part");
+		String display = request.getParameter("display");
 		int code = 90215;
 		try {
 			long aid = Long.parseLong(request.getParameter("aid"));
@@ -80,7 +80,7 @@ public class ActivityTestController {
 			e.printStackTrace();
 		}
 		request.setAttribute("code", code);
-		if (part!=null&&part.endsWith("mobile")) {
+		if (display!=null&&display.endsWith("mobile")) {
 			return "jsp/mobile/ActivityShow";
 		}
 		return "/jsp/ActivityContent";

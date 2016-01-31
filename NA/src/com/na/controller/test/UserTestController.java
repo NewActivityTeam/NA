@@ -41,7 +41,7 @@ public class UserTestController {
 				while (userinfoService.getUserinfo(id)!=null) {
 					id = random.nextInt(1000000)+1000000;
 				}
-				float height = random.nextFloat()+1;
+				float height = (random.nextFloat()+1)*100;
 				float weight = (random.nextFloat()+1)*50;
 				int age = random.nextInt(50)+10;
 				int sex = random.nextInt(2);
@@ -91,5 +91,43 @@ public class UserTestController {
 		map.put("code", code);
 		request.setAttribute("map", map);
 		return "jsp/PartInfo";
+	}
+
+	//获取用户个人信息
+	@RequestMapping("/getuserinfo")
+	public String getUserinfo(HttpServletRequest request){
+		String display = request.getParameter("display");
+		try {
+			long uid =Long.parseLong(request.getSession().getAttribute("uid").toString());
+			Userinfo userinfo = userinfoService.getUserinfo(uid);
+			if (userinfo!=null) {
+				request.setAttribute("userinfo", userinfo);
+			}	
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		if (display!=null&&display.endsWith("mobile")) {
+			return "jsp/mobile/Userinfo";
+		}
+		return "";
+	}
+	@ResponseBody
+	@RequestMapping("/changeinfo")
+	public Map<String, Integer> changeUserinfo(HttpServletRequest request){
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		int code = 11025;
+		try {
+			long uid =Long.parseLong(request.getSession().getAttribute("uid").toString());
+			Userinfo userinfo = userinfoService.getUserinfo(uid);
+			int subject = Integer.parseInt(request.getParameter("subject"));
+			String content = request.getParameter("content");
+			code = userinfoService.updateUserinfo(uid, subject, content);
+			
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}
+		map.put("code", code);
+		return map;
 	}
 }
