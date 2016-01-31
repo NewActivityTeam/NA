@@ -4,6 +4,11 @@ public class AddressTools {
 
 	//易班获取的APPKEY
 	public static String Appkey = "";
+	//易班APPID
+	public static String AppID = "4d66c2ae613bf94d";
+	//易班AppSeceret
+	public static String AppSecret = "fee6214c7160d328207e1f8fa25869bd";
+	
 	//API主机地址
 	public static String APIHost = "https://openapi.yiban.cn/";
 	

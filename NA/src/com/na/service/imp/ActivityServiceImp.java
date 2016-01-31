@@ -276,4 +276,27 @@ public class ActivityServiceImp implements ActivityService {
 		List<Activity> list = (List<Activity>) activityDao.selectHql(hql);
 		return list.size();
 	}
+
+
+	//通过状态获取活动（暂未分页）,true为在进行中，false为结束
+	@Override
+	public List<Activity> getAllActvityByState(boolean state) {
+		String hql = "from Activity where ";
+		Timestamp now = new Timestamp(new Date().getTime());
+		if (state) {
+			
+			hql+="endtime > '"+now +"' order by endsigntime asc";
+			
+		}else{
+			
+			hql+="endtime < '"+now +"' order by endtime desc";
+			
+		}
+		List<Activity> list = (List<Activity>) activityDao.selectHql(hql);
+		if (list!=null&&list.size()!=0) {
+			return list;
+		}
+
+		return null;
+	}
 }

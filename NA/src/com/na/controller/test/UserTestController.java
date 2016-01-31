@@ -111,13 +111,15 @@ public class UserTestController {
 		}
 		return "";
 	}
+	
+	//修改用户个人信息
 	@ResponseBody
 	@RequestMapping("/changeinfo")
 	public Map<String, Integer> changeUserinfo(HttpServletRequest request){
 		Map<String, Integer> map = new HashMap<String, Integer>();
 		int code = 11025;
 		try {
-			long uid =Long.parseLong(request.getSession().getAttribute("uid").toString());
+			long uid =(long) request.getSession().getAttribute("uid");
 			Userinfo userinfo = userinfoService.getUserinfo(uid);
 			int subject = Integer.parseInt(request.getParameter("subject"));
 			String content = request.getParameter("content");
@@ -130,4 +132,26 @@ public class UserTestController {
 		map.put("code", code);
 		return map;
 	}
+
+	//参与活动
+	@ResponseBody
+	@RequestMapping("/join")
+	public  Map<String, Integer> joinToActivity(HttpServletRequest request){
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		int code = 14015;
+		try {
+			 if(request.getSession().getAttribute("uid")!=null){
+				long uid = (long) request.getSession().getAttribute("uid");
+				long aid = Long.parseLong(request.getParameter("aid"));
+				code = pcpService.newPCP(uid, aid);
+			 }
+		} 
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		map.put("code", code);
+		return map;
+	}
+
+
 }

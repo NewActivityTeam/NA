@@ -24,6 +24,8 @@ public interface ActivityService {
 	
 	public List<Activity> getActivitiesByIds(long[] ids);
 	
+	public List<Activity> getAllActvityByState(boolean state);
+	
 	public List<Activity> getActivitiesByConditions(String title,Timestamp start,Timestamp end,int currentPage,int pageSize);
 	
 	public int getAllActivityNumber();

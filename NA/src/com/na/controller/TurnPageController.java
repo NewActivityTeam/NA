@@ -30,8 +30,9 @@ public class TurnPageController {
 	}
 	@RequestMapping("/mobilehome")
 	public String turnToMobileHome(HttpServletRequest request){
-		
-		request.getSession().setAttribute("uid", (long)1188164);
+		if(request.getSession().getAttribute("uid")==null){
+			request.getSession().setAttribute("uid", (long)1188164);
+		}
 		try{
 			long uid = (long) request.getSession().getAttribute("uid");
 			if (uid==1188164) {

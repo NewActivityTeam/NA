@@ -55,10 +55,25 @@ public class ActivityTestController {
 		return "redirect:test/activity_list";
 	}
 	@RequestMapping("/activity_list")
-	public String listActivities(Model model){
-		//List<Activity> list = activityService.getAllActivities();
-		//model.addAttribute("activities", list);
-		return "test/ActivityList";
+	public String listActivities(HttpServletRequest request){
+		int code = 90165;
+		String display = request.getParameter("display");
+		try{
+			
+			boolean state =  Boolean.parseBoolean(request.getParameter("state"));
+			List<Activity> list = activityService.getAllActvityByState(state);
+			request.setAttribute("list", list);
+			code = 90161;
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}
+		request.setAttribute("code", code);
+		if(display!=null&&display.endsWith("mobile")){
+			return "jsp/mobile/ActivityList";
+		}
+		return "jsp/ActivityList";
+
 	}
 	@RequestMapping("/activity_show")
 	public String showActivity(HttpServletRequest request){
@@ -83,6 +98,6 @@ public class ActivityTestController {
 		if (display!=null&&display.endsWith("mobile")) {
 			return "jsp/mobile/ActivityShow";
 		}
-		return "/jsp/ActivityContent";
+		return "jsp/ActivityContent";
 	}
 }
