@@ -21,19 +21,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	-->
 
   </head>
-  <body style="overflow:scroll">
-  	<table width="100%" height="180%" border="0" cellspacing="0" cellpadding="0">
+  <body style="overflow-x:hidden;">
+  	<table width="100%" height="100%" border="0" cellspacing="0" cellpadding="0">
   		<tr height="80px">
-  			<td colspan="3" style="background:white"><iframe name="head" src="<%=request.getContextPath() %>/jsp/head.jsp" width="100%" height="80px"></iframe></td>
+  			<td colspan="3" style="background:white"><iframe name="head" src="<%=request.getContextPath() %>/jsp/head.jsp" width="100%" height="100px" scrolling="no"></iframe></td>
   		</tr>
   		<tr>
-  			<td width="15%" height="80%"><iframe name="left" src="<%=request.getContextPath()%>/jsp/navigation.jsp" width="100%" height="100%" scrolling="no"></iframe></td>
-  			<td width="5%" style="background:white" height="80%"></td>
-  			<td width="80%" height="80%"><iframe name="right" src="<%=request.getContextPath()%>/jsp/PublishActivity.jsp" width="100%" height="100%"></iframe></td>
+  			<td width="16%" height="80%"><iframe name="left" src="<%=request.getContextPath()%>/jsp/navigation.jsp" width="100%" height="100%" scrolling="no"></iframe></td>
+  			<td width="84%" height="80%"><iframe name="right" src="<%=request.getContextPath()%>/jsp/PublishActivity.jsp" width="100%" height="100%"></iframe></td>
   		</tr>
-  		<tr height="80px">
-  			<td colspan="3"><iframe name="foot" src="<%=request.getContextPath() %>/jsp/foot.jsp" height="80px" width="100%"></iframe></td>
-   		</tr>
   	</table>
   </body>
 </html>

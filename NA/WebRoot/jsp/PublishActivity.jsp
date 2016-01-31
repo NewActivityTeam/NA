@@ -4,7 +4,7 @@ String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
 
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!DOCTYPE>
 <html>
   <head>
     <base href="<%=basePath%>">
@@ -31,6 +31,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<SCRIPT type=text/javascript src="<%=request.getContextPath() %>/ueditor/ueditor.config.js"></SCRIPT>  
 	<SCRIPT type=text/javascript src="<%=request.getContextPath() %>/ueditor/ueditor.all.js"></SCRIPT>
 	
+	<!-- jQuery文件，在bootstrap.min.js之前引入 -->
+	<script src="http://cdn.bootcss.com/jquery/1.10.2/jquery.min.js"></script>
+	<!-- Bootstrap核心JavaScript文件 -->
+	<script src="http://cdn.bootcss.com/twitter-bootstrap/3.0.3/js/bootstrap.min.js"></script>
+	
+	
+	
+	<script type="text/javascript" src="<%=request.getContextPath() %>/dist/bootstrap-clockpicker.min.js"></script>
+	<script type="text/javascript" src="<%=request.getContextPath() %>/js/bootstrap-datetimepicker.js"></script>
+	<script type="text/javascript" src="<%=request.getContextPath() %>/js/bootstrap-datetimepicker.zh-CN.js"></script>
+	
+	
 	<style>
 		.input-group{
 			width: 110px;
@@ -40,7 +52,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	
   </head>
   
-  <body>
+  <body style="overflow:scroll">
   	
     <form class="form-horizontal" action="PublishActivity" method="post" id="form" style="margin-top:30px;" OnSubmit="return check()">
   		<div class="form-group">
@@ -53,24 +65,24 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   		<div class="form-group">
     		<label for="inputEmail3" class="col-sm-2 control-label">活动时间</label>
             <div class="input-group date form_date" data-date="" data-date-format="" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd" style="float:left;margin-left:15px">
-                <input class="form-control" id="startDate" name="startDate" size="16" type="text" placeholder="开始时间" style="width:170px;">
+                <input class="form-control" onfocus="this.blur()" id="startDate" name="startDate" size="16" type="text" placeholder="开始时间" style="width:170px;">
                 <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
 				<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
             </div>
     		<div class="input-group clockpicker" style="float:left;margin-left:10px;">
-				<input type="text" id="startTime" name="startTime" class="form-control" value="09:30">
+				<input type="text" id="startTime" onfocus="this.blur()" name="startTime" class="form-control" value="09:30">
 				<span class="input-group-addon">
 					<span class="glyphicon glyphicon-time"></span>
 				</span>
 			</div>
 			<hr style="margin-left:5px;margin-right:5px;float:left;height:1px;width:20px;border:none;border-top:1px solid #555555;" />
 			 <div class="input-group date form_date" data-date="" data-date-format="" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd" style="float:left">
-                <input class="form-control" id="endDate" name="endDate" size="16" type="text" placeholder="结束时间" style="width:170px;">
+                <input class="form-control" id="endDate" onfocus="this.blur()" name="endDate" size="16" type="text" placeholder="结束时间" style="width:170px;">
                 <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
 				<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
             </div>
     		<div class="input-group clockpicker" style="float:left;margin-left:10px;">
-				<input type="text" id="endTime" name="endTime" class="form-control" value="09:30">
+				<input type="text" id="endTime" onfocus="this.blur()" name="endTime" class="form-control" value="09:30">
 				<span class="input-group-addon">
 					<span class="glyphicon glyphicon-time"></span>
 				</span>
@@ -80,12 +92,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   		<div class="form-group">
     		<label for="inputEmail3" class="col-sm-2 control-label">报名截止时间</label>
     		<div class="input-group date form_date" data-date="" data-date-format="" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd" style="float:left;margin-left:15px;">
-                <input class="form-control" id="endSignDate" name="endSignDate" size="16" type="text" placeholder="报名截止时间" style="width:170px;">
+                <input class="form-control" onfocus="this.blur()" id="endSignDate" name="endSignDate" size="16" type="text" placeholder="报名截止时间" style="width:170px;">
                 <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
 				<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
             </div>
     		<div class="input-group clockpicker" style="float:left;margin-left:10px;">
-				<input type="text" id="endSignTime" name="endSignTime" class="form-control" value="09:30" >
+				<input type="text" id="endSignTime" onfocus="this.blur()" name="endSignTime" class="form-control" value="09:30" >
 				<span class="input-group-addon">
 					<span class="glyphicon glyphicon-time"></span>
 				</span>
@@ -114,22 +126,40 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     				<input type="radio" name="join" id="oneperson" checked="checked">单人报名&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     				<input type="radio" name="join" id="mulperson">组队报名
     			</div>
+    			
     			<div style="float:left;margin-left:30px;">
-    				<input class="form-control" style="width:200px;display:none;" id="inputperson" style="" placeholder="请输入每组人数"/>
+    				<select id="inputperson" style="display:none">
+					    <option value="0">请选择活动人数</option>
+					    <option value="1">1人</option>
+					    <option value="2">2人</option>
+					    <option value="3">3人</option>
+					    <option value="1">4人</option>
+					    <option value="2">5人</option>
+					    <option value="3">6人</option>
+					</select>
     			</div>
+				
+			
+
+
 
     		</div>
   		</div>
   		<div style="margin-left:auto;margin-right:auto;text-align:center;">
   			<label for="inputEmail3" class="control-label"><font size="4">活动详情</font></label>
   		</div>
-  		
+  		<script>
+			var editor = new UE.ui.Editor({initialFrameHeight:300});  
+			editor.render("myEditor");  
+		
+			//1.2.4以后可以使用一下代码实例化编辑器 
+			//UE.getEditor('myEditor') 
+		</script>
   		<div class="form-group" style="margin-left:80px;">
     		<div class="col-sm-11">
     			<TEXTAREA id="myEditor" name="mycontent"></TEXTAREA>  	
   			</div>
   		</div>
-  		
   		
   		<center>
   		<div id="error">
@@ -139,20 +169,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   		<input type="text" name="createDate" id="createDate" style="display:none;"/>
   		<input type="text" name="createTime" id="createTime" style="display:none;"/>
   		<input type="hidden" name="manager" id="manager" value="1" > 
+  		
+  		
   		<center><input type="button" id="sub" class="btn btn-info" value="发布活动"></center>
 	</form>
 	
 	
-	<!-- jQuery文件，在bootstrap.min.js之前引入 -->
-	<script src="http://cdn.bootcss.com/jquery/1.10.2/jquery.min.js"></script>
-	<!-- Bootstrap核心JavaScript文件 -->
-	<script src="http://cdn.bootcss.com/twitter-bootstrap/3.0.3/js/bootstrap.min.js"></script>
 	
-	
-	
-	<script type="text/javascript" src="<%=request.getContextPath() %>/dist/bootstrap-clockpicker.min.js"></script>
-	<script type="text/javascript" src="<%=request.getContextPath() %>/js/bootstrap-datetimepicker.js"></script>
-	<script type="text/javascript" src="<%=request.getContextPath() %>/js/bootstrap-datetimepicker.zh-CN.js"></script>
 
 
 				
@@ -177,13 +200,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     });
 	</script>
 	<script>
-		var editor = new UE.ui.Editor({initialFrameHeight:300});  
-		editor.render("myEditor");  
-		
-		//1.2.4以后可以使用一下代码实例化编辑器 
-		//UE.getEditor('myEditor') 
-		
-		
+		var start;
+		var end;
+		var sign;
+		var person = 1;
 		function isAllSign(){
 			var title = $('#title').val();
 			var startdate = $('#startDate').val();
@@ -198,6 +218,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			var createtime = date.getHours() + ":" + date.getMinutes();
 			var address = $('#address').val();
 			var voteaddress = $('#voteaddress').val();
+			if(parseInt($('#inputperson').val()) != 0){
+				person = parseInt($('#inputperson').val());
+			}
 			var markup = UE.getEditor("myEditor").getContent();
 			$('#content').attr("value",markup);
 			$('#createDate').attr("value",createdate);
@@ -216,6 +239,23 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			}
 			return true;
 		}
+		function getTime(){
+			start = new Date(($('#startDate').val() + " " + $('#startTime').val() + ":00").replace("-", "/"));
+			end = new Date(($('#endDate').val() + " " + $('#endTime').val() + ":00").replace("-", "/"));
+			sign = new Date(($('#endSignDate').val() + " " + $('#endSignTime').val() + ":00").replace("-", "/"));
+		}
+		function isLegalTime(){
+			getTime();
+			if(sign > start){
+				alert("报名截止日期需要比活动开始日期早，请填写合理日期，谢谢！")
+				return false;
+			}
+			if(start > end){
+				alert("开始日期要比结束日期早，请填写合理日期，谢谢！");
+				return false;
+			}
+			return true;
+		}
 		$(document).ready(function(){
 			$('#mulperson').click(function(){
 				$('#inputperson').show();
@@ -225,6 +265,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			});
 			//AJAX访问
 			$('#sub').click(function(){
+				var number = 1;
 				var title = $('#title').val();
 				var startdate = $('#startDate').val();
 				var starttime = $('#startTime').val();
@@ -240,8 +281,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				var voteaddress = $('#voteaddress').val();
 				var content = UE.getEditor("myEditor").getContent();
 				var manager = $('#manager').val();
-				var number = $('#inputperson').val();
-				if(check()==true){
+				if(parseInt($('#inputperson').val()) != 0){
+					number = parseInt($('#inputperson').val());
+				}
+				if(check()==true && isLegalTime() == true){
 					$.ajax({ 
 					url: "PublishActivity", 
 					type:"POST",

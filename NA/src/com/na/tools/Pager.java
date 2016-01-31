@@ -2,7 +2,7 @@ package com.na.tools;
 
 public class Pager {
 	private int currentPage;
-	private int pageSize=5;
+	private int pageSize=10;
 	private int totalSize;
 	private int totalPage;
 	private boolean hasFirst;

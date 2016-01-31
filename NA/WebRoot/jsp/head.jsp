@@ -19,10 +19,41 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<!--
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	-->
+	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/css/public.css">
+	
+	<!-- jQuery文件，在bootstrap.min.js之前引入 -->
+	<script src="http://cdn.bootcss.com/jquery/1.10.2/jquery.min.js"></script>
 
   </head>
   
   <body>
-    页面头部！
+    <!-- 头部 -->
+	<div class="head">
+		<div class="headL">
+			<img class="headLogo" src="<%=request.getContextPath() %>/images/logo8.jpg" />
+		</div>
+		<div class="headR">
+			<p class="p1">
+				欢迎，admin
+			</p>
+			<p class="p2">
+				<a href="#" class="resetPWD">重置密码</a>&nbsp;&nbsp;
+				<a href="../log.html" target="_blank" class="goOut">退出</a>
+			</p>
+		</div>
+		<!-- onclick="{if(confirm(&quot;确定退出吗&quot;)){return true;}return false;}" -->
+	</div>
+
+	<div class="closeOut">
+		<div class="coDiv">
+			<p class="p1">
+				<span>X</span>
+			</p>
+			<p class="p2">确定退出当前用户？</p>
+			<P class="p3">
+				<a class="ok yes" href="#">确定</a><a class="ok no" href="#">取消</a>
+			</p>
+		</div>
+	</div>
   </body>
 </html>
