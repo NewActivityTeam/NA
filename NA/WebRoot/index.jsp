@@ -1,26 +1,42 @@
+<%@page import="com.na.tools.AddressTools"%>
+<%@page import="cn.yiban.open.FrameUtil"%>
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
-<%
-String path = request.getContextPath();
-String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
-%>
-
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!DOCTYPE HTML>
 <html>
   <head>
-    <base href="<%=basePath%>">
-    
     <title>My JSP 'index.jsp' starting page</title>
-	<meta http-equiv="pragma" content="no-cache">
-	<meta http-equiv="cache-control" content="no-cache">
-	<meta http-equiv="expires" content="0">    
-	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
-	<meta http-equiv="description" content="This is my page">
-	<SCRIPT type=text/javascript src="ueditor/ueditor.config.js"></SCRIPT>  
-	<SCRIPT type=text/javascript src="ueditor/ueditor.all.js"></SCRIPT>
+	<!--<SCRIPT type=text/javascript src="ueditor/ueditor.config.js"></SCRIPT>  
+	<SCRIPT type=text/javascript src="ueditor/ueditor.all.js"></SCRIPT>-->
+	<%
+		
+		
+		try
+		{
+			FrameUtil util = new FrameUtil(request, response, AddressTools.AppID, AddressTools.AppSecret, AddressTools.CallBackUrl);
+			String account = (String) session.getAttribute("account");
+			if (account == null)
+			{
+				if (util.perform() == false)
+				{
+					return;
+				}
+				else{
+					session.setAttribute("uid", Long.parseLong(util.getUserId()));
+					session.setAttribute("account", util.getAccessToken());
+					response.sendRedirect(request.getContextPath()+"/home");
+				}
+			}
+	}
+	catch (Exception ex)
+	{
+		ex.printStackTrace();
+	}
+	
+	%>
   </head>
   
   <body>
-  	<form action="save.jsp" method="post">
+  	<!--<form action="save.jsp" method="post">
 	    <TEXTAREA id=myEditor name="mycontent"></TEXTAREA>  
 		<SCRIPT type=text/javascript>  
 		    var editor = new UE.ui.Editor();  
@@ -29,6 +45,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    //UE.getEditor('myEditor') 
 		</SCRIPT>
 		<input name="submit" value="提交" type="submit">
-	</form>
+	</form>-->
+	uid : ${uid}
+	account : ${account}
+	
   </body>
 </html>
