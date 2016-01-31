@@ -88,14 +88,14 @@
 			  						break; 
 		  					}
 
-		  					$("#messageContent").text("修改成功");
+		  					alert("修改成功");
 	  				}
 	  				else{
-	  					$("#messageContent").text("修改失败");
+	  					alert("修改失败");
 	  				}
   				},
   				error : function(){
-  					$("#messageContent").text("AJAX失败");
+  					alert("AJAX失败");
   				}
   				
   			});
