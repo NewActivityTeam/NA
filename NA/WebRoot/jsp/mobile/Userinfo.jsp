@@ -134,8 +134,8 @@
   					}
   					break;
   				case 1:
-  					if(isNaN(content)||content>300||content<0){
-  						alert("请输入合法的身高（0-300）");
+  					if(isNaN(content)||content>300||content<30){
+  						alert("请输入合法的身高（30-300）");
   						//$("#messageConent").text("请输入合法的身高（0-300）");
   						return false;
   					}
@@ -144,8 +144,8 @@
   					}
   					break;
   				case 2:
-  					if(isNaN(content)||content>300||content<0){
-  						alert("请输入合法的体重（0-300）")
+  					if(isNaN(content)||content>300||content<3){
+  						alert("请输入合法的体重（3-300）")
   						//$("#messageConent").text("请输入合法的体重（0-300）");
   						return false;
   					}
@@ -208,7 +208,7 @@
 			  </c:if>
 			  <c:if test="${userinfo.name==null}">
 			  		<h2 style="text-align: center;">您尚未设置用户信息</h2>
-			  		<a href="#" class="ui-btn ui-icon-edit ui-btn-icon-top">点击设置</a>
+			  		<a href="${pageContext.request.contextPath}/test/user/setuserinfo?display=mobile" class="ui-btn ui-icon-edit ui-btn-icon-top">点击设置</a>
 			  </c:if> 
 				<div data-role="popup" id="changeAge" class="ui-content popup" data-overlay-theme="b">
 			  		<a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn ui-icon-delete ui-btn-icon-notext ui-btn-right">关闭</a>

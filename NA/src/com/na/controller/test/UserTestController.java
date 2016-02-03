@@ -111,7 +111,25 @@ public class UserTestController {
 		}
 		return "";
 	}
-	
+	//设置用户个人信息
+	@RequestMapping("/setuserinfo")
+	public String setuserinfo(HttpServletRequest request){
+		String display = request.getParameter("display");
+		try {
+			long uid =Long.parseLong(request.getSession().getAttribute("uid").toString());
+			Userinfo userinfo = userinfoService.getUserinfo(uid);
+			if (userinfo!=null) {
+				request.setAttribute("userinfo", userinfo);
+			}
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}
+		if (display!=null&&display.endsWith("mobile")) {
+			return "jsp/mobile/Setinfo";
+		}
+		return "";
+	}
 	//修改用户个人信息
 	@ResponseBody
 	@RequestMapping("/changeinfo")
@@ -132,7 +150,29 @@ public class UserTestController {
 		map.put("code", code);
 		return map;
 	}
-
+	@ResponseBody
+	@RequestMapping("/saveinfo")
+	public Map<String, Integer> saveUserinfo(HttpServletRequest request){
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		int code = 11015;
+		try {
+			long uid =(long) request.getSession().getAttribute("uid");
+			String name = request.getParameter("name");
+			float height = Float.parseFloat(request.getParameter("height"));
+			float weight = Float.parseFloat(request.getParameter("weight"));
+			int age = Integer.parseInt(request.getParameter("age"));
+			int sex = Integer.parseInt(request.getParameter("sex"));
+			String phonenumber = request.getParameter("phone");
+			String email = request.getParameter("email");
+			Userinfo userinfo = userinfoService.getUserinfo(uid);
+			code = userinfoService.setUserinfo(uid, name, height, weight, age, sex, phonenumber, email);
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}
+		map.put("code", code);
+		return map;
+	}
 	//参与活动
 	@ResponseBody
 	@RequestMapping("/join")

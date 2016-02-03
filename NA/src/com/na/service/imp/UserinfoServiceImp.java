@@ -81,18 +81,23 @@ public class UserinfoServiceImp implements UserinfoService {
 		int code = 11014;
 		try{
 			Userinfo userinfo = userinfoDao.getUserinfo(uid);
-			userinfo.setName(name);
-			userinfo.setHeight(height);
-			userinfo.setWeight(weight);
-			userinfo.setAge(age);
-			userinfo.setSex(sex);
-			userinfo.setPhonenumber(phonenumber);
-			userinfo.setEmail(email);
-			if(userinfoDao.update(userinfo)){
-				code = 11011;
+			if(userinfo.getName()!=null){
+				code = 11012;
 			}
 			else{
-				code = 11013;
+				userinfo.setName(name);
+				userinfo.setHeight(height);
+				userinfo.setWeight(weight);
+				userinfo.setAge(age);
+				userinfo.setSex(sex);
+				userinfo.setPhonenumber(phonenumber);
+				userinfo.setEmail(email);
+				if(userinfoDao.update(userinfo)){
+					code = 11011;
+				}
+				else{
+					code = 11013;
+				}
 			}
 			
 		}
