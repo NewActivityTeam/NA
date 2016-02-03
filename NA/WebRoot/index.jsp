@@ -29,7 +29,7 @@
 	}
 	catch (Exception ex)
 	{
-		ex.printStackTrace();
+		ex.getMessage();
 	}
 	
 	%>
