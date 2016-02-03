@@ -59,7 +59,6 @@ public class ActivityTestController {
 		int code = 90165;
 		String display = request.getParameter("display");
 		try{
-			
 			boolean state =  Boolean.parseBoolean(request.getParameter("state"));
 			List<Activity> list = activityService.getAllActvityByState(state);
 			request.setAttribute("list", list);

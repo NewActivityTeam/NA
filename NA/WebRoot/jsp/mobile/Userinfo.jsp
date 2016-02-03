@@ -17,9 +17,10 @@
   				sub = 3;
   				if(TestContent(sub,content)){
   					AJAXTest(sub,content);
+  					$("#ageErr").hide();
   				}
   				else{
-  					history.back();
+  				  	$("#ageErr").show();
   				}
   				$("#newAge").val("");
   			});
@@ -28,9 +29,10 @@
   				sub = 1;
   				if(TestContent(sub,content)){
   					AJAXTest(sub,content);
+  					$("#heightErr").hide();
   				}
   				else{
-  					history.back();
+  					$("#heightErr").show();
   				}
   				$("#newHeight").val("");
   			});
@@ -39,9 +41,10 @@
   				sub = 2;
   				if(TestContent(sub,content)){
   					AJAXTest(sub,content);
+  					$("#weightErr").hide();
   				}
   				else{
-  					history.back();
+  					$("#weightErr").show();
   				}
   				$("#newWeight").val("");
   			});
@@ -50,9 +53,10 @@
   				sub = 5;
   				if(TestContent(sub,content)){
   					AJAXTest(sub,content);
+  					$("#phoneErr").hide();
   				}
   				else{
-  					history.back();
+  					$("#phoneErr").show();
   				}
   				$("#newPhone").val("");
   			});
@@ -61,9 +65,10 @@
   				sub = 6;
   				if(TestContent(sub,content)){
   					AJAXTest(sub,content);
+  					$("#emailErr").hide();
   				}
   				else{
-  					history.back();
+  					$("#emailErr").show();
   				}
   				$("#newEmail").val("");
   			});
@@ -82,7 +87,7 @@
   				dataType : "json",
   				success :function(data){
   					if(data.code==11021){	
-  						 $(".popup").popup("close");
+
 		  					switch (subject){
 		  						case 1:
 		  							$('#heightInfo').text(content+" cm");
@@ -101,18 +106,15 @@
 			  						break; 
 		  					}
 
-		  					//alert("修改成功");
 		  					$("#messageConent").text("修改成功");
   							$("#messageBox").popup("open");
 	  				}
 	  				else{
-	  					//alert("修改失败");
 	  					$("#messageConent").text("修改失败");
   						$("#messageBox").popup("open");
 	  				}
   				},
   				error : function(){
-  					//alert("AJAX失败");
   					$("#messageConent").text("AJAX失败");
   					$("#messageBox").popup("open");
   				}
@@ -125,67 +127,39 @@
   				case 3:
   					var pattern = /^[1-9]\d*|0$/;
   					if(!pattern.test(content)||content<0||content>130){
-  						alert("请输入合法的年龄数字（0-130）");
-  						//$("#messageConent").text("请输入合法的年龄（0-130）");
   						return false;
-  					}
-  					else{
-  						return true;
   					}
   					break;
   				case 1:
   					if(isNaN(content)||content>300||content<30){
-  						alert("请输入合法的身高（30-300）");
-  						//$("#messageConent").text("请输入合法的身高（0-300）");
   						return false;
-  					}
-  					else{
-  						return true;
   					}
   					break;
   				case 2:
   					if(isNaN(content)||content>300||content<3){
-  						alert("请输入合法的体重（3-300）")
-  						//$("#messageConent").text("请输入合法的体重（0-300）");
   						return false;
-  					}
-  					else{
-  						return true;
   					}
   					break;
   				case 5:
   					var reg = /^0?1[3|4|5|8][0-9]\d{8}$/;
 					if (!reg.test(content)) {
-						alert("请输入合法的手机号");
-						//$("#messageConent").text("请输入合法的手机号");
 						return false;
   					}
-  					else{
-  						return true;
-  					}
-  					
   					break;
   				case 6:
   					if( content=="" || ( content!="" && !/.+@.+\.[a-zA-Z]{2,4}$/.test(content) ) ){
-                    	alert("请输入合法的Email地址.");
-                    	//$("#messageConent").text("请输入合法的Email地址.");
                 		return false;
   					}
-  					else{
-  						return true;
-  					}
-  					break;
-  				default:
-  					return false;
   					break;
   			}
+  			return true;
   		}
   	</script>
   </head>
   <body>
 	  <div data-role="page">
 		  <div data-role="header">
-			  <a href="#" data-role="button" data-rel="back" data-icon="back">返回</a>
+			  <a data-role="button" data-rel="back" data-icon="back">返回</a>
 			    <h1>个人信息</h1>	  
 		  </div>
 		  <div data-role="content" id="main" class="ui-content">
@@ -208,36 +182,41 @@
 			  </c:if>
 			  <c:if test="${userinfo.name==null}">
 			  		<h2 style="text-align: center;">您尚未设置用户信息</h2>
-			  		<a href="${pageContext.request.contextPath}/test/user/setuserinfo?display=mobile" class="ui-btn ui-icon-edit ui-btn-icon-top">点击设置</a>
+			  		<a data-ajax="false" href="${pageContext.request.contextPath}/test/user/setuserinfo?display=mobile" class="ui-btn ui-icon-edit ui-btn-icon-top">点击设置</a>
 			  </c:if> 
 				<div data-role="popup" id="changeAge" class="ui-content popup" data-overlay-theme="b">
 			  		<a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn ui-icon-delete ui-btn-icon-notext ui-btn-right">关闭</a>
 			  		<div data-role="header"><h1>年龄修改</h1></div>
 		      		<input type="text" name="content" id="newAge" placeholder="请输入新年龄">
+		      		<p id="ageErr" style="display: none; color: red;">请输入合法的年龄数字（0-130）</p>
 		      		<a href="#messageBox" class="ui-btn" id="ageSub">提交</a>
 	   			</div>
 	   			<div data-role="popup" id="changeHeight" class="ui-content popup" data-overlay-theme="b">
 			  		<a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn ui-icon-delete ui-btn-icon-notext ui-btn-right">关闭</a>
 			  		<div data-role="header"><h1>身高修改</h1></div>
 		      		<input type="text" name="content" id="newHeight" placeholder="请输入新身高(cm)">
+		      		<p id="heightErr" style="display: none; color: red;">请输入合法的身高（30-300）</p>
 		      		<a href="#messageBox" class="ui-btn" id="heightSub">提交</a>
 	   			</div>
 	   			<div data-role="popup" id="changeWeight" class="ui-content popup" data-overlay-theme="b">
 			  		<a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn ui-icon-delete ui-btn-icon-notext ui-btn-right">关闭</a>
 			  		<div data-role="header"><h1>体重修改</h1></div>
 		      		<input type="text" name="content" id="newWeight" placeholder="请输入新体重(kg)">
+		      		<p id="weightErr" style="display: none; color: red;">请输入合法的体重（3-300）</p>
 		      		<a href="#messageBox" class="ui-btn" id="weightSub">提交</a>
 	   			</div>
 	   			<div data-role="popup" id="changePhone" class="ui-content popup" data-overlay-theme="b">
 			  		<a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn ui-icon-delete ui-btn-icon-notext ui-btn-right">关闭</a>
 			  		<div data-role="header"><h1>手机号修改</h1></div>
 		      		<input type="text" name="content" id="newPhone" placeholder="请输入新手机号">
+		      		<p id="phoneErr" style="display: none; color: red;">请输入合法的手机号</p>
 		      		<a href="#messageBox" class="ui-btn" id="phoneSub">提交</a>
 	   			</div>
 	   			<div data-role="popup" id="changeEmail" class="ui-content popup" data-overlay-theme="b">
 			  		<a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn ui-icon-delete ui-btn-icon-notext ui-btn-right">关闭</a>
 			  		<div data-role="header"><h1>电子邮箱修改</h1></div>
 		      		<input type="text" name="content" id="newEmail" placeholder="请输入电子邮箱">
+		      		<p id="emailErr" style="display: none; color: red;">请输入合法的Email地址</p>
 		      		<a href="#messageBox" class="ui-btn" id="emailSub">提交</a>
 	   			</div>
 				<div data-role="popup" id="messageBox" class="ui-content" data-overlay-theme="b">
@@ -245,7 +224,6 @@
 			  			<div id="messageConent"></div>
 			  		<a href="#" data-rel="back" class="ui-btn">确定</a>
 	 	  		</div>
-	   			<a href="#messageBox" id="showbox" data-rel="popup" data-transition="pop" data-position-to="window"></a>
 	  	</div>
 	  	
 	</div>

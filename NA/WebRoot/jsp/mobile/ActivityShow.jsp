@@ -53,7 +53,7 @@
   <body>
 	  <div data-role="page">
 	  <div data-role="header" data-position="fixed" data-fullscreen="true">
-		  <a href="#" data-role="button" data-rel="back" data-icon="back">返回</a>
+		  <a data-ajax="false"  data-role="button" data-rel="back" data-icon="back">返回</a>
 		    <h1>${activity.title}</h1>
 	  </div>
 	
@@ -74,9 +74,9 @@
 			  </div>
 		  </div>
 	  	  <div data-role="popup" id="messageBox" class="ui-content" data-overlay-theme="b" >
-	  	  <a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn ui-icon-delete ui-btn-icon-notext ui-btn-right" >关闭</a>
+	  	  <a data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn ui-icon-delete ui-btn-icon-notext ui-btn-right" >关闭</a>
 	  		<div id="messageConent"></div>
-	  		<a href="#" data-rel="back" class="ui-btn">确定</a>
+	  		<a data-rel="back" class="ui-btn">确定</a>
 	 	  </div>
 	</div> 
 	  

@@ -125,10 +125,12 @@
   				dataType : "json",
   				success :function(data){
   					if(data.code==11011){	
+  						//$("#messageBox").popup("close");
   						$("#message").html("设置成功");
   						$("#subdiv").hide();
   						$("#back").hide();
   						$("#tohome").show();
+  						$("#messageBox").popup("open");
 	  				}
 	  				else if(data.code==11012){
 						$("#message").html("您已设置过用户信息，无需重复设置");
@@ -275,38 +277,38 @@
      		<a class="ui-btn" id="sexSub">确定</a>
  		</div>
 		<div data-role="popup" id="setAge" class="ui-content popup" data-overlay-theme="b">
-	  		<a data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn ui-icon-delete ui-btn-icon-notext ui-btn-right">关闭</a>
+	  		<a  data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn ui-icon-delete ui-btn-icon-notext ui-btn-right">关闭</a>
 	  		<div data-role="header"><h1>年龄设置</h1></div>
      		<input type="text" name="content" id="myAge" placeholder="请输入您的年龄" size="25">
-     		<p id="ageErr" style="display: none;">请输入合法的年龄数字（0-130）</p>
+     		<p id="ageErr" style="display: none; color: red;">请输入合法的年龄数字（0-130）</p>
      		<a class="ui-btn" id="ageSub">确定</a>
  		</div>
  		<div data-role="popup" id="setHeight" class="ui-content popup" data-overlay-theme="b">
 	  		<a data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn ui-icon-delete ui-btn-icon-notext ui-btn-right">关闭</a>
 	  		<div data-role="header"><h1>身高设置</h1></div>
      		<input type="text" name="content" id="myHeight" placeholder="请输入您的身高(cm)" size="25">
-     		<p id="heightErr" style="display: none;">请输入合法的身高（30-300）</p>
+     		<p id="heightErr" style="display: none; color: red;">请输入合法的身高（30-300）</p>
      		<a class="ui-btn" id="heightSub">确定</a>
  		</div>
  		<div data-role="popup" id="setWeight" class="ui-content popup" data-overlay-theme="b">
   			<a data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn ui-icon-delete ui-btn-icon-notext ui-btn-right">关闭</a>
   			<div data-role="header"><h1>体重设置(kg)</h1></div>
      		<input type="text" name="content" id="myWeight" placeholder="请输入您的体重(kg)" size="25">
-     		<p id="weightErr" style="display: none;">请输入合法的体重（3-300）</p>
+     		<p id="weightErr" style="display: none; color: red;">请输入合法的体重（3-300）</p>
      		<a class="ui-btn" id="weightSub">确定</a>
  		</div>
  		<div data-role="popup" id="setPhone" class="ui-content popup" data-overlay-theme="b">
   			<a data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn ui-icon-delete ui-btn-icon-notext ui-btn-right">关闭</a>
   			<div data-role="header"><h1>手机号设置</h1></div>
      		<input type="text" name="content" id="myPhone" placeholder="请输入您的手机号" size="25">
-     		<p id="phoneErr" style="display: none;">请输入合法的手机号</p>
-     		<a class="ui-btn" id="phoneSub">确定</a>
+     		<p id="phoneErr" style="display: none; color: red;">请输入合法的手机号</p>
+     		<a  class="ui-btn" id="phoneSub">确定</a>
  		</div>
  		<div data-role="popup" id="setEmail" class="ui-content popup" data-overlay-theme="b">
   			<a data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn ui-icon-delete ui-btn-icon-notext ui-btn-right">关闭</a>
   			<div data-role="header"><h1>电子邮箱设置</h1></div>
      		<input type="text" name="content" id="myEmail" placeholder="请输入您的电子邮箱" size="30">
-     		<p id="emailErr" style="display: none;">请输入合法的Email地址</p>
+     		<p id="emailErr" style="display: none; color: red;">请输入合法的Email地址</p>
      		<a class="ui-btn" id="emailSub">确定</a>
  		</div>
  		<div data-role="popup" id="messageBox" class="ui-content" data-overlay-theme="b" style="text-align: center;">
@@ -316,7 +318,7 @@
 	 			<a data-rel="back" class="ui-btn" style="display: inline-table; text-align: center;">返回</a>
  			</div>
  			<a id="back" data-rel="back" class="ui-btn ui-shadow ui-btn" style="display: none; text-align: center;">返回</a>
-	 		<a id="tohome" href="${pageContext.request.contextPath}/mobilehome" class="ui-btn" style="display: none; text-align: center;">返回首页</a>
+	 		<a data-ajax="false" id="tohome" href="${pageContext.request.contextPath}/mobilehome" class="ui-btn" style="display: none; text-align: center;">返回首页</a>
  		</div>
 		<div id="foot-sign" data-role="footer" data-position="fixed">
 			<div data-role="navbar">
