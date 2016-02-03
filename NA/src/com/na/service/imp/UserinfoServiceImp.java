@@ -139,6 +139,7 @@ public class UserinfoServiceImp implements UserinfoService {
 	 * 		4	sex			性别
 	 * 		5	phonenumber	手机号
 	 * 		6	email		电子邮箱
+	 * 		7	ybaccount	易班授权码
 	 */
 	@Override
 	public int updateUserinfo(long uid, int subject, Object content) {
@@ -177,7 +178,10 @@ public class UserinfoServiceImp implements UserinfoService {
 				userinfo.setEmail(content.toString());
 				change = true;
 				break;
-
+			case 7:
+				userinfo.setYbaccount(content.toString());
+				change = true;
+				break;
 			default:
 				break;
 			}

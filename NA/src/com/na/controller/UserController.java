@@ -30,25 +30,33 @@ public class UserController {
 		Map<String, Object> map = new HashMap<String, Object>();
 		int code = 90135;
 		try {
-			long aid = Long.parseLong(request.getParameter("aid"));
+	
+			//long aid = Long.parseLong(request.getParameter("aid"));
+			long aid = (long)Integer.parseInt(request.getParameter("id"));
 			List<Long> uidList = pcpService.getUIDsByAID(aid);
-			long[] ids = new long[uidList.size()];
-			for (int i = 0; i < uidList.size(); i++) {
-				ids[i] = uidList.get(i);
-			}
-			List<Userinfo> userinfos = userinfoService.getUserinfos(ids);
-			if (userinfos!=null&&userinfos.size()!=0) {
-				map.put("list", userinfos);
-				code = 90131;
+			if(uidList != null){
+				long[] ids = new long[uidList.size()];
+				for (int i = 0; i < uidList.size(); i++) {
+					ids[i] = uidList.get(i);
+				}
+				List<Userinfo> userinfos = userinfoService.getUserinfos(ids);
+				if (userinfos!=null&&userinfos.size()!=0) {
+					map.put("list", userinfos);
+					code = 90131;
+				}
+				else{
+					code = 90134;
+				}
 			}
 			else{
-				code = 90134;
+				map.put("list", null);
 			}
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		map.put("code", code);
 		request.setAttribute("map", map);
-		return "jsp/PartInfo";
+		return "/jsp/PartiInfo";
 	}
 }

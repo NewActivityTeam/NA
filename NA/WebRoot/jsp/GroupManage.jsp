@@ -53,7 +53,6 @@
 	margin-left: 100px;
 	border: 2px solid grey;
 }
-
 </style>
 
 </head>
@@ -61,11 +60,12 @@
 <body>
 	<div>
 		<div id="divbtn">
-			<a href="<%=request.getContextPath()%>/jsp/PartiInfo.jsp" target="PartiInfo"><button type="button" class="btn btn-primary">人员信息</button></a>
-			<a href="<%=request.getContextPath()%>/jsp/Ungrouplist.jsp" target="PartiInfo"><button type="button" class="btn btn-primary">分组情况</button></a>
+			<a href="user/getusersbyids?id=<%=request.getAttribute("id")%>" target="PartiInfo"><button type="button" class="btn btn-primary">人员信息</button></a>
+			<a href="./group/getinfo?id=<%=request.getAttribute("id")%>" target="PartiInfo"><button type="button" class="btn btn-primary">分组情况</button></a>
 		</div>
 		<div id="chooseDiv">
-		<iframe height="100%" width="100%" name="PartiInfo" src="<%=request.getContextPath() %>/jsp/PartiInfo.jsp" height="80px" width="100%"></iframe>
+			<iframe height="100%" width="100%" name="PartiInfo"
+				src="./jsp/PartiInfo.jsp" height="80px" width="100%"></iframe>
 		</div>
 	</div>
 </body>

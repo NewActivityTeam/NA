@@ -1,4 +1,6 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ page import="com.na.entity.nodb.ReturnInfo" %>
+<%@ page import="com.na.entity.Userinfo" %>
 <%
 	String path = request.getContextPath();
 	String basePath = request.getScheme() + "://"
@@ -56,7 +58,59 @@
 			</td>
 		</tr>
 	</table>
-	
-	<button type="button" class="btn btn-success" style="margin-left:auto;margin-right:auto;display:block;">一键分组</button>
+	<div class="content">
+	<table width="100%" border="1px" style="text-align: center;">
+		<tr>
+			<th>序号</th>
+			<th>组名</th>
+			<th>姓名</th>
+			<th>性别</th>
+			<th>身高</th>
+			<th>体重</th>
+			<th>年龄</th>
+			<th>手机号</th>
+			<th>Email</th>
+		</tr>
+		<%
+			int i = 1;
+			int code = Integer.parseInt(request.getAttribute("code").toString());
+			if (code == 90152) {
+				System.out.println("code=90152");
+			} else if (code == 9015) {
+				System.out.println("异常错误");
+			} else if (code == 90151) {
+			
+			Object list = request.getAttribute("list");
+			if(list == null){
+				System.out.println("list为空!");
+			}else{
+			List<ReturnInfo> returnList = (List<ReturnInfo>)list;
+			
+			for(ReturnInfo retinfo : returnList){
+			List<Userinfo> userinfo = retinfo.getMembers();
+			 for(Userinfo user : userinfo){
+			
+		%>
+		<tr>
+		<td><%=i++%></td>
+		<td><%=retinfo.getGroupName()%></td>
+		<td><%=user.getName() %></td>
+		<td><%=user.getSex() %></td>
+		<td><%=user.getHeight() %></td>
+		<td><%=user.getWeight() %></td>
+		<td><%=user.getAge() %></td>
+		<td><%=user.getPhonenumber() %></td>
+		<td><%=user.getEmail() %></td>
+		</tr>
+		<%
+			}
+			}
+			}
+			}
+		%>
+	</table>
+	</div>
+	<a href="./group/fastallot?id=<%=request.getParameter("id")%>"><button type="button" class="btn btn-success"
+		style="margin-left:auto;margin-right:auto;display:block;">一键分组</button></a>
 </body>
 </html>

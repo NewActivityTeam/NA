@@ -28,10 +28,16 @@ public class TurnPageController {
 
 		if (request.getSession().getAttribute("uid")!=null) {
 			long uid = (long) request.getSession().getAttribute("uid");
-			if (userinfoService.getUserinfo(uid)==null) {
-				String account = (String) request.getSession().getAttribute("account");
+			String account = (String) request.getSession().getAttribute("account");
+			Userinfo userinfo = userinfoService.getUserinfo(uid);
+			if (userinfo==null) {
 				if(userinfoService.createUserinfo(uid, account)==11011){
 					System.out.print("注册成功");
+				}
+			}
+			else if (!userinfo.getYbaccount().endsWith(account)) {
+				if (userinfoService.updateUserinfo(uid, 7, account)==11021) {
+					System.out.print("修改成功");
 				}
 			}
 		}
