@@ -41,18 +41,19 @@ public class GroupController {
 		Map<String, Object> map = new HashMap<String, Object>();
 		int code = 90135;
 		try{
-			long aid =Long.parseLong(request.getParameter("aid"));
-			Activity activity = activityService.getActicity(aid);
+			long id =Long.parseLong(request.getParameter("id"));
+			Activity activity = activityService.getActicity(id);
 			List<Userinfo> userinfos = userinfoService.getAllUserinfos();
-			List<Long> groups = groupService.fastCreateGroups(aid, userinfos.size(), activity.getNumber());
+			//这句出错了。。。
+			List<Long> groups = groupService.fastCreateGroups(id, userinfos.size(), activity.getNumber());
 			if (groups!=null&&groups.size()!=0) {
-				List<Long> pcpids = pcpService.getPCPIDsByAIDNoGroup(aid);
+				List<Long> pcpids = pcpService.getPCPIDsByAIDNoGroup(id);
 				if(pcpids!=null&&pcpids.size()!=0){
 					if(pcpService.fastAllot(pcpids, groups, activity.getNumber())==14001){
-						code = groupService.fastGroupResultHandle(aid, true);
+						code = groupService.fastGroupResultHandle(id, true);
 					}
 					else{
-						code = groupService.fastGroupResultHandle(aid, false);
+						code = groupService.fastGroupResultHandle(id, false);
 					}
 				}
 			}
@@ -71,12 +72,12 @@ public class GroupController {
 		int code = 90155;
 		try {
 			
-			long aid = Long.parseLong(request.getParameter("aid"));
+			long id = Long.parseLong(request.getParameter("id"));
 			String attr = request.getParameter("attr");
 			if (attr==null) {
 				//默认进入界面，分组和未分组均显示
 				//已分组部分
-				List<Group> groups = groupService.getGroupsByAID(aid);
+				List<Group> groups = groupService.getGroupsByAID(id);
 				for (Group group : groups) {
 					List<Long> uidlList = pcpService.getUIDsByGID(group.getId());
 						if(uidlList!=null&&uidlList.size()!=0){
@@ -92,7 +93,7 @@ public class GroupController {
 					}
 				}
 				//未分组部分
-				List<Long> uidlList = pcpService.getUIDsByAIDNoGroup(aid);
+				List<Long> uidlList = pcpService.getUIDsByAIDNoGroup(id);
 				if (uidlList!=null&&uidlList.size()!=0) {
 					long[] ids = new long[uidlList.size()];
 					for (int i = 0; i < uidlList.size(); i++) {
@@ -115,7 +116,7 @@ public class GroupController {
 				//未分组
 			
 				//获取所有未分组用户UID
-				List<Long> uidlList = pcpService.getUIDsByAIDNoGroup(aid);
+				List<Long> uidlList = pcpService.getUIDsByAIDNoGroup(id);
 				if (uidlList!=null&&uidlList.size()!=0) {
 					long[] ids = new long[uidlList.size()];
 					for (int i = 0; i < uidlList.size(); i++) {
@@ -137,7 +138,7 @@ public class GroupController {
 			else if (attr.endsWith("1")) {
 				//已分组
 				//获得所有小组
-				List<Group> groups = groupService.getGroupsByAID(aid);
+				List<Group> groups = groupService.getGroupsByAID(id);
 				for (Group group : groups) {
 					//获得小组内所有用户UID
 					List<Long> uidlList = pcpService.getUIDsByGID(group.getId());
@@ -165,7 +166,7 @@ public class GroupController {
 		}
 		request.setAttribute("code", code);
 		request.setAttribute("list", returnList);
-		return "jsp/GroupList";
+		return "jsp/Ungrouplist";
 	}
 
 }

@@ -235,4 +235,13 @@ public class ActivityController extends BaseController{
 	public int getPartActivitiesNumber(String title,Timestamp start,Timestamp end){
 		return activityService.getPartActivityNumber(title, start, end);
 	}
+	
+	@RequestMapping("ManageActivity")
+	public String ManageActivity()
+	{
+		long id = (long)Integer.parseInt(request.getParameter("id"));	
+		System.out.println("manageactivity , id = "+id);
+		request.setAttribute("id", id);
+		return "jsp/GroupManage";
+	}
 }
