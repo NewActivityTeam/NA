@@ -81,7 +81,6 @@ public class ActivityController extends BaseController{
 			String address = request.getParameter("address");
 			String voteAddress = request.getParameter("voteaddress");
 			String description = request.getParameter("content");
-			System.out.println("description:" + description);
 			long manager = Long.parseLong(request.getParameter("manager"));
 			int number = 1;
 			if (!request.getParameter("number").equals("")) {
@@ -156,7 +155,6 @@ public class ActivityController extends BaseController{
 	public ModelAndView UpdateActivity(){
 		long id = Integer.parseInt(request.getParameter("id"));	
 		Activity activity = activityService.getActicity(id);
-		System.out.println(activity.getDescription());
 		request.setAttribute("activity", activity);
 		return new ModelAndView("/jsp/UpdateActivity");
 	}
@@ -167,6 +165,7 @@ public class ActivityController extends BaseController{
 		Map<String, Integer> map  = new HashMap<String, Integer>();
 		int code = 12015;
 		try{
+			Long id = Long.parseLong(request.getParameter("id"));
 			String title = request.getParameter("title");
 			Timestamp starttime = Timestamp.valueOf(request.getParameter("startDate") + " " + request.getParameter("startTime") + ":00");
 			Timestamp endtime = Timestamp.valueOf(request.getParameter("endDate") + " " + request.getParameter("endTime") + ":00");
@@ -177,11 +176,13 @@ public class ActivityController extends BaseController{
 			System.out.println("description:" + description);
 			long manager = Long.parseLong(request.getParameter("manager"));
 			int number = 1;
+			System.out.println("number:" + request.getParameter("number"));
 			if (!request.getParameter("number").equals("")) {
 				number = Integer.parseInt(request.getParameter("number"));
 			}
 			System.out.println(title + " " + starttime + " " + endtime + " " + endsigntime + " " + voteAddress + " " + description);
-			//code = activityService.newActicity(title, description, starttime, endtime, endsigntime, address, voteAddress, manager,number);
+			code = activityService.updateActicity(id, title, description, starttime, endtime, endsigntime, address, voteAddress, manager, number);
+			System.out.println("code:" + code);
 		}
 		catch(Exception e){
 			e.printStackTrace();
