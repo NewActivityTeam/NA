@@ -182,8 +182,13 @@ public class UserTestController {
 		try {
 			 if(request.getSession().getAttribute("uid")!=null){
 				long uid = (long) request.getSession().getAttribute("uid");
-				long aid = Long.parseLong(request.getParameter("aid"));
-				code = pcpService.newPCP(uid, aid);
+				if (userinfoService.getUserinfo(uid).getSex()==null) {
+					code = 14016;
+				}
+				else{
+					long aid = Long.parseLong(request.getParameter("aid"));
+					code = pcpService.newPCP(uid, aid);
+				}
 			 }
 		} 
 		catch (Exception e) {

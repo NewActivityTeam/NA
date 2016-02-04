@@ -25,17 +25,22 @@
   					success : function(data){
   						if(data.code!=null){
   							if(data.code==14011){
-  								//alert("参与成功");
+  								$("#toset").hide();
   								$("#messageConent").text("参与成功");
   								$("#messageBox").popup("open");
   							}
   							else if(data.code==14012){
-  								//alert("您已参与或该活动，无需重复参加");
+  								$("#toset").hide();
   								$("#messageConent").text("您已参与或该活动，无需重复参加");
   								$("#messageBox").popup("open");
   							}
+  							else if(data.code==14016){
+  								$("#messageConent").text("您尚未填写个人信息，请完善个人信息后参与活动");
+  								$("#toset").show();
+  								$("#messageBox").popup("open");
+  							}
   							else{
-  								//alert("参与失败");
+  								$("#toset").hide();
   								$("#messageConent").text("参与失败");
   								$("#messageBox").popup("open");
   							}
@@ -61,7 +66,7 @@
 	  </div>
 		<c:set var="now" value="<%=new Timestamp(System.currentTimeMillis())%>"/> 
 
-		  <div id="foot-sign" data-role="footer" data-position="fixed" data-fullscreen="true">
+		  <div id="foot-sign" data-role="footer" data-position="fixed" data-fullscreen="true" style="text-align: center;">
 			  <div data-role="navbar">
 			    <ul>
 				 	<c:if test="${activity.endsigntime>now}">
@@ -73,10 +78,12 @@
 			    </ul>
 			  </div>
 		  </div>
-	  	  <div data-role="popup" id="messageBox" class="ui-content" data-overlay-theme="b" >
+	  	  <div data-role="popup" id="messageBox" class="ui-content" data-overlay-theme="b" style="text-align: center;" >
 	  	  <a data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn ui-icon-delete ui-btn-icon-notext ui-btn-right" >关闭</a>
 	  		<div id="messageConent"></div>
-	  		<a data-rel="back" class="ui-btn">确定</a>
+	  		<a id="toset" data-ajax="false" href="${pageContext.request.contextPath}/test/user/setuserinfo?display=mobile" class="ui-btn" style="display: none;">去设置</a>
+	  		<a data-rel="back" class="ui-btn">返回</a>
+	  		
 	 	  </div>
 	</div> 
 	  
