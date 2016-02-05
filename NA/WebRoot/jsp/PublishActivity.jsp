@@ -133,9 +133,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					    <option value="1">1人</option>
 					    <option value="2">2人</option>
 					    <option value="3">3人</option>
-					    <option value="1">4人</option>
-					    <option value="2">5人</option>
-					    <option value="3">6人</option>
+					    <option value="4">4人</option>
+					    <option value="5">5人</option>
+					    <option value="6">6人</option>
 					</select>
     			</div>
 				

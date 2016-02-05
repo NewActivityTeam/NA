@@ -12,7 +12,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.na.entity.Activity;
 import com.na.entity.Userinfo;
+import com.na.service.ActivityService;
 import com.na.service.PCPService;
 import com.na.service.UserinfoService;
 
@@ -24,6 +26,8 @@ public class UserTestController {
 	UserinfoService userinfoService;
 	@Autowired
 	PCPService pcpService;
+	@Autowired
+	ActivityService activitySercice;
 	
 	//随机创建Users
 	@ResponseBody
@@ -108,6 +112,39 @@ public class UserTestController {
 		}
 		if (display!=null&&display.endsWith("mobile")) {
 			return "jsp/mobile/Userinfo";
+		}
+		return "";
+	}
+	
+	//跳转到用户中心页面
+	@RequestMapping("/toNavigation")
+	public String toNav(HttpServletRequest request){
+		String display = request.getParameter("display");
+		if(display != null && display.endsWith("mobile")){
+			return "jsp/mobile/PersonalInfoNav";
+		}
+		return "";
+	}
+	
+	//获取用户已经参与过的活动
+	@RequestMapping("/getJoinedActivities")
+	public String getJoinedActivities(HttpServletRequest request){
+		String display = request.getParameter("display");
+		long uid = Long.parseLong(request.getSession().getAttribute("uid").toString());
+		List<Long> listOfAid = pcpService.getAIDsByUID(uid); 
+		long[] ids = new long[listOfAid.size()];
+		for(int i = 0;i < listOfAid.size();i++){
+			ids[i] = listOfAid.get(i);
+		}
+		List<Activity> list = activitySercice.getActivitiesByIds(ids);
+		System.out.println("====================");
+		for(int i = 0;i < list.size();i++){
+			System.out.println(list.get(i).getTitle() + " " + list.get(i).getDescription());
+		}
+		System.out.println("====================");
+		if(list != null && list.size() > 0){
+			request.setAttribute("list", list);
+			return "jsp/mobile/JoinedActivityList";
 		}
 		return "";
 	}

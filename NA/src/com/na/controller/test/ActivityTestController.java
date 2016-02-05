@@ -72,7 +72,6 @@ public class ActivityTestController {
 			return "jsp/mobile/ActivityList";
 		}
 		return "jsp/ActivityList";
-
 	}
 	@RequestMapping("/activity_show")
 	public String showActivity(HttpServletRequest request){
@@ -84,6 +83,9 @@ public class ActivityTestController {
 			Activity activity = activityService.getActicity(aid);
 			if (activity!=null) {
 				request.setAttribute("activity", activity);
+				System.out.println("---------------------");
+				System.out.println(activity.getDescription());
+				System.out.println("---------------------");
 				code = 90211;
 			}
 			else{

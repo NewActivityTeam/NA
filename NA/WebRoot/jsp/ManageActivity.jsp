@@ -27,7 +27,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   
   <body>
   <div>
-  	<iframe src="<%=request.getContextPath() %>/jsp/ManageActivityOfSearch.jsp" frameborder="0" height="30%" width="100%" name="search" scrolling="no"></iframe>
+  	<iframe src="<%=request.getContextPath() %>/jsp/ManageActivityOfSearch.jsp" frameborder="0" height="30%" width="100%" name="search" scrolling-y="yes"></iframe>
   	 
   </div>
   <div>

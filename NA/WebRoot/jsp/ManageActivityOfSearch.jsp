@@ -69,12 +69,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	  			<div class="col-sm-3" style="float:left">
 	      			<input type="text" name="title" id="title" class="form-control" placeholder="请输入活动名称">
 	    		</div>
-	            <div class="input-group date form_date" data-date="" data-date-format="" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd" style="float:left;margin-left:15px">
+	            <div class="input-group date form_date" data-date="" data-date-format="" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd" style="float:left;margin-left:15px;z-index:999">
 	                <input class="form-control" onfocus="this.blur()" id="startDate" name="startDate" size="16" type="text" placeholder="开始时间" style="width:170px;">
 	                <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
 					<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
 				</div>
-				 <div class="input-group date form_date" data-date="" data-date-format="" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd" style="float:left;margin-left:20px">
+				 <div class="input-group date form_date" data-date="" data-date-format="" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd" style="float:left;margin-left:20px;z-index:999">
 	                <input class="form-control" id="endDate" onfocus="this.blur()" name="endDate" size="16" type="text" placeholder="结束时间" style="width:170px;">
 	                <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
 					<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>

@@ -31,6 +31,7 @@
     <mvc:resources location="/dist/" mapping="/dist/**"/>
     <mvc:resources location="/assets/" mapping="/assets/**"/>
     <mvc:resources location="/ueditor/" mapping="/ueditor/**"/>
+    <mvc:resources location="/jsp/" mapping="/jsp/**"/>
     
     <!-- 开启注解 -->
    	<mvc:annotation-driven/>

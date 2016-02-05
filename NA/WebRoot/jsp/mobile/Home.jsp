@@ -28,7 +28,7 @@
 		  <div data-role="header" data-position="fixed">
 			  <a data-ajax="false" data-role="button" data-rel="back" data-icon="delete">关闭</a>
 			    <h1>轻活动</h1>
-			  <a data-ajax="false" id="touser" href="${pageContext.request.contextPath}/test/user/getuserinfo?display=mobile" data-role="button" data-icon="user">个人信息</a>
+			  <a data-ajax="false" id="touser" href="${pageContext.request.contextPath}/test/user/toNavigation?display=mobile" data-role="button" data-icon="user">个人中心</a>
 			  
 		  </div>
 		

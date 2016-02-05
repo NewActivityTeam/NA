@@ -83,7 +83,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<div class="input-group date form_date" data-date=""
 				data-date-format="" data-link-field="dtp_input2"
 				data-link-format="yyyy-mm-dd" style="float:left;margin-left:15px">
-				<input class="form-control" onFocus="this.blur()" id="startDate"
+				<input class="form-control" onfocus="this.blur()" id="startDate"
 					value=<%=activity.getStarttime().toString().split(" ")[0]%>
 					name="startDate" size="16" type="text" placeholder="开始时间"
 					style="width:170px;"> <span class="input-group-addon"><span
@@ -105,7 +105,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<div class="input-group date form_date" data-date=""
 				data-date-format="" data-link-field="dtp_input2"
 				data-link-format="yyyy-mm-dd" style="float:left">
-				<input class="form-control" onFocus="this.blur()" id="endDate"
+				<input class="form-control" onfocus="this.blur()" id="endDate"
 					value=<%=activity.getEndtime().toString().split(" ")[0] %>
 					name="endDate" size="16" type="text" placeholder="结束时间"
 					style="width:170px;"> <span class="input-group-addon"><span
@@ -129,7 +129,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<div class="input-group date form_date" data-date=""
 				data-date-format="" data-link-field="dtp_input2"
 				data-link-format="yyyy-mm-dd" style="float:left;margin-left:15px;">
-				<input class="form-control" id="endSignDate" onFocus="this.blur()"
+				<input class="form-control" id="endSignDate" onfocus="this.blur()"
 					value=<%=activity.getEndsigntime().toString().split(" ")[0] %>
 					name="endSignDate" size="16" type="text" placeholder="报名截止时间"
 					style="width:170px;"> <span class="input-group-addon"><span
