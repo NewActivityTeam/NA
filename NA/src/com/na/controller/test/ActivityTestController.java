@@ -83,9 +83,7 @@ public class ActivityTestController {
 			Activity activity = activityService.getActicity(aid);
 			if (activity!=null) {
 				request.setAttribute("activity", activity);
-				System.out.println("---------------------");
-				System.out.println(activity.getDescription());
-				System.out.println("---------------------");
+				System.out.print(activity.getDescription());
 				code = 90211;
 			}
 			else{
@@ -96,7 +94,7 @@ public class ActivityTestController {
 			e.printStackTrace();
 		}
 		request.setAttribute("code", code);
-		if (display!=null&&display.endsWith("mobile")) {
+		if (display!=null&&display.equals("mobile")) {
 			return "jsp/mobile/ActivityShow";
 		}
 		return "jsp/ActivityContent";

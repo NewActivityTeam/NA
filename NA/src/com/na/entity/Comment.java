@@ -9,7 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 /**
- * Comment entity.
+ * Comment entity. @author MyEclipse Persistence Tools
  */
 @Entity
 @Table(name = "tb_comment")
@@ -19,6 +19,7 @@ public class Comment implements java.io.Serializable {
 
 	private Long id;
 	private Long uid;
+	private String uname;
 	private Long aid;
 	private Timestamp createtime;
 	private String content;
@@ -36,8 +37,10 @@ public class Comment implements java.io.Serializable {
 	}
 
 	/** full constructor */
-	public Comment(Long uid, Long aid, Timestamp createtime, String content) {
+	public Comment(Long uid, String uname, Long aid, Timestamp createtime,
+			String content) {
 		this.uid = uid;
+		this.uname = uname;
 		this.aid = aid;
 		this.createtime = createtime;
 		this.content = content;
@@ -62,6 +65,15 @@ public class Comment implements java.io.Serializable {
 
 	public void setUid(Long uid) {
 		this.uid = uid;
+	}
+
+	@Column(name = "uname")
+	public String getUname() {
+		return this.uname;
+	}
+
+	public void setUname(String uname) {
+		this.uname = uname;
 	}
 
 	@Column(name = "aid")

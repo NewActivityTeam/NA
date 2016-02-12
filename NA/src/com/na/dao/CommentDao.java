@@ -7,6 +7,7 @@ public interface CommentDao {
 	public boolean update(Comment comment);
 	public boolean delete(Comment comment);
 	public Object selectHql(String hql);
+	public Object selectHqlByPage(String hql,int currentPage,int pageSize);
 	public Object selectSql(String sql);
 	public int otherHql(String hql);
 	public int otherSql(String sql);

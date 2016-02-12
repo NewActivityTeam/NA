@@ -12,8 +12,40 @@
   	<script src="${pageContext.request.contextPath}/js/jQuery/jquery-1.12.0.min.js"></script>
 	<script src="${pageContext.request.contextPath}/js/jquery.mobile-1.4.5/jquery.mobile-1.4.5.min.js"></script>
   	<script>
-  		$(document).on('pagecreate',function(){
-  			$("#main").load("${pageContext.request.contextPath}/test/activity/activity_show?aid="+<c:out value="${activity.id}"></c:out>);
+  		$(document).on("pagecreate",function(){
+  			$("#content").load("${pageContext.request.contextPath}/test/activity/activity_show?aid="+<c:out value="${activity.id}"></c:out>);
+  			$("#comment").load("${pageContext.request.contextPath}/test/comment/show?display=mobile&aid="+<c:out value="${activity.id}"></c:out>);
+  			$("#subComment").on("click",function(){
+  				var content = $("#commentContent").val();
+  				if(content!=""){
+	  				$.ajax({
+	  					url : "${pageContext.request.contextPath}/test/comment/new",
+	  					type: "POST",
+	  					data: {
+	  						aid : ${activity.id},
+	  						content : content
+	  					},
+	  					dataType: "json",
+	  					success : function(data){
+	  						if(data.code%10==1){
+	  							//alert("成功了");
+	  							$("#comment").load("${pageContext.request.contextPath}/test/comment/show?display=mobile&aid="+<c:out value="${activity.id}"></c:out>);
+	  						}
+	  						else{
+	  							alert("失败了");
+	  						}
+	  					
+	  					},
+	  					error : function(){
+	  						alert("AJAX失败");
+	  					}
+	  				});
+	  				$("#commentContent").val("");
+  				}
+  				else{
+  					alert("内容不能为空");
+  				}
+  			});
   			$("#sign").on("click",function(){
   				$.ajax({
   					url : "${pageContext.request.contextPath}/test/user/join",
@@ -62,8 +94,13 @@
 		    <h1>${activity.title}</h1>
 	  </div>
 	
-	  <div data-role="content" id="main" class="ui-content">
+	  <div data-role="content" id="content" class="ui-content"></div>
+	  <div data-role="content" id="comment" class="ui-content"></div>
+	  <div data-role="content" id="input" class="ui-content">
+	  	  <textarea id="commentContent" rows="5" style="margin-bottom: 0.5em;" maxlength="200" placeholder="请在此输入评论内容，自动调整行数，评论不超过200字符"></textarea>
+	  	  <a id="subComment" data-role="button" style="width: 3em;float: right; margin-top: 0em">提交</a>
 	  </div>
+
 		<c:set var="now" value="<%=new Timestamp(System.currentTimeMillis())%>"/> 
 
 		  <div id="foot-sign" data-role="footer" data-position="fixed" data-fullscreen="true" style="text-align: center;">

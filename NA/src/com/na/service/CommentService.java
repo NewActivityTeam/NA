@@ -6,7 +6,7 @@ import com.na.entity.Comment;
 
 public interface CommentService {
 
-	public int newComment(long uid,long aid,String content);
+	public int newComment(long uid,long aid,String uname,String content);
 	
 	public int updateComment(long id,String content);
 	
@@ -19,5 +19,7 @@ public interface CommentService {
 	public boolean deleteAllCommentsByAID(long aid);
 	
 	public boolean deleteAllCommentsByUID(long uid);
+	
+	public int getAllCommentNumberByAID(long aid);
 	
 }

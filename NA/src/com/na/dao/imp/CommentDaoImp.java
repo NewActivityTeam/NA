@@ -165,4 +165,24 @@ public class CommentDaoImp implements CommentDao {
 		return -1;
 	}
 
+	//按页码获取内容
+	@Override
+	public Object selectHqlByPage(String hql, int currentPage, int pageSize) {
+		List<Comment> list = null;
+		try {
+			Session session = sessionFactory.getCurrentSession();
+			if (!session.isOpen()) {
+				session = sessionFactory.openSession();
+			}
+			Query query =  session.createQuery(hql);
+			int startRow=(currentPage-1)*pageSize;
+			query.setFirstResult(startRow);
+			query.setMaxResults(pageSize);
+			list = query.list();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
 }

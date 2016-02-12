@@ -22,13 +22,14 @@ public class CommentServiceImp implements CommentService {
 
 	//创建评论
 	@Override
-	public int newComment(long uid, long aid, String content) {
+	public int newComment(long uid, long aid, String uname, String content) {
 		
 		int code = 13014;
 		
 		try {
 			Comment comment = new Comment();
 			comment.setUid(uid);
+			comment.setUname(uname);
 			comment.setAid(aid);
 			comment.setCreatetime(new Timestamp(new Date().getTime()));
 			comment.setContent(content);
@@ -102,7 +103,7 @@ public class CommentServiceImp implements CommentService {
 	@Override
 	public List<Comment> getAllCommentsByAID(long aid) {
 		
-		String hql = "from Comment where aid="+aid;
+		String hql = "from Comment where aid="+aid + "order by createtime desc";
 		try {
 			List<Comment> list = (List<Comment>) commentDao.selectHql(hql);
 			if (list!=null&&list.size()!=0) {
@@ -115,7 +116,14 @@ public class CommentServiceImp implements CommentService {
 
 		return null;
 	}
-
+	
+	//获取某活动所有评论个数
+	@Override
+	public int getAllCommentNumberByAID(long aid) {
+		String hql = "from Comment where aid="+aid;
+		List<Comment> list = (List<Comment>) commentDao.selectHql(hql);
+		return list.size();
+	}
 	//删除某活动所有评论
 	@Override
 	public boolean deleteAllCommentsByAID(long aid) {
@@ -151,5 +159,4 @@ public class CommentServiceImp implements CommentService {
 		
 		return false;
 	}
-	
 }
