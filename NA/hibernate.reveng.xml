@@ -9,16 +9,10 @@
 	</table>
 	<table name="tb_assess" class="com.na.entity.Assess"></table>
 	<table name="tb_comment" class="com.na.entity.Comment"></table>
-	<table name="tb_group_apply" class="com.na.entity.GroupApply">
-	</table>
+	<table name="tb_group_apply" class="com.na.entity.GroupApply"></table>
 	<table name="tb_group" class="com.na.entity.Group"></table>
 	<table name="tb_image" class="com.na.entity.Image"></table>
 	<table name="tb_participation" class="com.na.entity.PCP"></table>
 	<table name="tb_userinfo" class="com.na.entity.Userinfo"></table>
 	<table name="tb_vote" class="com.na.entity.Vote"></table>
-	<table name="tb_userinfo" class="com.na.entity.Userinfo"></table>
-	<table name="tb_userinfo" catalog="na"
-		class="com.na.entity.Userinfo">
-	</table>
-	<table name="tb_comment" catalog="na" class="com.na.entity.Comment"></table>
 </hibernate-reverse-engineering>

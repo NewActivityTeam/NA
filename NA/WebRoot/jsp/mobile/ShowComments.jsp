@@ -16,7 +16,7 @@
 	  			<p style="color: blue;">${comment.uname}</p>
 	  			<div style="margin-right: 2em; margin-left: 0.5em"><p  style="white-space:pre-wrap;">${comment.content}</p></div>
 
-				<span class="ui-li-count">
+				<div class="ui-li-count">
 					<c:if test="${(now-comment.createtime.getTime())/1000<3}">
 							刚刚
 					</c:if>
@@ -38,7 +38,7 @@
 					<c:if test="${(now-comment.createtime.getTime())/(1000*60*60*24*365)>1}">
 						${Math.round((now-comment.createtime.getTime())/(1000*60*60*24*365))}年前
 					</c:if>
-				</span>
+				</div>
   			</li>
   		</c:forEach>
   		

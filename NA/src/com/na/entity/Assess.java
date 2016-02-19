@@ -8,7 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 /**
- * Assess entity.
+ * Assess entity. @author MyEclipse Persistence Tools
  */
 @Entity
 @Table(name = "tb_assess")
@@ -20,6 +20,8 @@ public class Assess implements java.io.Serializable {
 	private Long uid;
 	private Long aid;
 	private Float grade;
+	private String comment;
+	private String imageurl;
 
 	// Constructors
 
@@ -27,11 +29,21 @@ public class Assess implements java.io.Serializable {
 	public Assess() {
 	}
 
-	/** full constructor */
+	/** minimal constructor */
 	public Assess(Long uid, Long aid, Float grade) {
 		this.uid = uid;
 		this.aid = aid;
 		this.grade = grade;
+	}
+
+	/** full constructor */
+	public Assess(Long uid, Long aid, Float grade, String comment,
+			String imageurl) {
+		this.uid = uid;
+		this.aid = aid;
+		this.grade = grade;
+		this.comment = comment;
+		this.imageurl = imageurl;
 	}
 
 	// Property accessors
@@ -71,6 +83,24 @@ public class Assess implements java.io.Serializable {
 
 	public void setGrade(Float grade) {
 		this.grade = grade;
+	}
+
+	@Column(name = "comment", length = 500)
+	public String getComment() {
+		return this.comment;
+	}
+
+	public void setComment(String comment) {
+		this.comment = comment;
+	}
+
+	@Column(name = "imageurl", length = 500)
+	public String getImageurl() {
+		return this.imageurl;
+	}
+
+	public void setImageurl(String imageurl) {
+		this.imageurl = imageurl;
 	}
 
 }

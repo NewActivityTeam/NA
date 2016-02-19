@@ -6,9 +6,15 @@ import com.na.entity.Assess;
 
 public interface AssessService {
 	
-	public int newAssess(long uid,long aid,float grade);
+	public int newAssess(long uid,long aid,float grade,String comment,String imageurl);
 	
-	public int updateGrade(long id,float newGrade);
+	public int newAssess(long uid,long aid,float grade,String comment);
+	
+	public int setImageURL(long uid,long aid,String newURL);
+	
+	public int updateGrade(long uid,long aid,float newGrade);
+	
+	public int updateComment(long uid,long aid,String newComment);
 	
 	public int deleteAssess(long id);
 	

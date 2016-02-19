@@ -234,6 +234,11 @@ public class UserTestController {
 		map.put("code", code);
 		return map;
 	}
-
+	//test
+	@RequestMapping("/test")
+	public String TestForm(HttpServletRequest request){
+		System.out.print(request.getParameter("content"));
+		return "TestFrom";
+	}
 
 }

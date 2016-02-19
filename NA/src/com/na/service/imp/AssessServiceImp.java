@@ -18,9 +18,9 @@ public class AssessServiceImp implements AssessService {
 	AssessDao assessDao;
 
 
-	//新的评分
+	//新的评分(无image)
 	@Override
-	public int newAssess(long uid, long aid, float grade) {
+	public int newAssess(long uid, long aid, float grade,String comment) {
 		
 		int code = 13114;
 		
@@ -29,6 +29,53 @@ public class AssessServiceImp implements AssessService {
 			assess.setUid(uid);
 			assess.setAid(aid);
 			assess.setGrade(grade);
+			assess.setComment(comment);
+			if (assessDao.insert(assess)) {
+				code = 13111;
+			}
+			else{
+				code = 13113;
+			}
+		} 
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		return code;
+	}
+	
+	//新的评分(有image)
+	@Override
+	public int newAssess(long uid, long aid, float grade,String comment,String imageURL) {
+		
+		int code = 13114;
+		
+		try {
+			Assess assess = new Assess();
+			assess.setUid(uid);
+			assess.setAid(aid);
+			assess.setGrade(grade);
+			assess.setComment(comment);
+			assess.setImageurl(imageURL);
+			if (assessDao.insert(assess)) {
+				code = 13111;
+			}
+			else{
+				code = 13113;
+			}
+		} 
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		return code;
+	}
+	
+	//设置图片地址
+	@Override
+	public int setImageURL(long uid,long aid, String newURL) {
+		int code = 13114;
+		try {
+			Assess assess = getAssess(uid, aid);
+			assess.setImageurl(newURL);
 			if (assessDao.insert(assess)) {
 				code = 13111;
 			}
@@ -42,14 +89,36 @@ public class AssessServiceImp implements AssessService {
 		return code;
 	}
 
-	//更新评分
+	//修改评论地址
 	@Override
-	public int updateGrade(long id, float newGrade) {
+	public int updateComment(long uid,long aid, String newComment) {
 		
 		int code = 13124;
 		
 		try {
-			Assess assess = assessDao.getAssess(id);
+			Assess assess = getAssess(uid, aid);
+			assess.setComment(newComment);
+			if (assessDao.update(assess)) {
+				code = 13121;
+			}
+			else{
+				code = 13123;
+			}
+		} 
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		return code;
+	}
+	
+	//更新评分
+	@Override
+	public int updateGrade(long uid,long aid, float newGrade) {
+		
+		int code = 13124;
+		
+		try {
+			Assess assess = getAssess(uid, aid);
 			assess.setGrade(newGrade);
 			if (assessDao.update(assess)) {
 				code = 13121;
@@ -122,7 +191,6 @@ public class AssessServiceImp implements AssessService {
 		catch (Exception e) {
 			e.printStackTrace();
 		}
-		
 		return null;
 	}
 
@@ -200,6 +268,7 @@ public class AssessServiceImp implements AssessService {
 		
 		return false;
 	}
+
 	
 	
 }
