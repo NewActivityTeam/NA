@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.na.entity.Userinfo;
 import com.na.service.PCPService;
@@ -58,5 +59,11 @@ public class UserController {
 		map.put("code", code);
 		request.setAttribute("map", map);
 		return "/jsp/PartiInfo";
+	}
+	
+	@RequestMapping(value = "/upload",method = RequestMethod.POST)
+	public String upload(HttpServletRequest request){
+		System.out.println("hello");
+		return "";
 	}
 }

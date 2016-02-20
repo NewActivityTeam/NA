@@ -40,7 +40,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     					<c:set var="now" value="<%=new Timestamp(System.currentTimeMillis())%>"/>
     					<c:if test="${activity.endtime <= now}">
     						<li>
-    							<a href="#">评论活动</a>
+    							<a data-ajax="false" href="${pageContext.request.contextPath}/jsp/mobile/ActivityScore.jsp?title=${activity.title}&aid=${activity.id}">评论活动</a>
     						</li>
     					</c:if>
     				</ul>

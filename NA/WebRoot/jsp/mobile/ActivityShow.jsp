@@ -13,7 +13,8 @@
 	<script src="${pageContext.request.contextPath}/js/jquery.mobile-1.4.5/jquery.mobile-1.4.5.min.js"></script>
   	<script>
   		$(document).on("pagecreate",function(){
-  			$("#content").load("${pageContext.request.contextPath}/test/activity/activity_show?aid="+<c:out value="${activity.id}"></c:out>);
+  		
+  			$("#content").load("/test/activity/activity_show?aid="+<c:out value="${activity.id}"></c:out>);
   			$("#comment").load("${pageContext.request.contextPath}/test/comment/show?display=mobile&aid="+<c:out value="${activity.id}"></c:out>);
   			$("#subComment").on("click",function(){
   				var content = $("#commentContent").val();

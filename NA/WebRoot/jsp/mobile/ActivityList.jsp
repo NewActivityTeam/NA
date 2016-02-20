@@ -18,6 +18,21 @@
 	<script src="${pageContext.request.contextPath}/js/jquery.mobile-1.4.5/jquery.mobile-1.4.5.min.js"></script>
   	<script>
   	</script>
+  	<div>
+  		<form action="echo.cfm" method="post">  
+			<table>
+				<tr>
+					<td>
+						<input type="search" name="name" id="name" value="" placeholder="Search Activity"/>  
+					</td>
+					<td>
+						<input type="submit" name="submit" value="搜索" style="height:30px;"/>
+					</td>
+				</tr>
+			</table>          
+		</form> 
+  	</div>
+  	
   	<ul data-role="listview">
   	<c:if test="${code==90161}">
 	  	<c:if test="${list!=null}">
