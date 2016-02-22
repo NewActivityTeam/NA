@@ -17,6 +17,66 @@
 			pullDownEl, pullDownOffset,
 			pullUpEl, pullUpOffset,
 			generatedCount = 0;
+		function reloadContent(){
+			$.ajax({
+						url : "${pageContext.request.contextPath}/test/comment/showMore",
+						type: "POST",
+	  					data: {
+	  						aid : ${aid},
+	  						page: 1
+	  					},
+	  					dataType: "json",
+	  					success : function(data){
+	  						content="";
+	  						if(data.code%10==1){
+	  							for(var i=0;i<data.comments.length;i++){
+	  								var now = Date.parse(new Date()); 
+	  								var time = "";
+	  								if ((now-data.comments[i].createtime)/1000<=3){
+	  									time = "刚刚";
+	  								}
+	  								else if((now-data.comments[i].createtime)/1000<=60){
+	  									time = parseInt((now-data.comments[i].createtime)/1000)+"秒前";
+	  								}
+	  								else if((now-data.comments[i].createtime)/(1000*60)<=60){
+	  									time =parseInt((now-data.comments[i].createtime)/(1000*60))+"分前";
+	  								}
+	  								else if((now-data.comments[i].createtime)/(1000*60*60)<=24){
+	  									time =parseInt((now-data.comments[i].createtime)/(1000*60*60))+"小时前";
+	  								}
+	  								else if((now-data.comments[i].createtime)/(1000*60*60*24)<=30){
+	  									time =parseInt((now-data.comments[i].createtime)/(1000*60*60*24))+"天前";
+	  								}
+	  								else if((now-data.comments[i].createtime)/(1000*60*60*24)<=365){
+	  									time =parseInt((now-data.comments[i].createtime)/(1000*60*60*24*30))+"月前";
+	  								}
+	  								else if((now-data.comments[i].createtime)/(1000*60*60*24*365)>1){
+	  									time =parseInt((now-data.comments[i].createtime)/(1000*60*60*24*30*365))+"年前";
+	  								}
+	  								content+=
+	  								'<li data-icon="false" >'+
+		               				'<p style="color: blue;">'+data.comments[i].uname+'</p>'+
+		                			'<div style="margin-right: 2em; margin-left: 0.5em"><p  style="white-space:pre-wrap;">'+replace_em(data.comments[i].content)+'</p></div>'+
+		                			'<div class="ui-li-count">'+time+'</div>'+
+		                			'</li>';
+	  							}
+	  							$("#commentlist").html(content);
+	  							var title='<li data-role="list-divider">评论</li>';
+				                $("#commentlist").prepend(title);
+				                $("ul").listview("refresh");
+				                myScroll.refresh();	
+	  						}
+	  						else{
+	  							alert("失败了");
+	  						}
+	  					},
+	  					error : function(){
+	  						alert("AJAX失败");
+	  					}
+				});
+				 
+				myScroll.refresh();
+		}
 		//加载完毕
 		function loadover(){  
 		    if(sover==1)  
@@ -55,64 +115,7 @@
 			var content="";
 		function pullDownAction () {
 			setTimeout(function () {  
-		         /*$.ajax({
-						url : "${pageContext.request.contextPath}/test/comment/showMore",
-						type: "POST",
-	  					data: {
-	  						aid : ${aid},
-	  						page: 1
-	  					},
-	  					dataType: "json",
-	  					success : function(data){
-	  						content="";
-	  						if(data.code%10==1){
-	  							for(var i=0;i<data.comments.length;i++){
-	  								var now = Date.parse(new Date()); 
-	  								var time = "";
-	  								if ((now-data.comments[i].createtime)/1000<=3){
-	  									time = "刚刚";
-	  								}
-	  								else if((now-data.comments[i].createtime)/1000<=60){
-	  									time = parseInt((now-data.comments[i].createtime)/1000)+"秒前";
-	  								}
-	  								else if((now-data.comments[i].createtime)/(1000*60)<=60){
-	  									time =parseInt((now-data.comments[i].createtime)/(1000*60))+"分前";
-	  								}
-	  								else if((now-data.comments[i].createtime)/(1000*60*60)<=24){
-	  									time =parseInt((now-data.comments[i].createtime)/(1000*60*60))+"小时前";
-	  								}
-	  								else if((now-data.comments[i].createtime)/(1000*60*60*24)<=30){
-	  									time =parseInt((now-data.comments[i].createtime)/(1000*60*60*24))+"天前";
-	  								}
-	  								else if((now-data.comments[i].createtime)/(1000*60*60*24)<=365){
-	  									time =parseInt((now-data.comments[i].createtime)/(1000*60*60*24*30))+"月前";
-	  								}
-	  								else if((now-data.comments[i].createtime)/(1000*60*60*24*365)>1){
-	  									time =parseInt((now-data.comments[i].createtime)/(1000*60*60*24*30*365))+"年前";
-	  								}
-	  								content+=
-	  								'<li data-icon="false" >'+
-		               				'<p style="color: blue;">'+data.comments[i].uname+'</p>'+
-		                			'<div style="margin-right: 2em; margin-left: 0.5em"><p  style="white-space:pre-wrap;">'+data.comments[i].content+'</p></div>'+
-		                			'<div class="ui-li-count">'+time+'</div>'+
-		                			'</li>';
-	  							}
-	  							$("#commentlist").html(content);
-	  							var title='<li data-role="list-divider">评论</li>';
-				                $("#commentlist").prepend(title);
-				                $("ul").listview("refresh");
-				                myScroll.refresh();	
-	  						}
-	  						else{
-	  							alert("失败了");
-	  						}
-	  					},
-	  					error : function(){
-	  						alert("AJAX失败");
-	  					}
-				});
-				 
-				myScroll.refresh();	*/	//数据加载完成后，调用界面更新方法   Remember to refresh when contents are loaded (ie: on ajax completion)
+		         /*	*/	//数据加载完成后，调用界面更新方法   Remember to refresh when contents are loaded (ie: on ajax completion)
 				window.location.reload();
 			}, 1000);
 		}
@@ -166,7 +169,7 @@
 	  								content+=
 	  								'<li data-icon="false" >'+
 		               				'<p style="color: blue;">'+data.comments[i].uname+'</p>'+
-		                			'<div style="margin-right: 2em; margin-left: 0.5em"><p  style="white-space:pre-wrap;">'+data.comments[i].content+'</p></div>'+
+		                			'<div style="margin-right: 2em; margin-left: 0.5em"><p  style="white-space:pre-wrap;">'+replace_em(data.comments[i].content)+'</p></div>'+
 		                			'<div class="ui-li-count">'+time+'</div>'+
 		                			'</li>';
 	  							}
@@ -257,6 +260,13 @@
 		$(document).ready(function(){
 			setScroll();
 		});
+		function replace_em(str){
+			str = str.replace(/\</g,'&lt;');
+			str = str.replace(/\>/g,'&gt;');
+			str = str.replace(/\n/g,'<br/>');
+			str = str.replace(/\[em_([0-9]*)\]/g,'<img src="${pageContext.request.contextPath}/img/inputFace/face/$1.gif" border="0" />');
+			return str;
+		}
 	</script>
 	<style type="text/css" media="all">
 		/*需要修改的jquery mobile样式  */
@@ -341,7 +351,7 @@
 			  	<ul data-role="listview" data-inset="true" id="commentlist" style="margin-bottom: 0em">
 			  	  	 <li data-role="list-divider">评论</li>
 			  	<c:if test="${code%10==1}">
-			  		<c:forEach var="comment" items="${comments}">
+			  		<!--<c:forEach var="comment" items="${comments}">
 			  			<li data-icon="false" >
 				  			<p style="color: blue;">${comment.uname}</p>
 				  			<div style="margin-right: 2em; margin-left: 0.5em"><p  style="white-space:pre-wrap;">${comment.content}</p></div>
@@ -370,7 +380,10 @@
 								</c:if>
 							</div>
 			  			</li>
-			  		</c:forEach>
+			  		</c:forEach>-->
+			  		<script type="text/javascript">
+			  			reloadContent();
+			  		</script>
 			  	</c:if>
 				
 			  	<c:if test="${code%10!=1}">

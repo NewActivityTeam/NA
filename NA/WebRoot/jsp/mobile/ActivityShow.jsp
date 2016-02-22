@@ -11,11 +11,23 @@
   	<link rel="stylesheet" href="${pageContext.request.contextPath}/js/jquery.mobile-1.4.5/jquery.mobile-1.4.5.min.css">
   	<script src="${pageContext.request.contextPath}/js/jQuery/jquery-1.12.0.min.js"></script>
 	<script src="${pageContext.request.contextPath}/js/jquery.mobile-1.4.5/jquery.mobile-1.4.5.min.js"></script>
+  	<script src="${pageContext.request.contextPath}/js/jquery.qqFace.js"></script>
+  	<!-- 页面相关js -->
   	<script>
-  		$(document).on("pagecreate",function(){
   		
-  			$("#content").load("${pageContext.request.contextPath}/test/activity/activity_show?aid="+<c:out value="${activity.id}"></c:out>);
-  			$("#comment").load("${pageContext.request.contextPath}/test/comment/showDemo?display=mobile&aid="+<c:out value="${activity.id}"></c:out>);
+  		function setFace(){
+			$(".emotion").qqFace({
+			id : "facebox", //表情盒子的ID
+			assign : "commentContent", //给那个控件赋值
+			path : "${pageContext.request.contextPath}/img/inputFace/face/"	//表情存放的路径
+			});
+		}
+		$(document).on("pageinit",function(){
+  			setFace();
+  		});
+  		$(document).on("pagecreate",function(){
+  			$("#content").load("${pageContext.request.contextPath}/test/activity/activity_show?aid=${activity.id}");
+  			$("#comment").load("${pageContext.request.contextPath}/test/comment/showDemo?display=mobile&aid=${activity.id}");
   			$("#subComment").on("click",function(){
   				var content = $("#commentContent").val();
   				if(content!=""){
@@ -30,7 +42,7 @@
 	  					success : function(data){
 	  						if(data.code%10==1){
 	  							//alert("成功了");
-	  							$("#comment").load("${pageContext.request.contextPath}/test/comment/show?display=mobile&aid="+<c:out value="${activity.id}"></c:out>);
+	  							$("#comment").load("${pageContext.request.contextPath}/test/comment/showDemo?display=mobile&aid=${activity.id}");
 	  						}
 	  						else{
 	  							alert("失败了");
@@ -83,9 +95,22 @@
   					}
   				});
   			});
-  			
+
   		});
+  		
   	</script>
+  	<!-- 表情相关js -->
+  	<script>
+	</script>
+	<style>
+		span.emotion{width:42px; height:20px; background:url(${pageContext.request.contextPath}/img/inputFace/icon.gif) no-repeat 2px 2px; padding-left:20px; cursor:pointer}
+		span.emotion:hover{background-position:2px -28px}
+		.qqFace{margin-top:4px;background:#fff;padding:2px;border:1px #dfe6f6 solid;}
+		.qqFace table td{padding:0px;}
+		.qqFace table td img{cursor:pointer;border:1px #fff solid;}
+		.qqFace table td img:hover{border:1px #0066cc solid;}
+	</style>
+  
   </head>
   <body>
 	  <div data-role="page">
@@ -95,9 +120,10 @@
 	  </div>
 	
 	  <div data-role="content" id="content" class="ui-content"></div>
-	  <div data-role="content" id="comment" class="ui-content"></div>
-	  <div data-role="content" id="input" class="ui-content">
-	  	  <textarea id="commentContent" rows="5" style="margin-bottom: 0.5em;" maxlength="200" placeholder="请在此输入评论内容，自动调整行数，评论不超过200字符"></textarea>
+	  <div id="comment"></div>
+	  <div  id="input" >
+	  	  <textarea id="commentContent" class="input" rows="5" style="margin-bottom: 0.5em;" maxlength="200" placeholder="请在此输入评论内容，自动调整行数，评论不超过200字符"></textarea>
+	  	  <span class="emotion">表情</span>
 	  	  <a id="subComment" data-role="button" style="width: 3em;float: right; margin-top: 0em">提交</a>
 	  </div>
 
