@@ -27,7 +27,7 @@
 						${Math.round((now-comment.createtime.getTime())/(1000*60))}分前
 					</c:if>
 					<c:if test="${(now-comment.createtime.getTime())/(1000*60*60)>1&&(now-comment.createtime.getTime())/(1000*60*60)<24}">
-						${Math.round((now-comment.createtime.getTime())/(1000*60*24))}小时前
+						${Math.round((now-comment.createtime.getTime())/(1000*60*60))}小时前
 					</c:if>
 					<c:if test="${(now-comment.createtime.getTime())/(1000*60*60*24)>1&&(now-comment.createtime.getTime())/(1000*60*60*24)<30}">
 						${Math.round((now-comment.createtime.getTime())/(1000*60*60*24))}天前
@@ -41,7 +41,9 @@
 				</div>
   			</li>
   		</c:forEach>
-  		
+  		<li data-icon="false" >
+  			<a data-ajax="false" href="${pageContext.request.contextPath}/test/comment/showAll?display=mobile&aid=${aid}" style="text-align: center;">查看全部评论</a>
+  		</li>
   	</c:if>
 
   	<c:if test="${code%10!=1}">

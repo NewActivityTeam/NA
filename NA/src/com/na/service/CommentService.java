@@ -22,4 +22,7 @@ public interface CommentService {
 	
 	public int getAllCommentNumberByAID(long aid);
 	
+	public List<Comment> getAllCommentsByPage(long aid,int currentPage,int pageSize);
+	
+	
 }

@@ -14,8 +14,8 @@
   	<script>
   		$(document).on("pagecreate",function(){
   		
-  			$("#content").load("/test/activity/activity_show?aid="+<c:out value="${activity.id}"></c:out>);
-  			$("#comment").load("${pageContext.request.contextPath}/test/comment/show?display=mobile&aid="+<c:out value="${activity.id}"></c:out>);
+  			$("#content").load("${pageContext.request.contextPath}/test/activity/activity_show?aid="+<c:out value="${activity.id}"></c:out>);
+  			$("#comment").load("${pageContext.request.contextPath}/test/comment/showDemo?display=mobile&aid="+<c:out value="${activity.id}"></c:out>);
   			$("#subComment").on("click",function(){
   				var content = $("#commentContent").val();
   				if(content!=""){
@@ -35,7 +35,6 @@
 	  						else{
 	  							alert("失败了");
 	  						}
-	  					
 	  					},
 	  					error : function(){
 	  						alert("AJAX失败");

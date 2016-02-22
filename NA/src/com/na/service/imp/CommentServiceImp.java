@@ -117,13 +117,6 @@ public class CommentServiceImp implements CommentService {
 		return null;
 	}
 	
-	//获取某活动所有评论个数
-	@Override
-	public int getAllCommentNumberByAID(long aid) {
-		String hql = "from Comment where aid="+aid;
-		List<Comment> list = (List<Comment>) commentDao.selectHql(hql);
-		return list.size();
-	}
 	//删除某活动所有评论
 	@Override
 	public boolean deleteAllCommentsByAID(long aid) {
@@ -146,7 +139,7 @@ public class CommentServiceImp implements CommentService {
 	@Override
 	public boolean deleteAllCommentsByUID(long uid) {
 
-		String hql = "from Comment where uid="+uid;
+		String hql = "from Comment where uid="+uid ;
 		
 		try {
 			if(commentDao.otherHql(hql)!=-1){
@@ -158,5 +151,25 @@ public class CommentServiceImp implements CommentService {
 		}
 		
 		return false;
+	}
+
+	//获取某活动所有评论个数
+	@Override
+	public int getAllCommentNumberByAID(long aid) {
+		String hql = "from Comment where aid="+aid;
+		List<Comment> list = (List<Comment>) commentDao.selectHql(hql);
+		return list.size();
+	}
+	
+	//分页获取所有活动
+	@Override
+	public List<Comment> getAllCommentsByPage(long aid, int currentPage,
+			int pageSize) {
+		String hql = "from Comment where aid ="+aid + "order by createtime desc";;
+		List<Comment> list = (List<Comment>) commentDao.selectHqlByPage(hql, currentPage, pageSize);
+		if (list.size()!=0) {
+			return list;
+		}
+		return null;
 	}
 }
