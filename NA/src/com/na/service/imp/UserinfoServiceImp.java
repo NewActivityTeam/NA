@@ -1,6 +1,8 @@
 package com.na.service.imp;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -295,5 +297,48 @@ public class UserinfoServiceImp implements UserinfoService {
 			return list;
 		}
 		return null;
+	}
+
+	@Override
+	public int banUser(long uid, int bandays) {
+		int code = 70024;
+		try{
+			Userinfo userinfo = userinfoDao.getUserinfo(uid);
+			userinfo.setBandays(bandays);
+			userinfo.setBantime(new Timestamp(new Date().getTime()));
+			if(userinfoDao.update(userinfo)){
+				code = 70021;
+			}
+			else {
+				code = 70023;
+			}
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}
+		return code;
+	}
+
+	@Override
+	public boolean testBan(long uid) {
+		try {
+			Userinfo userinfo = userinfoDao.getUserinfo(uid);
+			if (userinfo.getBantime()!= null) {
+				long bantime = userinfo.getBantime().getTime();
+				long now = System.currentTimeMillis();
+				int bandays = userinfo.getBandays();
+				if (((now-bantime)/(1000*86400))<=bandays) {
+					return true;
+				}
+				else {
+					userinfo.setBantime(null);
+					userinfo.setBandays(null);
+					userinfoDao.update(userinfo);
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return false;
 	}
 }

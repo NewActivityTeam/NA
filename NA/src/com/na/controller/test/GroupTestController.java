@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.fasterxml.jackson.annotation.JsonTypeInfo.Id;
 import com.na.entity.Activity;
 import com.na.entity.Group;
+import com.na.entity.PCP;
 import com.na.entity.Userinfo;
 import com.na.entity.nodb.ReturnInfo;
 import com.na.service.ActivityService;
@@ -202,5 +203,63 @@ public class GroupTestController {
 		map.put("code", code);
 		map.put("list", returnList);
 		return map;
+	}
+
+	//显示我的分组
+	@RequestMapping("showinfo")
+	public String MyGroupinfo(HttpServletRequest request){
+		int code = 91115;
+		String display = request.getParameter("display");
+		try {
+			long aid = Long.parseLong(request.getParameter("aid"));
+			long uid = (long) request.getSession().getAttribute("uid");
+			PCP pcp = pcpService.getPcp(uid, aid);
+			if (pcp.getGroupid()!=null) {
+				Group group = groupService.getGroup(pcp.getGroupid());
+				request.setAttribute("group", group);
+				if (group.getLeader()!=null) {
+					Userinfo leader = userinfoService.getUserinfo(group.getLeader());
+					request.setAttribute("leader", leader);
+				}
+				int count = pcpService.getGroupCount(pcp.getGroupid());
+				request.setAttribute("count", count);
+				List<Long> list = pcpService.getUIDsByGID(pcp.getGroupid());
+				if (list!=null&&list.size()!=0) {
+					long []ids = new long[list.size()];
+					for (int i = 0; i < list.size(); i++) {
+						ids[i] = list.get(i);
+					}
+					List<Userinfo> userinfos = userinfoService.getUserinfos(ids);
+					request.setAttribute("userinfos", userinfos);
+					code = 91111;
+				}
+			}
+			else {
+				code = 91112;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		request.setAttribute("code", code);
+		if (display!=null&&display.equals("mobile")) {
+			return "jsp/mobile/MyGroupInfo";
+		}
+		return "";
+	}
+	//显示我的分组列表
+	@RequestMapping("showlist")
+	public String MyGroupList(HttpServletRequest request){
+		int code = 91125;
+		String display = request.getParameter("display");
+		try {
+			long uid = (long) request.getSession().getAttribute("uid");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		request.setAttribute("code", code);
+		if (display!=null&&display.equals("mobile")) {
+			return "jsp/mobile/MyGroupList";
+		}
+		return "";
 	}
 }

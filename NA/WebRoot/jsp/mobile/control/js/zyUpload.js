@@ -20,7 +20,7 @@
 					height           : "400px",  					// 宽度
 					itemWidth        : "140px",                     // 文件项的宽度
 					itemHeight       : "120px",                     // 文件项的高度
-					url              : "/NA/test/comment/uploadImage",  	// 上传文件的路径
+					url              : "/NA/test/assess/uploadImage",  	// 上传文件的路径
 					multiple         : true,  						// 是否可以多个文件上传
 					dragDrop         : true,  						// 是否可以拖动上传文件
 					del              : true,  						// 是否可以删除文件
@@ -151,6 +151,7 @@
 			this.funFilterEligibleFile = function(files){
 				var arrFiles = [];  // 替换的文件数组
 				for (var i = 0, file; file = files[i]; i++) {
+					alert(file.name);
 					if (file.size >= 51200000) {
 						alert('您这个"'+ file.name +'"文件大小过大');	
 					} else {

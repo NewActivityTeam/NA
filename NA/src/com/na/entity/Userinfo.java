@@ -1,5 +1,6 @@
 package com.na.entity;
 
+import java.sql.Timestamp;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -24,6 +25,8 @@ public class Userinfo implements java.io.Serializable {
 	private Integer sex;
 	private String phonenumber;
 	private String email;
+	private Timestamp bantime;
+	private Integer bandays;
 
 	// Constructors
 
@@ -39,7 +42,7 @@ public class Userinfo implements java.io.Serializable {
 	/** full constructor */
 	public Userinfo(Long uid, String ybaccount, Integer authority, String name,
 			Float height, Float weight, Integer age, Integer sex,
-			String phonenumber, String email) {
+			String phonenumber, String email, Timestamp bantime, Integer bandays) {
 		this.uid = uid;
 		this.ybaccount = ybaccount;
 		this.authority = authority;
@@ -50,6 +53,8 @@ public class Userinfo implements java.io.Serializable {
 		this.sex = sex;
 		this.phonenumber = phonenumber;
 		this.email = email;
+		this.bantime = bantime;
+		this.bandays = bandays;
 	}
 
 	// Property accessors
@@ -142,6 +147,24 @@ public class Userinfo implements java.io.Serializable {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	@Column(name = "bantime", length = 19)
+	public Timestamp getBantime() {
+		return this.bantime;
+	}
+
+	public void setBantime(Timestamp bantime) {
+		this.bantime = bantime;
+	}
+
+	@Column(name = "bandays")
+	public Integer getBandays() {
+		return this.bandays;
+	}
+
+	public void setBandays(Integer bandays) {
+		this.bandays = bandays;
 	}
 
 }

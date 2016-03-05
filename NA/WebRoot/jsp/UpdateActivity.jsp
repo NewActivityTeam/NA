@@ -222,7 +222,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			id="createTime" style="display:none;" /> <input type="hidden"
 			name="manager" id="manager" value="1">
 		<center>
-			<input type="submit" id="sub" class="btn btn-info" value="更新活动">
+			<input type="button" id="sub" class="btn btn-info" value="更新活动">
 		</center>
 	</form>
 

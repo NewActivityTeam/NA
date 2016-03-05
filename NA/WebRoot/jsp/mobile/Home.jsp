@@ -5,7 +5,7 @@
 <html>
   <head>
   	<title>轻活动</title>
-  	<meta charset="UTF-8">
+  	<meta charset="UTF-8" >
 	<meta name="viewport" content="width=device-width, initial-scale=1">
   	<link rel="stylesheet" href="${pageContext.request.contextPath}/js/jquery.mobile-1.4.5/jquery.mobile-1.4.5.min.css">
   	<script src="${pageContext.request.contextPath}/js/jQuery/jquery-1.12.0.min.js"></script>
@@ -24,7 +24,7 @@
   </head>
   <body>
 
-	  <div data-role="page">
+	  <div data-role="page"   data-theme="b">
 		  <div data-role="header" data-position="fixed">
 		  	<a data-ajax="false" data-role="button" data-rel="back" data-icon="delete">关闭</a>
 			   	<h1>轻活动</h1>

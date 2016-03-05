@@ -187,6 +187,7 @@ public class UserTestController {
 		map.put("code", code);
 		return map;
 	}
+	//保存用户信息
 	@ResponseBody
 	@RequestMapping("/saveinfo")
 	public Map<String, Integer> saveUserinfo(HttpServletRequest request){
@@ -222,6 +223,9 @@ public class UserTestController {
 				if (userinfoService.getUserinfo(uid).getSex()==null) {
 					code = 14016;
 				}
+				else if (userinfoService.testBan(uid)) {
+					code = 14019;
+				}
 				else{
 					long aid = Long.parseLong(request.getParameter("aid"));
 					code = pcpService.newPCP(uid, aid);
@@ -241,4 +245,26 @@ public class UserTestController {
 		return "TestFrom";
 	}
 
+	/***
+	 * 
+	 * @param request
+	 * uid		被ban用户ID
+	 * bandays	禁止天数
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping("/banuser")
+	public Map<String, Object> BanUser(HttpServletRequest request){
+		Map<String, Object> map = new HashMap<String, Object>();
+		int code = 70015;
+		try {
+			long uid = Long.parseLong(request.getParameter("uid"));
+			int bandays = Integer.parseInt(request.getParameter("bandays"));
+			code = userinfoService.banUser(uid, bandays);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		map.put("code", code);
+		return map;
+	}
 }

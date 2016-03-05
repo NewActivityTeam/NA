@@ -1,6 +1,6 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<meta charset="UTF-8">
+	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
   	<link rel="stylesheet" href="${pageContext.request.contextPath}/js/jquery.mobile-1.4.5/jquery.mobile-1.4.5.min.css">
   	<script src="${pageContext.request.contextPath}/js/jQuery/jquery-1.8.3.min.js"></script>
@@ -25,6 +25,7 @@
 	
 	<ui data-role="listview" data-inset="true">
   	  	 <li data-role="list-divider">评论</li>
+  	  	 <c:set var="now" value="<%=System.currentTimeMillis()%>"></c:set>
   	<c:if test="${code%10==1}">
   		<c:forEach var="comment" items="${comments}">
   			<li data-icon="false" >

@@ -68,19 +68,24 @@
   					dataType : "json",
   					success : function(data){
   						if(data.code!=null){
-  							if(data.code==14011){
+  							if(data.code%10==1){
   								$("#toset").hide();
   								$("#messageConent").text("参与成功");
   								$("#messageBox").popup("open");
   							}
-  							else if(data.code==14012){
+  							else if(data.code%10==2){
   								$("#toset").hide();
   								$("#messageConent").text("您已参与或该活动，无需重复参加");
   								$("#messageBox").popup("open");
   							}
-  							else if(data.code==14016){
+  							else if(data.code%10==6){
   								$("#messageConent").text("您尚未填写个人信息，请完善个人信息后参与活动");
   								$("#toset").show();
+  								$("#messageBox").popup("open");
+  							}
+  							else if(data.code%10==9){
+  								$("#toset").hide();
+  								$("#messageConent").text("您暂时被管理员禁止参与活动，参与失败");
   								$("#messageBox").popup("open");
   							}
   							else{

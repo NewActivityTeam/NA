@@ -24,11 +24,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     		<h1>信息设置</h1>
     	</div>
     	<div data-role="content">
-    		<ul data-role="listview">
+    		<ul data-role="listview" data-inset="true">
     			<li><a href="${pageContext.request.contextPath}/test/user/getuserinfo?display=mobile">用户信息</a></li>
     			<li><a href="${pageContext.request.contextPath}/test/user/getJoinedActivities?display=mobile">我的活动</a></li>
-    			<li><a href="#">我的小组</a></li>
-    			<li><a href="${pageContext.request.contextPath}/test/user//setuserinfo?display=mobile">设置</a></li>
+    			<li><a href="${pageContext.request.contextPath}/test/group/showinfo?display=mobile">我的小组</a></li>
+    			<li><a href="${pageContext.request.contextPath}/test/user/setuserinfo?display=mobile">设置</a></li>
     		</ul>
     	</div>
     </div>
