@@ -24,7 +24,7 @@
   </head>
   <body>
 
-	  <div data-role="page"   data-theme="b">
+	  <div data-role="page">
 		  <div data-role="header" data-position="fixed">
 		  	<a data-ajax="false" data-role="button" data-rel="back" data-icon="delete">关闭</a>
 			   	<h1>轻活动</h1>

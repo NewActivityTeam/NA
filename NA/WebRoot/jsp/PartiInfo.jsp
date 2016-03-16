@@ -3,11 +3,11 @@
 <%
 	String path = request.getContextPath();
 	String basePath = request.getScheme() + "://"
-			+ request.getServerName() + ":" + request.getServerPort()
-			+ path + "/";
+	+ request.getServerName() + ":" + request.getServerPort()
+	+ path + "/";
 %>
 
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!DOCTYPE>
 <html>
 <head>
 <base href="<%=basePath%>">
@@ -22,6 +22,8 @@
 <!--
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	-->
+	<script src="${pageContext.request.contextPath}/js/jQuery/jquery-1.12.0.min.js"></script>
+	
 <style type="text/css">
 .content {
 	margin-right: auto;
@@ -35,75 +37,20 @@ th {
 	align: center;
 	text-align: center;
 }
+
 .tcdPageCode {
 	padding: 15px 20px;
 	text-align: left;
 	color: #ccc;
 }
+.nameu,.sexu,.heightu,.weightu,.ageu,.phoneu,.emailu{
+	display: none;
+}
 </style>
 
 
-
-</head>
-
-<body>
-	<div class="content">
-
-		<table width="100%" border="1px" style="text-align: center;">
-			<tr>
-				<th>序号</th>
-				<th>姓名</th>
-				<th>性别</th>
-				<th>身高</th>
-				<th>体重</th>
-				<th>年龄</th>
-				<th>手机号</th>
-				<th>Email</th>
-			</tr>
-
-			<%
-				int i = 1;
-			%>
-			<%
-				Object p = request.getAttribute("map");
-				//request.setAttribute("map", p);
-				if (p == null) {
-					//	System.out.println("没数据");
-				} else {
-					Map map = (Map) p;
-					List<Userinfo> list = (List<Userinfo>) map.get("list");
-					if (list == null) {
-					} else {
-						for (Userinfo userinfo : list) {
-						
-			%>
-
-			<tr>
-				<td><%=i++%></td>
-				<td><%=userinfo.getName()%></td>
-				<td><%=userinfo.getSex()%></td>
-				<td><%=userinfo.getHeight()%></td>
-				<td><%=userinfo.getWeight()%></td>
-				<td><%=userinfo.getAge()%></td>
-				<td><%=userinfo.getPhonenumber()%></td>
-				<td><%=userinfo.getEmail()%></td>
-			</tr>
-
-			<%
-				}
-					}
-				}
-			%>
-			<tr>
-				<td colspan="8">
-					<div class="tcdPageCode"></div>
-				</td>
-			</tr>
-		</table>
-	</div>
-	
-	<script>
-		var current =
+	<script type="text/javascript">
+		<%-- var current =
 	<%=request.getAttribute("current")%>
 		;
 		var method = $('#func').val();
@@ -121,10 +68,119 @@ th {
 			backFn : function(p) {
 				console.log(p);
 			}
+		}); --%>
+
+		$(function() {
+	
+			$("#btncheck").on('click',function() {
+				if ($("#uname").prop('checked')) {
+					$('.nameu').show();
+				} else {
+					$('.nameu').hide();
+				}
+				if($("#usex").prop('checked')){
+					$('.sexu').show();
+				}else{
+					$('.sexu').hide();
+				}
+				
+				if($("#uheight").prop('checked')){
+					$('.heightu').show();
+				}else{
+					$('.heightu').hide();
+				}
+				
+				if($("#uweight").prop('checked')){
+					$('.weightu').show();
+				}else{
+					$('.weightu').hide();
+				}
+				
+				if($("#uage").prop('checked')){
+					$('.ageu').show();
+				}else{
+					$('.ageu').hide();
+				}
+				
+				if($("#uphone").prop('checked')){
+					$('.phoneu').show();
+				}else{
+					$('.phoneu').hide();
+				}
+				
+				if($("#uemail").prop('checked')){
+					$('.emailu').show();
+				}else{
+					$('.emailu').hide();
+				}
+			});
 		});
-		function oncli() {
-			
-		}
 	</script>
+</head>
+
+<body>
+	<div class="content">
+		<label><input id="uname" type="checkbox" />姓名</label> <label><input
+			id="usex" type="checkbox" />性别</label> <label><input id="uheight"
+			type="checkbox" />身高</label> <label><input id="uweight"
+			type="checkbox" />体重</label> <label><input id="uage" type="checkbox" />年龄</label>
+		<label><input id="uphone" type="checkbox" />手机</label> <label><input
+			id="uemail" type="checkbox" />Email</label>
+		<button id="btncheck">确定</button>
+
+
+		<table width="100%" border="1px" style="text-align: center;">
+			<tr>
+				<th >序号</th>
+				<th class="nameu">姓名</th>
+				<th class="sexu">性别</th>
+				<th class="heightu">身高</th>
+				<th class="weightu">体重</th>
+				<th class="ageu">年龄</th>
+				<th class="phoneu">手机号</th>
+				<th class="emailu">Email</th>
+			</tr>
+
+			<%
+				int i = 1;
+			%>
+			<%
+				Object p = request.getAttribute("map");
+						//request.setAttribute("map", p);
+						if (p == null) {
+							//	System.out.println("没数据");
+						} else {
+							Map map = (Map) p;
+							List<Userinfo> list = (List<Userinfo>) map.get("list");
+							if (list == null) {
+							} else {
+								for (Userinfo userinfo : list) {
+			%>
+
+			<tr>
+				<td><%=i++%></td>
+				<td class="nameu" style="display: none;"><%=userinfo.getName()%></td>
+				<td class="sexu" style="display: none;"><%=userinfo.getSex()%></td>
+				<td class="heightu" style="display: none;"><%=userinfo.getHeight()%></td>
+				<td class="weightu" style="display: none;"><%=userinfo.getWeight()%></td>
+				<td class="ageu" style="display: none;"><%=userinfo.getAge()%></td>
+				<td class="phoneu" style="display: none;"><%=userinfo.getPhonenumber()%></td>
+				<td class="emailu" style="display: none;"><%=userinfo.getEmail()%></td>
+			</tr>
+
+			<%
+				}
+							}
+						}
+			%>
+			<tr>
+				<td colspan="8">
+					<div class="tcdPageCode"></div>
+				</td>
+			</tr>
+		</table>
+	</div>
+
+
 </body>
 </html>

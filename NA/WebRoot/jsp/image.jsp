@@ -29,7 +29,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<!-- include summernote css/js-->
 	<link href="<%=request.getContextPath() %>/css/summernote.css" rel="stylesheet">
 	<script src="<%=request.getContextPath() %>/js/summernote.min.js"></script>
-	
 	<!--国际化 -->
 	<script src="<%=request.getContextPath() %>/js/summernote-zh-CN.js"></script>
 
