@@ -70,9 +70,9 @@ public class GroupController {
 	public String getGroupinfo(HttpServletRequest request){
 		List<ReturnInfo> returnList = new ArrayList<ReturnInfo>();
 		int code = 90155;
-		try {
-			
+		try {			
 			long id = Long.parseLong(request.getParameter("id"));
+			request.setAttribute("id", id);
 			String attr = request.getParameter("attr");
 			if (attr==null) {
 				//默认进入界面，分组和未分组均显示
@@ -164,6 +164,7 @@ public class GroupController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
 		request.setAttribute("code", code);
 		request.setAttribute("list", returnList);
 		return "jsp/Ungrouplist";

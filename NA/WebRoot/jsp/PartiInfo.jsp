@@ -19,18 +19,27 @@
 <meta http-equiv="expires" content="0">
 <meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 <meta http-equiv="description" content="This is my page">
-<!--
-	<link rel="stylesheet" type="text/css" href="styles.css">
-	-->
-	<script src="${pageContext.request.contextPath}/js/jQuery/jquery-1.12.0.min.js"></script>
-	
+<!-- 新 Bootstrap 核心 CSS 文件 -->
+<link rel="stylesheet"
+	href="http://cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
+
+<!-- 可选的Bootstrap主题文件（一般不用引入） -->
+<link rel="stylesheet"
+	href="http://cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+<!-- jQuery文件，在bootstrap.min.js之前引入 -->
+<script src="http://cdn.bootcss.com/jquery/1.10.2/jquery.min.js"></script>
+<!-- Bootstrap核心JavaScript文件 -->
+<script
+	src="http://cdn.bootcss.com/twitter-bootstrap/3.0.3/js/bootstrap.min.js"></script>
+
+<script type="text/javascript"
+	src="<%=request.getContextPath()%>/js/jquery.page.js"></script>
 <style type="text/css">
 .content {
 	margin-right: auto;
 	margin-left: auto;
 	width: 95%;
-	height: 75%;
-	border: 1px solid black;
+	
 }
 
 th {
@@ -43,82 +52,89 @@ th {
 	text-align: left;
 	color: #ccc;
 }
-.nameu,.sexu,.heightu,.weightu,.ageu,.phoneu,.emailu{
+
+.iu,.nameu, .sexu, .heightu, .weightu, .ageu, .phoneu, .emailu {
 	display: none;
+}
+
+.th2{
+border:1px solid black;
+background-color: #a7e8f8;
+
 }
 </style>
 
 
-	<script type="text/javascript">
-		<%-- var current =
-	<%=request.getAttribute("current")%>
-		;
-		var method = $('#func').val();
-		var pageCount =
-	<%=request.getAttribute("pageCount")%>
-		var parameters = "title=" + $('#title').val() + "&startDate="
-				+ $('#startDate').val() + "&endDate=" + $('#endDate').val();
-		if (current == null)
-			current = 1;
-		$(".tcdPageCode").createPage({
-			pageCount : pageCount,
-			current : current,
-			tag : method,
-			parm : parameters,
-			backFn : function(p) {
-				console.log(p);
-			}
-		}); --%>
+<script type="text/javascript">
+	var current =
+<%=request.getAttribute("current")%>
+	;
+	var method = $('#func').val();
+	var pageCount =
+<%=request.getAttribute("pageCount")%>
+	var parameters = "title=" + $('#title').val() + "&startDate="
+			+ $('#startDate').val() + "&endDate=" + $('#endDate').val();
+	if (current == null)
+		current = 1;
+	$(".tcdPageCode").createPage({
+		pageCount : pageCount,
+		current : current,
+		tag : method,
+		parm : parameters,
+		backFn : function(p) {
+			console.log(p);
+		}
+	});
+<%Object p = request.getAttribute("map");
+				if (p == null) {
+				}else{
+				Map map = (Map)p;
+				if(map.get("list")!=null){
+				List<Userinfo> list = (List<Userinfo>)map.get("list");
+				int num = list.size();
+				request.setAttribute("num", num);
+				} 
+				}%>
+	$(function() {
+		$("#btncheck").on('click',function() {
+		var test = ${num};
+		var flag = false;
+					for (i = 0; i < 8; i++) {
+						if (($(".content label").eq(i).find("input")
+								.prop('checked'))) {
+							$("#tb th").addClass("th2");							
+							flag = true;
+							$(".content table tr").eq(0).find("th").eq(0).show();
+							$(".content table tr").eq(0).find("th").eq(i+1).show();
+							for (k = 0; k <=test; k++)
+							{
+								$(".content table tr").eq(k).find("td").eq(0).show();
+								$(".content table tr").eq(k).find("td").eq(i+1).show();
+							}
 
-		$(function() {
-	
-			$("#btncheck").on('click',function() {
-				if ($("#uname").prop('checked')) {
-					$('.nameu').show();
-				} else {
-					$('.nameu').hide();
-				}
-				if($("#usex").prop('checked')){
-					$('.sexu').show();
-				}else{
-					$('.sexu').hide();
-				}
-				
-				if($("#uheight").prop('checked')){
-					$('.heightu').show();
-				}else{
-					$('.heightu').hide();
-				}
-				
-				if($("#uweight").prop('checked')){
-					$('.weightu').show();
-				}else{
-					$('.weightu').hide();
-				}
-				
-				if($("#uage").prop('checked')){
-					$('.ageu').show();
-				}else{
-					$('.ageu').hide();
-				}
-				
-				if($("#uphone").prop('checked')){
-					$('.phoneu').show();
-				}else{
-					$('.phoneu').hide();
-				}
-				
-				if($("#uemail").prop('checked')){
-					$('.emailu').show();
-				}else{
-					$('.emailu').hide();
-				}
-			});
-		});
-	</script>
+						} else {
+							$(".content table tr").eq(0).find("th").eq(i+1).hide();
+							for (k = 0; k <=test; k++)
+							{
+								$(".content table tr").eq(k).find("td").eq(i+1).hide();
+							}								
+						}
+					}
+					
+					if(flag == false)
+					{
+						$(".content table tr").eq(0).find("th").eq(0).hide();
+						for (k = 0; k <test; k++)
+						$(".content table tr").eq(k).find("td").eq(0).hide();
+					}
+					
+				});
+	});
+</script>
 </head>
 
 <body>
+
 	<div class="content">
 		<label><input id="uname" type="checkbox" />姓名</label> <label><input
 			id="usex" type="checkbox" />性别</label> <label><input id="uheight"
@@ -128,10 +144,11 @@ th {
 			id="uemail" type="checkbox" />Email</label>
 		<button id="btncheck">确定</button>
 
-
-		<table width="100%" border="1px" style="text-align: center;">
+		<br>
+		<br>
+		<table id="tb" width="100%" style="text-align: center;" class ="table table-bordered">
 			<tr>
-				<th >序号</th>
+				<th class="iu">序号</th>
 				<th class="nameu">姓名</th>
 				<th class="sexu">性别</th>
 				<th class="heightu">身高</th>
@@ -145,33 +162,44 @@ th {
 				int i = 1;
 			%>
 			<%
-				Object p = request.getAttribute("map");
-						//request.setAttribute("map", p);
-						if (p == null) {
-							//	System.out.println("没数据");
-						} else {
-							Map map = (Map) p;
-							List<Userinfo> list = (List<Userinfo>) map.get("list");
-							if (list == null) {
-							} else {
-								for (Userinfo userinfo : list) {
+				if (p == null) {
+				} else {
+					Map map = (Map) p;
+					List<Userinfo> list = (List<Userinfo>) map.get("list");
+					if (list == null) {
+					} else {
+						for (Userinfo userinfo : list) {
 			%>
 
 			<tr>
-				<td><%=i++%></td>
-				<td class="nameu" style="display: none;"><%=userinfo.getName()%></td>
-				<td class="sexu" style="display: none;"><%=userinfo.getSex()%></td>
-				<td class="heightu" style="display: none;"><%=userinfo.getHeight()%></td>
-				<td class="weightu" style="display: none;"><%=userinfo.getWeight()%></td>
-				<td class="ageu" style="display: none;"><%=userinfo.getAge()%></td>
-				<td class="phoneu" style="display: none;"><%=userinfo.getPhonenumber()%></td>
-				<td class="emailu" style="display: none;"><%=userinfo.getEmail()%></td>
+				<td class="iu"><%=i++%></td>
+				<td class="nameu"><%=userinfo.getName()%></td>
+				<%
+				String s=null ;
+				if (userinfo.getSex()== 0)
+				{
+				 	s = "男";
+				}else if(userinfo.getSex()== 1)
+				{
+				 	s= "女";
+				}
+				 %>
+				<td class="sexu"><%=s%></td>
+				<%
+					String h = userinfo.getHeight().toString().substring(0, 5);
+					String w = userinfo.getWeight().toString().substring(0, 4);
+				 %>
+				<td class="heightu"><%=h%></td>
+				<td class="weightu"><%=w%></td>
+				<td class="ageu"><%=userinfo.getAge()%></td>
+				<td class="phoneu"><%=userinfo.getPhonenumber()%></td>
+				<td class="emailu"><%=userinfo.getEmail()%></td>
 			</tr>
 
 			<%
 				}
-							}
-						}
+					}
+				}
 			%>
 			<tr>
 				<td colspan="8">

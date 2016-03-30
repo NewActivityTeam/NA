@@ -49,16 +49,11 @@
 
 #chooseDiv {
 	height: 500px;
-	width: 500px;
+	width: 700px;
 	margin-left: 100px;
 	border: 2px solid grey;
 }
 </style>
-<script>
-$(document).ready(function(){
-			alert("aaa");
-		});
-</script>
 </head>
 
 <body>
@@ -68,8 +63,8 @@ $(document).ready(function(){
 			<a href="./group/getinfo?id=<%=request.getAttribute("id")%>" target="PartiInfo"><button type="button" class="btn btn-primary">分组情况</button></a>
 		</div>
 		<div id="chooseDiv">
-			<iframe height="100%" width="100%" name="PartiInfo"
-				src="./jsp/PartiInfo.jsp" height="80px" width="100%"></iframe>
+			<iframe  name="PartiInfo"
+				src="./jsp/PartiInfo.jsp" height="100%" width="700px"></iframe>
 		</div>
 	</div>
 </body>

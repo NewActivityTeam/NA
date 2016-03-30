@@ -167,7 +167,7 @@ a:hover {
 					onclick="window.open(
 							'ManageActivity?id=<%=activity.getId()%>',
 							'',
-							'height=800, width=700, top=0, left=0, toolbar=no, menubar=no, scrollbars=no,resizable=no,location=no, status=no');"><span class="glyphicon glyphicon-user"></span></a></td>
+							'height=800, width=1000, top=0, left=0, toolbar=no, menubar=no, scrollbars=no,resizable=no,location=no, status=no');"><span class="glyphicon glyphicon-user"></span></a></td>
 			</tr>
 
 			<%

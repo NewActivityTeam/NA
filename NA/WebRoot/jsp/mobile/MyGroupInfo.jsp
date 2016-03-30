@@ -43,8 +43,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					</c:forEach>
 				</ul>
 			</c:if>
-			<c:if test="${code%10==1}">
-				
+			<c:if test="${code%10==1}">				
 			</c:if>
 			</div>
 		</div>
