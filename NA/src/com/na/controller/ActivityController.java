@@ -11,6 +11,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -249,5 +251,71 @@ public class ActivityController extends BaseController{
 		System.out.println("manageactivity , id = "+id);
 		request.setAttribute("id", id);
 		return "jsp/GroupManage";
+	}
+
+	/***
+	 * 活动列表
+	 * @param request
+	 * 
+	 * 		display		展示方式：空或web为Web端；mobile为手机端
+	 * 		state		活动状态：true为在进行中，false为结束
+	 * @return
+	 * 		code		返回结果值
+	 * 		list		活动列表
+	 */
+	@RequestMapping("/activity/activity_list")
+	public String listActivities(){
+		int code = 90165;
+		String display = request.getParameter("display");
+		try{
+			boolean state =  Boolean.parseBoolean(request.getParameter("state"));
+			List<Activity> list = activityService.getAllActvityByState(state);
+			request.setAttribute("list", list);
+			code = 90161;
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}
+		request.setAttribute("code", code);
+		if(display!=null&&display.endsWith("mobile")){
+			return "jsp/mobile/ActivityList";
+		}
+		return "jsp/ActivityList";
+	}
+	
+	/***
+	 * 展示活动详情
+	 * @param request
+	 * 		display		展示方式：空或web为Web端；mobile为手机端
+	 * 		aid		活动id
+	 * @return
+	 * 		code		返回结果值
+	 * 		activity	活动详情
+	 */
+	@RequestMapping("/activity/activity_show")
+	public String showActivity(HttpServletRequest request){
+		
+		String display = request.getParameter("display");
+		int code = 90215;
+		try {
+			long aid = Long.parseLong(request.getParameter("aid"));
+			Activity activity = activityService.getActicity(aid);
+			if (activity!=null) {
+				request.setAttribute("activity", activity);
+				System.out.print(activity.getDescription());
+				code = 90211;
+			}
+			else{
+				code = 90212;
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		request.setAttribute("code", code);
+		if (display!=null&&display.equals("mobile")) {
+			return "jsp/mobile/ActivityShow";
+		}
+		return "jsp/ActivityContent";
 	}
 }

@@ -107,8 +107,11 @@ public class GroupTestController {
 		List<ReturnInfo> returnList = new ArrayList<ReturnInfo>();
 		int code = 90155;
 		try {
-			
+
 			long aid = Long.parseLong(request.getParameter("aid"));
+			int num =pcpService.getUIDsByAID(aid).size();
+			request.setAttribute("num", num);
+			System.out.print(num);
 			String attr = request.getParameter("attr");
 			if (attr==null) {
 				//默认进入界面，分组和未分组均显示

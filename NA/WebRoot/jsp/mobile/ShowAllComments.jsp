@@ -19,7 +19,7 @@
 			generatedCount = 0;
 		function reloadContent(){
 			$.ajax({
-						url : "${pageContext.request.contextPath}/test/comment/showMore",
+						url : "${pageContext.request.contextPath}/comment/showMore",
 						type: "POST",
 	  					data: {
 	  						aid : ${aid},
@@ -127,7 +127,7 @@
 		function pullUpAction () {
 			setTimeout(function () {	// <-- Simulate network congestion, remove setTimeout from production!
 				$.ajax({
-						url : "${pageContext.request.contextPath}/test/comment/showMore",
+						url : "${pageContext.request.contextPath}/comment/showMore",
 						type: "POST",
 	  					data: {
 	  						aid : ${aid},

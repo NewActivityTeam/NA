@@ -18,7 +18,7 @@
 	<script src="${pageContext.request.contextPath}/js/jquery.mobile-1.4.5/jquery.mobile-1.4.5.min.js"></script>
   	<script>
   	</script>
-  	<div>
+  	<!-- <div>
   		<form action="echo.cfm" method="post">  
 			<table>
 				<tr>
@@ -31,14 +31,14 @@
 				</tr>
 			</table>          
 		</form> 
-  	</div>
+  	</div> -->
   	
   	<ul data-role="listview">
   	<c:if test="${code==90161}">
 	  	<c:if test="${list!=null}">
 		  	<c:forEach var="activity" items="${list}">
 		  		<li data-role="list-divider">${activity.title}</li>
-		  		<li data-icon="false" ><a data-ajax="false"  href="${pageContext.request.contextPath}/test/activity/activity_show?display=mobile&aid=${activity.id}" target="_parent">
+		  		<li data-icon="false" ><a data-ajax="false"  href="${pageContext.request.contextPath}/activity/activity_show?display=mobile&aid=${activity.id}" target="_parent">
 		  			<p>开始时间：<b>${activity.starttime.toString().substring(0,16)}</b></p>
 		  			<p>结束时间：<b>${activity.endtime.toString().substring(0,16)}</b></p>
 		  			<p>活动地点：<b>${activity.address}</b></p>

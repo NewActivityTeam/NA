@@ -35,10 +35,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     				<h4>${activity.title }</h4>
     				<ul data-role="listview">
     					<li>
-    						<a data-ajax="false" href="${pageContext.request.contextPath}/test/activity/activity_show?display=mobile&aid=${activity.id}" target="_parent">活动详情</a>
+    						<a data-ajax="false" href="${pageContext.request.contextPath}/activity/activity_show?display=mobile&aid=${activity.id}" target="_parent">活动详情</a>
     					</li>
     					<li>
-    						<a data-ajax="false" href="${pageContext.request.contextPath}/test/group/showinfo?display=mobile&aid=${activity.id}" target="_parent">组队信息</a>
+    						<a data-ajax="false" href="${pageContext.request.contextPath}/group/showinfo?display=mobile&aid=${activity.id}" target="_parent">组队信息</a>
     					</li>
     					<c:set var="now" value="<%=new Timestamp(System.currentTimeMillis())%>"/>
     					<c:if test="${activity.endtime <= now}">

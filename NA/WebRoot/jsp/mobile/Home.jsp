@@ -12,12 +12,12 @@
 	<script src="${pageContext.request.contextPath}/js/jquery.mobile-1.4.5/jquery.mobile-1.4.5.min.js"></script>
   	<script type="text/javascript">
   		$(document).ready(function(){
-  			$("#main").load("${pageContext.request.contextPath}/test/activity/activity_list?display=mobile&state=true");
+  			$("#main").load("${pageContext.request.contextPath}/activity/activity_list?display=mobile&state=true");
   			$("#running").on("click",function(){
-  				$("#main").load("${pageContext.request.contextPath}/test/activity/activity_list?display=mobile&state=true");
+  				$("#main").load("${pageContext.request.contextPath}/activity/activity_list?display=mobile&state=true");
   			});
   			$("#end").on("click",function(){
-  				$("#main").load("${pageContext.request.contextPath}/test/activity/activity_list?display=mobile&state=false");
+  				$("#main").load("${pageContext.request.contextPath}/activity/activity_list?display=mobile&state=false");
   			});
   		});
   	</script>
@@ -28,7 +28,7 @@
 		  <div data-role="header" data-position="fixed">
 		  	<a data-ajax="false" data-role="button" data-rel="back" data-icon="delete">关闭</a>
 			   	<h1>轻活动</h1>
-			<a data-ajax="false" id="touser" href="${pageContext.request.contextPath}/test/user/toNavigation?display=mobile" data-role="button" data-icon="user">个人中心</a>  
+			<a data-ajax="false" id="touser" href="${pageContext.request.contextPath}/user/toNavigation?display=mobile" data-role="button" data-icon="user">个人中心</a>  
 		  </div>
 		
 		  <div data-role="content" id="main" class="ui-content">

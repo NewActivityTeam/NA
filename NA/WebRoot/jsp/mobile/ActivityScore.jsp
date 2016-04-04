@@ -162,7 +162,7 @@ body {
 			var aid = $("#aid").val();
 			alert(aid);
 			$.ajax({
-				url : "${pageContext.request.contextPath}/test/assess/score",
+				url : "${pageContext.request.contextPath}/assess/score",
 				type : "POST",
 				data : {
 					score : score,

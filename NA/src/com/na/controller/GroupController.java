@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.na.entity.Activity;
 import com.na.entity.Group;
+import com.na.entity.PCP;
 import com.na.entity.Userinfo;
 import com.na.entity.nodb.ReturnInfo;
 import com.na.service.ActivityService;
@@ -41,19 +42,18 @@ public class GroupController {
 		Map<String, Object> map = new HashMap<String, Object>();
 		int code = 90135;
 		try{
-			long id =Long.parseLong(request.getParameter("id"));
-			Activity activity = activityService.getActicity(id);
+			long aid =Long.parseLong(request.getParameter("aid"));
+			Activity activity = activityService.getActicity(aid);
 			List<Userinfo> userinfos = userinfoService.getAllUserinfos();
-			//这句出错了。。。
-			List<Long> groups = groupService.fastCreateGroups(id, userinfos.size(), activity.getNumber());
+			List<Long> groups = groupService.fastCreateGroups(aid, userinfos.size(), activity.getNumber());
 			if (groups!=null&&groups.size()!=0) {
-				List<Long> pcpids = pcpService.getPCPIDsByAIDNoGroup(id);
+				List<Long> pcpids = pcpService.getPCPIDsByAIDNoGroup(aid);
 				if(pcpids!=null&&pcpids.size()!=0){
 					if(pcpService.fastAllot(pcpids, groups, activity.getNumber())==14001){
-						code = groupService.fastGroupResultHandle(id, true);
+						code = groupService.fastGroupResultHandle(aid, true);
 					}
 					else{
-						code = groupService.fastGroupResultHandle(id, false);
+						code = groupService.fastGroupResultHandle(aid, false);
 					}
 				}
 			}
@@ -70,14 +70,17 @@ public class GroupController {
 	public String getGroupinfo(HttpServletRequest request){
 		List<ReturnInfo> returnList = new ArrayList<ReturnInfo>();
 		int code = 90155;
-		try {			
-			long id = Long.parseLong(request.getParameter("id"));
-			request.setAttribute("id", id);
+		try {
+
+			long aid = Long.parseLong(request.getParameter("id"));
+			int num =pcpService.getUIDsByAID(aid).size();
+			request.setAttribute("num", num);
+			System.out.print(num);
 			String attr = request.getParameter("attr");
 			if (attr==null) {
 				//默认进入界面，分组和未分组均显示
 				//已分组部分
-				List<Group> groups = groupService.getGroupsByAID(id);
+				List<Group> groups = groupService.getGroupsByAID(aid);
 				for (Group group : groups) {
 					List<Long> uidlList = pcpService.getUIDsByGID(group.getId());
 						if(uidlList!=null&&uidlList.size()!=0){
@@ -93,7 +96,7 @@ public class GroupController {
 					}
 				}
 				//未分组部分
-				List<Long> uidlList = pcpService.getUIDsByAIDNoGroup(id);
+				List<Long> uidlList = pcpService.getUIDsByAIDNoGroup(aid);
 				if (uidlList!=null&&uidlList.size()!=0) {
 					long[] ids = new long[uidlList.size()];
 					for (int i = 0; i < uidlList.size(); i++) {
@@ -116,7 +119,7 @@ public class GroupController {
 				//未分组
 			
 				//获取所有未分组用户UID
-				List<Long> uidlList = pcpService.getUIDsByAIDNoGroup(id);
+				List<Long> uidlList = pcpService.getUIDsByAIDNoGroup(aid);
 				if (uidlList!=null&&uidlList.size()!=0) {
 					long[] ids = new long[uidlList.size()];
 					for (int i = 0; i < uidlList.size(); i++) {
@@ -138,7 +141,7 @@ public class GroupController {
 			else if (attr.endsWith("1")) {
 				//已分组
 				//获得所有小组
-				List<Group> groups = groupService.getGroupsByAID(id);
+				List<Group> groups = groupService.getGroupsByAID(aid);
 				for (Group group : groups) {
 					//获得小组内所有用户UID
 					List<Long> uidlList = pcpService.getUIDsByGID(group.getId());
@@ -164,10 +167,66 @@ public class GroupController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
 		request.setAttribute("code", code);
 		request.setAttribute("list", returnList);
 		return "jsp/Ungrouplist";
 	}
 
+	//显示我的分组
+	@RequestMapping("showinfo")
+	public String MyGroupinfo(HttpServletRequest request){
+		int code = 91115;
+		String display = request.getParameter("display");
+		try {
+			long aid = Long.parseLong(request.getParameter("aid"));
+			long uid = (long) request.getSession().getAttribute("uid");
+			PCP pcp = pcpService.getPcp(uid, aid);
+			if (pcp.getGroupid()!=null) {
+				Group group = groupService.getGroup(pcp.getGroupid());
+				request.setAttribute("group", group);
+				if (group.getLeader()!=null) {
+					Userinfo leader = userinfoService.getUserinfo(group.getLeader());
+					request.setAttribute("leader", leader);
+				}
+				int count = pcpService.getGroupCount(pcp.getGroupid());
+				request.setAttribute("count", count);
+				List<Long> list = pcpService.getUIDsByGID(pcp.getGroupid());
+				if (list!=null&&list.size()!=0) {
+					long []ids = new long[list.size()];
+					for (int i = 0; i < list.size(); i++) {
+						ids[i] = list.get(i);
+					}
+					List<Userinfo> userinfos = userinfoService.getUserinfos(ids);
+					request.setAttribute("userinfos", userinfos);
+					code = 91111;
+				}
+			}
+			else {
+				code = 91112;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		request.setAttribute("code", code);
+		if (display!=null&&display.equals("mobile")) {
+			return "jsp/mobile/MyGroupInfo";
+		}
+		return "";
+	}
+	//显示我的分组列表
+	@RequestMapping("showlist")
+	public String MyGroupList(HttpServletRequest request){
+		int code = 91125;
+		String display = request.getParameter("display");
+		try {
+			long uid = (long) request.getSession().getAttribute("uid");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		request.setAttribute("code", code);
+		if (display!=null&&display.equals("mobile")) {
+			return "jsp/mobile/MyGroupList";
+		}
+		return "";
+	}
 }

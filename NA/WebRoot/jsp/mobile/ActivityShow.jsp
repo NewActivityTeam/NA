@@ -26,13 +26,13 @@
   			setFace();
   		});
   		$(document).on("pagecreate",function(){
-  			$("#content").load("${pageContext.request.contextPath}/test/activity/activity_show?aid=${activity.id}");
-  			$("#comment").load("${pageContext.request.contextPath}/test/comment/showDemo?display=mobile&aid=${activity.id}");
+  			$("#content").load("${pageContext.request.contextPath}/activity/activity_show?aid=${activity.id}");
+  			$("#comment").load("${pageContext.request.contextPath}/comment/showDemo?display=mobile&aid=${activity.id}");
   			$("#subComment").on("click",function(){
   				var content = $("#commentContent").val();
   				if(content!=""){
 	  				$.ajax({
-	  					url : "${pageContext.request.contextPath}/test/comment/new",
+	  					url : "${pageContext.request.contextPath}/comment/new",
 	  					type: "POST",
 	  					data: {
 	  						aid : ${activity.id},
@@ -42,7 +42,7 @@
 	  					success : function(data){
 	  						if(data.code%10==1){
 	  							//alert("成功了");
-	  							$("#comment").load("${pageContext.request.contextPath}/test/comment/showDemo?display=mobile&aid=${activity.id}");
+	  							$("#comment").load("${pageContext.request.contextPath}/comment/showDemo?display=mobile&aid=${activity.id}");
 	  						}
 	  						else{
 	  							alert("失败了");
@@ -60,7 +60,7 @@
   			});
   			$("#sign").on("click",function(){
   				$.ajax({
-  					url : "${pageContext.request.contextPath}/test/user/join",
+  					url : "${pageContext.request.contextPath}/user/join",
   					type : "POST",
   					data : {
   						aid : ${activity.id}

@@ -58,7 +58,7 @@
   			</li>
   		</c:forEach>
   		<li data-icon="false" >
-  			<a data-ajax="false" href="${pageContext.request.contextPath}/test/comment/showAll?display=mobile&aid=${aid}" style="text-align: center;">查看全部评论</a>
+  			<a data-ajax="false" href="${pageContext.request.contextPath}/comment/showAll?display=mobile&aid=${aid}" style="text-align: center;">查看全部评论</a>
   		</li>
   	</c:if>
 

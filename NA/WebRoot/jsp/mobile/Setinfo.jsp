@@ -111,7 +111,7 @@
   			var phone = $("#phoneInfo").html(); 
   			var email = $("#emailInfo").html(); 
   			$.ajax({
-  				url : "${pageContext.request.contextPath}/test/user/saveinfo",
+  				url : "${pageContext.request.contextPath}/user/saveinfo",
   				type : "POST",
   				data : {
 					name : name,

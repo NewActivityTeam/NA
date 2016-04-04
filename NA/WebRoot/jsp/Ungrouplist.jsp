@@ -2,6 +2,7 @@
 <%@ page import="com.na.entity.nodb.ReturnInfo"%>
 <%@ page import="com.na.entity.Userinfo"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%> 
 <%
 	String path = request.getContextPath();
 	String basePath = request.getScheme() + "://"
@@ -71,16 +72,6 @@ background-color: #a7e8f8;
 			$("#btngroup").show();
 		}
 	}
-	
-	<%
-	List<ReturnInfo> list = (List<ReturnInfo>)request.getAttribute("list");
-				if (list == null) {
-				}else{
-				
-				int num = list.size();
-				request.setAttribute("num", num);
-				}%>
-
 	
 	$(function() {
 		$("#btncheck").on('click',function() {
@@ -173,37 +164,38 @@ background-color: #a7e8f8;
 					<c:set value="${list}" var="returnList" />
 					<c:set value="1" var="i" />
 					<c:forEach items="${returnList}" var="retinfo">
-						<c:set value="${retinfo.members}" var="userinfo" />
 						<c:if test="${retinfo.groupName!='未分组'}">
+							<c:set value="${retinfo.members}" var="userinfo" />
+							<td class="iu" rowspan="${fn:length(userinfo)+1}"><c:out value="${i}" /></td>
+							<td class="groupu" rowspan="${fn:length(userinfo)+1}" ><c:out value="${retinfo.groupName}" /></td>
+							<c:set var="i"  value="${i+1}" />
 							<c:forEach items="${userinfo}" var="user">
-									<tr class="isgrouped">
-										<td class="iu"><c:out value="${i}" /></td>
-										<c:set var="i" value="${i+1}" />
-										<td class="groupu"><c:out value="${retinfo.groupName}" /></td>
-										<td class="nameu"><c:out value="${user.name}" /></td>
-										<td class="sexu"><c:out value="${user.sex}" /></td>
-										<td class="heightu"><c:out value="${user.height}" /></td>
-										<td class="weightu"><c:out value="${user.weight}" /></td>
-										<td class="ageu"><c:out value="${user.age}" /></td>
-										<td class="phoneu"><c:out value="${user.phonenumber}" /></td>
-										<td class="emailu"><c:out value="${user.email}" /></td>
-									</tr>
+								<tr class="isgrouped">
+									<td class="nameu"><c:out value="${user.name}" /></td>
+									<td class="sexu"><c:out value="${user.sex}" /></td>
+									<td class="heightu"><c:out value="${user.height}" /></td>
+									<td class="weightu"><c:out value="${user.weight}" /></td>
+									<td class="ageu"><c:out value="${user.age}" /></td>
+									<td class="phoneu"><c:out value="${user.phonenumber}" /></td>
+									<td class="emailu"><c:out value="${user.email}" /></td>
+								</tr>
 							</c:forEach>
 						</c:if>
 						<c:if test="${retinfo.groupName=='未分组'}">
+							<c:set value="${retinfo.members}" var="userinfo" />
 							<c:forEach items="${userinfo}" var="user">
-									<tr class="ungrouped">
-										<td class="iu"><c:out value="${i}" /></td>
-										<c:set var="i" value="${i+1}" />
-										<td class="groupu"><c:out value="${retinfo.groupName}" /></td>
-										<td class="nameu"><c:out value="${user.name}" /></td>
-										<td class="sexu"><c:out value="${user.sex}" /></td>
-										<td class="heightu"><c:out value="${user.height}" /></td>
-										<td class="weightu"><c:out value="${user.weight}" /></td>
-										<td class="ageu"><c:out value="${user.age}" /></td>
-										<td class="phoneu"><c:out value="${user.phonenumber}" /></td>
-										<td class="emailu"><c:out value="${user.email}" /></td>
-									</tr>
+							<c:set var="i" value="${i+1}" />
+								<tr class="ungrouped">
+									<td class="iu"><c:out value="${i}" /></td>
+									<td class="groupu"><c:out value="${retinfo.groupName}" /></td>
+									<td class="nameu"><c:out value="${user.name}" /></td>
+									<td class="sexu"><c:out value="${user.sex}" /></td>
+									<td class="heightu"><c:out value="${user.height}" /></td>
+									<td class="weightu"><c:out value="${user.weight}" /></td>
+									<td class="ageu"><c:out value="${user.age}" /></td>
+									<td class="phoneu"><c:out value="${user.phonenumber}" /></td>
+									<td class="emailu"><c:out value="${user.email}" /></td>
+								</tr>
 							</c:forEach>
 						</c:if>
 					</c:forEach>

@@ -10,8 +10,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.na.entity.Activity;
 import com.na.entity.Userinfo;
+import com.na.service.ActivityService;
 import com.na.service.PCPService;
 import com.na.service.UserinfoService;
 
@@ -23,9 +26,112 @@ public class UserController {
 	UserinfoService userinfoService;
 	@Autowired
 	PCPService pcpService;
+	@Autowired
+	ActivityService activitySercice;
 	
 
-	//获取用户信息，通过AID
+	//获取用户个人信息
+	@RequestMapping("/getuserinfo")
+	public String getUserinfo(HttpServletRequest request){
+		String display = request.getParameter("display");
+		try {
+			long uid =Long.parseLong(request.getSession().getAttribute("uid").toString());
+			Userinfo userinfo = userinfoService.getUserinfo(uid);
+			if (userinfo!=null) {
+				request.setAttribute("userinfo", userinfo);
+			}	
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		if (display!=null&&display.endsWith("mobile")) {
+			return "jsp/mobile/Userinfo";
+		}
+		return "";
+	}
+	
+	//跳转到用户中心页面
+	@RequestMapping("/toNavigation")
+	public String toNav(HttpServletRequest request){
+		String display = request.getParameter("display");
+		if(display != null && display.endsWith("mobile")){
+			return "jsp/mobile/PersonalInfoNav";
+		}
+		return "";
+	}
+	
+	//获取用户已经参与过的活动
+	@RequestMapping("/getJoinedActivities")
+	public String getJoinedActivities(HttpServletRequest request){
+		String display = request.getParameter("display");
+		long uid = Long.parseLong(request.getSession().getAttribute("uid").toString());
+		List<Long> listOfAid = pcpService.getAIDsByUID(uid); 
+		long[] ids = new long[listOfAid.size()];
+		for(int i = 0;i < listOfAid.size();i++){
+			ids[i] = listOfAid.get(i);
+		}
+		List<Activity> list = activitySercice.getActivitiesByIds(ids);
+		System.out.println("====================");
+		for(int i = 0;i < list.size();i++){
+			System.out.println(list.get(i).getTitle() + " " + list.get(i).getDescription());
+		}
+		System.out.println("====================");
+		if(list != null && list.size() > 0){
+			request.setAttribute("list", list);
+			return "jsp/mobile/JoinedActivityList";
+		}
+		return "";
+	}
+	//设置用户个人信息
+	@RequestMapping("/setuserinfo")
+	public String setuserinfo(HttpServletRequest request){
+		String display = request.getParameter("display");
+		try {
+			long uid =Long.parseLong(request.getSession().getAttribute("uid").toString());
+			Userinfo userinfo = userinfoService.getUserinfo(uid);
+			if (userinfo!=null) {
+				request.setAttribute("userinfo", userinfo);
+			}
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}
+		if (display!=null&&display.endsWith("mobile")) {
+			return "jsp/mobile/Setinfo";
+		}
+		return "";
+	}
+	//修改用户个人信息
+	@ResponseBody
+	@RequestMapping("/changeinfo")
+	public Map<String, Integer> changeUserinfo(HttpServletRequest request){
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		int code = 11025;
+		try {
+			long uid =(long) request.getSession().getAttribute("uid");
+			Userinfo userinfo = userinfoService.getUserinfo(uid);
+			int subject = Integer.parseInt(request.getParameter("subject"));
+			String content = request.getParameter("content");
+			code = userinfoService.updateUserinfo(uid, subject, content);
+			
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}
+		map.put("code", code);
+		return map;
+	}
+
+	/***
+	 * 获取用户信息，通过AID
+	 *
+	 * @param request
+	 * 		id		活动id
+	 * 
+	 * @return
+	 * 
+	 * 		code	返回值
+	 * 		list	用户信息列表
+	 */
 	@RequestMapping("/getusersbyids")
 	public String getUserinfoByAID(HttpServletRequest request){
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -65,5 +171,98 @@ public class UserController {
 	public String upload(HttpServletRequest request){
 		System.out.println("hello");
 		return "";
+	}
+	
+	/***
+	 * 
+	 * @param request
+	 * uid		被ban用户ID
+	 * bandays	禁止天数
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping("/banuser")
+	public Map<String, Object> BanUser(HttpServletRequest request){
+		Map<String, Object> map = new HashMap<String, Object>();
+		int code = 70015;
+		try {
+			long uid = Long.parseLong(request.getParameter("uid"));
+			int bandays = Integer.parseInt(request.getParameter("bandays"));
+			code = userinfoService.banUser(uid, bandays);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		map.put("code", code);
+		return map;
+	}
+	
+	/***
+	 * 参与活动
+	 * @param 	
+	 * 		uid		后台获取session
+	 * 		aid		要参与的活动id
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping("/join")
+	public  Map<String, Integer> joinToActivity(HttpServletRequest request){
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		int code = 14015;
+		try {
+			 if(request.getSession().getAttribute("uid")!=null){
+				long uid = (long) request.getSession().getAttribute("uid");
+				if (userinfoService.getUserinfo(uid).getSex()==null) {
+					code = 14016;
+				}
+				else if (userinfoService.testBan(uid)) {
+					code = 14019;
+				}
+				else{
+					long aid = Long.parseLong(request.getParameter("aid"));
+					code = pcpService.newPCP(uid, aid);
+				}
+			 }
+		} 
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		map.put("code", code);
+		return map;
+	}
+	
+	/***
+	 * 保存用户信息
+	 * @param 
+	 * 		uid		用户id
+	 * 		name	用户名
+	 * 		height	身高
+	 * 		weight	体重
+	 * 		age		年龄
+	 * 		sex		性别
+	 * 		phone	手机号
+	 * 		email	电子邮箱
+	 */
+	@ResponseBody
+	@RequestMapping("/saveinfo")
+	public Map<String, Integer> saveUserinfo(HttpServletRequest request){
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		int code = 11015;
+		try {
+			long uid =(long) request.getSession().getAttribute("uid");
+			String name = request.getParameter("name");
+			float height = Float.parseFloat(request.getParameter("height"));
+			float weight = Float.parseFloat(request.getParameter("weight"));
+			int age = Integer.parseInt(request.getParameter("age"));
+			int sex = Integer.parseInt(request.getParameter("sex"));
+			String phonenumber = request.getParameter("phone");
+			String email = request.getParameter("email");
+			Userinfo userinfo = userinfoService.getUserinfo(uid);
+			code = userinfoService.setUserinfo(uid, name, height, weight, age, sex, phonenumber, email);
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}
+		map.put("code", code);
+		return map;
 	}
 }
