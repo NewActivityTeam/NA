@@ -299,4 +299,17 @@ public class ActivityServiceImp implements ActivityService {
 
 		return null;
 	}
+
+	//添加快速分组个数
+	@Override
+	public void addFastGroupedCount(long aid,int fgc) {
+		Activity activity = activityDao.getActivity(aid);
+		if(activity.getFgc()==null||activity.getFgc()==0){
+			activity.setFgc(fgc);
+		}
+		else{
+			activity.setFgc(activity.getFgc()+fgc);
+		}
+		activityDao.update(activity);
+	}
 }

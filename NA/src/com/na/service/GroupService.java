@@ -20,6 +20,6 @@ public interface GroupService {
 	
 	public List<Long> fastCreateGroups(long aid,int count,int nop);
 	
-	public int fastGroupResultHandle(long aid,boolean result);
+	public int fastGroupResultHandle(long aid,boolean result,int fgc);
 	
 }

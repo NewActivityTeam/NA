@@ -4,6 +4,7 @@ import java.sql.Timestamp;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -29,6 +30,7 @@ public class Activity implements java.io.Serializable {
 	private String mobileAddress;
 	private String address;
 	private Integer number;
+	private Integer fgc;
 
 	// Constructors
 
@@ -46,7 +48,7 @@ public class Activity implements java.io.Serializable {
 	public Activity(String title, String description, Timestamp starttime,
 			Timestamp endtime, Timestamp endsigntime, Timestamp createtime,
 			Long manager, String voteaddress, String webAddress,
-			String mobileAddress, String address, Integer number) {
+			String mobileAddress, String address, Integer number, Integer fgc) {
 		this.title = title;
 		this.description = description;
 		this.starttime = starttime;
@@ -59,11 +61,12 @@ public class Activity implements java.io.Serializable {
 		this.mobileAddress = mobileAddress;
 		this.address = address;
 		this.number = number;
+		this.fgc = fgc;
 	}
 
 	// Property accessors
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = IDENTITY)
 	@Column(name = "id", unique = true, nullable = false)
 	public Long getId() {
 		return this.id;
@@ -82,7 +85,7 @@ public class Activity implements java.io.Serializable {
 		this.title = title;
 	}
 
-	@Column(name = "description", length = 5000)
+	@Column(name = "description", length = 20000)
 	public String getDescription() {
 		return this.description;
 	}
@@ -179,6 +182,15 @@ public class Activity implements java.io.Serializable {
 
 	public void setNumber(Integer number) {
 		this.number = number;
+	}
+
+	@Column(name = "fgc")
+	public Integer getFgc() {
+		return this.fgc;
+	}
+
+	public void setFgc(Integer fgc) {
+		this.fgc = fgc;
 	}
 
 }

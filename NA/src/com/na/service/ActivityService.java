@@ -30,4 +30,7 @@ public interface ActivityService {
 	
 	public int getAllActivityNumber();
 	public int getPartActivityNumber(String title,Timestamp start,Timestamp end);
+
+	public void addFastGroupedCount(long aid,int fgc);
+
 }

@@ -196,13 +196,13 @@ public class GroupServiceImp implements GroupService {
 	 * 				false	快速分组失败，删除创建组
 	 */
 	@Override
-	public int fastGroupResultHandle(long aid, boolean result) {
+	public int fastGroupResultHandle(long aid, boolean result, int fgc) {
 		int code = 15004;
 		
 		try {
 			if (result) {
 				int success = 0;
-				int index = 1;
+				int index = fgc+1;
 				String hql = "from Group where aid="+aid+" and groupname is null";
 				List<Group> groups = (List<Group>) groupDao.selectHql(hql);
 				if (groups!=null&&groups.size()!=0) {

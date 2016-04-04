@@ -50,10 +50,11 @@ public class GroupController {
 				List<Long> pcpids = pcpService.getPCPIDsByAIDNoGroup(aid);
 				if(pcpids!=null&&pcpids.size()!=0){
 					if(pcpService.fastAllot(pcpids, groups, activity.getNumber())==14001){
-						code = groupService.fastGroupResultHandle(aid, true);
+						code = groupService.fastGroupResultHandle(aid, true,activity.getFgc());
+						activityService.addFastGroupedCount(aid, groups.size());
 					}
 					else{
-						code = groupService.fastGroupResultHandle(aid, false);
+						code = groupService.fastGroupResultHandle(aid, false,0);
 					}
 				}
 			}
