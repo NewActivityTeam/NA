@@ -341,4 +341,10 @@ public class UserinfoServiceImp implements UserinfoService {
 		}
 		return false;
 	}
+	@Override
+	public int getJoinedActivityNumber(long uid) {
+		// TODO Auto-generated method stub
+		String sql = "select count(*) from PCP where uid=" + uid;
+		return userinfoDao.findCount(sql);
+	}
 }

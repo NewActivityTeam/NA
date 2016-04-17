@@ -1,0 +1,63 @@
+a{
+	text-decoration:none;
+}
+.location{height: 50px;padding:15px 0px;background: #efefef;}
+.location span{
+	margin-left:-1080px;
+	font-size:18px;
+	font-style:normal;
+	font:tahoma,microsoft yahei,simsun,sans-serif;
+}
+
+
+.wb{width: 1240px;margin: 0 auto}
+
+.content{
+	
+}
+.activity{padding-bottom: 40px;}
+/*新闻列表*/
+.activity-list{padding-bottom: 40px}
+.activity-list li{height: 26px;line-height:22px;border-bottom: 1px solid #e9e9ea;padding:8px 70px 8px 10px;border-left: 5px solid #f8f8f8;border-right: 5px solid #f8f8f8;position: relative;}
+.activity-list li em{width: 50px;height:26px;line-height:26px;text-align: right;color: #bababa;position: absolute;top: 8px;right: 20px;}
+.activity-tit{/*width: 1190px;*/height:26px;line-height:26px;float: left;color: #555;display: block;position: relative;padding-right: 25px;}
+.activity-tit i{width: 18px;height: 18px;background: url(http://game.gtimg.cn/images/lol/match/public/new_ico.png) 0 0 no-repeat;display: block;position: absolute;top: 4px;right: 4px;}
+.activity-list li a:hover{text-decoration: none}
+.activity-type{float: right;display: inline-block;border-radius: 26px;height: 22px;line-height: 22px;border: 2px solid #eee;padding: 0 8px;background: #eee;color: #abaaaa}
+.activity-list li:hover{border-left: 5px solid #c4a15a;border-right: 5px solid #c4a15a;}
+.activity-list li:hover .activity-title{color: #c49f58;font-weight: bold;text-decoration: none}
+.activity-list li:hover .activity-type{border: 2px solid #c49f58;background: #f8f8f8;color: #c49f58}
+/*新闻详情*/
+.activity-detail{width: 100%;padding: 25px 0 70px 0;}
+.activity-detail .activity-title{font-size: 40px;color: #424141;text-align: center;}
+.activity-detail .activity-info{width: 690px;margin:0 auto;color: #666;height: 25px;line-height: 25px;overflow: hidden;padding: 0 600px;padding-bottom: 25px;border-bottom: 1px solid #e9e9ea;margin-bottom: 30px}
+.activity-detail .activity-basic{width: 440px;float: left;}
+.activity-detail .activity-info span{float: left;}
+.activity-detail .activity-info .author{padding-right: 10px;}
+.activity-detail .activity-info .date{padding-right: 10px;color: #999}
+.activity-detail .activity-info .font{padding-right: 20px;color: #999}
+.activity-detail .activity-info .font a{color: #999}
+.activity-detail .share{width: 250px;float: left;}
+.activity-detail .share em{float: left;}
+.activity-detail .share p{float: left;padding-top: 5px}
+.activity-txt{font-size: 16px;line-height: 30px;color: #555}
+.activity-txt p{padding-bottom: 20px;}
+.activity-txt p img{max-width: 1240px}
+.activity-txt p.new-title-style{border-left: 5px solid #c49f58;padding-left: 10px;height: 55px;line-height: 55px;background: #efefef;font-size: 20px;color: #555;padding-bottom: 0;margin-bottom: 20px}
+.activity-txt p a{color: #c49f58}
+
+
+
+/*========================评论==============================*/
+.comment{width: 1240px;}
+/*评论-小版弄1ķ*/
+.comment-s{width: 890px;}
+
+.np-post-footer{text-align: right;color: #8d8d8d}
+.np-btn-upvote{}
+
+.np-reply-box-active{border-color: #f8f8f8}
+.np-btn-submit{background-color: #c49f58}
+.np-btn-submit:hover{background-color: #c49f58}
+.np-active{background-color: #c49f58}
+.np-btngroup a:hover{background-color: #c49f58;border-color: #c49f58}

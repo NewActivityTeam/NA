@@ -41,19 +41,22 @@ public class CommentTestController {
 	@ResponseBody
 	@RequestMapping("/new")
 	public Map<String, Object> newComment(HttpServletRequest request){
+		System.out.println("new comment");
 		Map<String, Object> map = new HashMap<String, Object>();
 		int code = 13015;
+		String uname = null;
 		try {
 			long uid = (long) request.getSession().getAttribute("uid");
 			Userinfo userinfo = userinfoService.getUserinfo(uid);
 			long aid = Long.parseLong(request.getParameter("aid"));
 			String content = request.getParameter("content");
-			String uname = userinfo.getName();
+			uname = userinfo.getName();
 			code = commentService.newComment(uid, aid,uname, content);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		map.put("code", code);
+		map.put("name", uname);
 		return map;
 	}
 	@ResponseBody
@@ -153,6 +156,7 @@ public class CommentTestController {
 	@ResponseBody
 	@RequestMapping("/showMore")
 	public Map<String, Object> showMoreComments(HttpServletRequest request){
+		System.out.println("show more");
 		Map<String, Object> map = new HashMap<String, Object>();
 		List<Comment> comments = null;
 		int code = 91005;
@@ -160,6 +164,7 @@ public class CommentTestController {
 			long aid = Long.parseLong(request.getParameter("aid"));
 			int currentPage = Integer.parseInt(request.getParameter("page"));
 			comments = commentService.getAllCommentsByPage(aid, currentPage, 10);
+			System.out.println(aid + " " + currentPage);
 			if (comments!=null&&comments.size()!=0) {
 				code = 91001;
 			}
@@ -169,8 +174,12 @@ public class CommentTestController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		if(comments != null){
+			map.put("comments", comments);
+			map.put("size",comments.size());
+		}
 		map.put("code", code);
-		map.put("comments", comments);
+		
 		return map;
 	}
 }

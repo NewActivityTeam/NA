@@ -30,17 +30,21 @@ import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.na.entity.Activity;
+import com.na.entity.Comment;
 import com.na.service.ActivityService;
+import com.na.service.CommentService;
 import com.na.tools.Pager;
 
 
 
 @Controller
 public class ActivityController extends BaseController{
+	private final static int PAGE_SIZE = 12;
 	private int currentPage = 1;
 	@Autowired
-	@Qualifier("activityService")
 	public ActivityService activityService;
+	@Autowired
+	public CommentService commentService;
 	
 	/*@RequestMapping("PublishActivity")
 	public String publishActivity() throws ParseException{
@@ -232,6 +236,54 @@ public class ActivityController extends BaseController{
     }
 	*/
 	
+	@RequestMapping("getActivity")
+	public String getActivity(HttpServletRequest request){
+		//long id = Long.parseLong(request.getParameter("id"));
+		long aid = Long.parseLong(request.getParameter("aid"));
+		List<Comment> list = null;
+		System.out.println("+++++");
+		Activity activity = activityService.getActicity(aid);
+		list = commentService.getAllCommentsByPage(aid,0,5);
+		System.out.println("=====");
+		request.setAttribute("activity", activity);
+		request.setAttribute("commentlist", list);
+		System.out.println(activity.getTitle());
+		return "jsp/pc/activity";
+	}
+	
+	public int getActivitiesCount(){
+		return activityService.getAllActivityNumber();
+	}
+	public int getActivitiesCountOfUser(long uid){
+		return 0;
+	}
+	@ResponseBody
+	@RequestMapping("getAllActivitiesOfPC")
+	public Map<String,Object> getAllActivitiesOfPC(HttpServletRequest request){
+		Map<String,Object> map = new HashMap<String,Object>();
+		int page = Integer.parseInt(request.getParameter("page"));
+		int total = 0;
+		int pages = 0;
+		List<Activity> list = activityService.getAllActivitiesByPage(page, PAGE_SIZE);
+		total = this.getActivitiesCount();
+		
+		if(total % PAGE_SIZE == 0){
+			pages = total / PAGE_SIZE;
+		}else{
+			pages = total / PAGE_SIZE + 1;
+		}
+		System.out.println("total = " + total + "," + "pages = " + pages);
+		if(list != null){
+			System.out.println("第" + page + "页内容！");
+			for(Activity activity : list){
+				System.out.println(activity.getTitle());
+			}
+		}
+		
+		map.put("list", list);
+		map.put("total", pages);
+		return map;
+	}
 	@RequestMapping("DoWithImage")
 	public void DoWithImage(){
 		System.out.println("hello");
@@ -240,6 +292,7 @@ public class ActivityController extends BaseController{
 	public int getAllActivitiesNumber(){
 		return activityService.getAllActivityNumber();
 	}
+	
 	public int getPartActivitiesNumber(String title,Timestamp start,Timestamp end){
 		return activityService.getPartActivityNumber(title, start, end);
 	}

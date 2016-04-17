@@ -31,5 +31,6 @@ public interface UserinfoService {
 	public List<Userinfo> getUserinfos(long[] ids);
 	
 	public List<Userinfo> getAllUserinfos();
+	public int getJoinedActivityNumber(long uid);
 	
 }

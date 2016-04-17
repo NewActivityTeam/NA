@@ -1,5 +1,8 @@
 package com.na.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -10,17 +13,54 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import cn.yiban.open.FrameUtil;
 
+import com.na.entity.Activity;
 import com.na.entity.Userinfo;
+import com.na.service.ActivityService;
 import com.na.service.UserinfoService;
 import com.na.tools.AddressTools;
 
 //页面跳转
 @Controller
 public class TurnPageController {
-	
+	private final static int PAGE_SIZE = 12;
 	@Autowired
 	UserinfoService userinfoService;
+	@Autowired
+	ActivityService activityService;
 	
+	public int getActivitiesCount(){
+		return activityService.getAllActivityNumber();
+	}
+	@RequestMapping("/pc/home")
+	public String turnToPcHome(HttpServletRequest request){
+		List<Activity> list = activityService.getAllActivitiesByPage(1, PAGE_SIZE);
+		int total = this.getActivitiesCount();
+		int pages = 0;
+		if(total % PAGE_SIZE == 0){
+			pages = total / PAGE_SIZE;
+		}else{
+			pages = total / PAGE_SIZE + 1;
+		}
+		System.out.println("total = " + total + "," + "pages = " + pages);
+		if(list != null){
+			for(Activity activity : list){
+				System.out.println(activity.getTitle());
+			}
+		}
+		List<Activity> res = activityService.getNewestActivities();
+		List<Activity> newlist = new ArrayList<Activity>();
+		if(res.size() > 4){
+			for(int i = 0;i < 4;i++){
+				newlist.add(res.get(i));
+			}
+		}else{
+			newlist = res;
+		}
+		request.setAttribute("newlist", newlist);
+		request.setAttribute("total",pages);
+		request.setAttribute("list", list);
+		return "jsp/pc/index";
+	}
 	//应用首页
 	@RequestMapping("/home")
 	public String turnToHome(HttpServletRequest request){

@@ -56,7 +56,7 @@ public class UserinfoDaoImp implements UserinfoDao {
 			session.saveOrUpdate(userinfo);
 			ts.commit();
 			session.flush(); 
-			session.clear(); 
+			session.clear();
 			//session.close();
 			return true;
 		} catch (Exception e) {
@@ -64,7 +64,6 @@ public class UserinfoDaoImp implements UserinfoDao {
 			return false;
 		}
 	}
-
 	//删除
 	@Override
 	public boolean delete(Userinfo userinfo) {
@@ -164,5 +163,18 @@ public class UserinfoDaoImp implements UserinfoDao {
 		}
 		return -1;
 	}
-
+	public int findCount(String sql){
+		try {
+			Session session = sessionFactory.getCurrentSession();
+			if (!session.isOpen()) {
+				session = sessionFactory.openSession();
+			}
+			Query query = session.createQuery(sql);
+			return ((Number)query.uniqueResult()).intValue(); 
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}
+		return -1;
+	}
 }

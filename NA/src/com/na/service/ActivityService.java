@@ -29,8 +29,13 @@ public interface ActivityService {
 	public List<Activity> getActivitiesByConditions(String title,Timestamp start,Timestamp end,int currentPage,int pageSize);
 	
 	public int getAllActivityNumber();
+
 	public int getPartActivityNumber(String title,Timestamp start,Timestamp end);
 
 	public void addFastGroupedCount(long aid,int fgc);
+	
+	public List<Activity> getNewestActivities();
+	
+	public List<Activity> getScoreActivities();
 
 }

@@ -312,4 +312,22 @@ public class ActivityServiceImp implements ActivityService {
 		}
 		activityDao.update(activity);
 	}
+
+	@Override
+	public List<Activity> getNewestActivities() {
+		// TODO Auto-generated method stub
+		String hql = "from Activity order by createtime";
+		List<Activity> list = (List<Activity>) activityDao.selectHql(hql);
+		return list;
+	}
+
+	@Override
+	public List<Activity> getScoreActivities() {
+		// TODO Auto-generated method stub
+		String sql = "";
+		return null;
+	}
+
+
+	
 }

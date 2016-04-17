@@ -11,4 +11,5 @@ public interface UserinfoDao {
 	public int otherHql(String hql);
 	public int otherSql(String sql);
 	public Userinfo getUserinfo(long uid);
+	public int findCount(String sql);
 }

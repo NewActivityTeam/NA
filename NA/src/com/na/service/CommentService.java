@@ -24,5 +24,4 @@ public interface CommentService {
 	
 	public List<Comment> getAllCommentsByPage(long aid,int currentPage,int pageSize);
 	
-	
 }
