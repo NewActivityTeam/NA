@@ -1,5 +1,7 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@page import="java.sql.Timestamp"%>
+
 <%
 	String path = request.getContextPath();
 	String basePath = request.getScheme() + "://"
@@ -89,8 +91,8 @@
 					<div class="pagetab">
 						<ul class="pagetab-list">
 							<li class="p-list1"><a href="javascript:void(0)" class="pagetab-list-lnk" id="allActivities">全部活动</a></li>
-							<li class="p-list2"><a href="#" class="pagetab-list-lnk">正在进行</a></li>
-							<li class="p-list3"><a href="#" class="pagetab-list-lnk">已经结束</a></li>
+							<li class="p-list2"><a href="javascript:void(0)" class="pagetab-list-lnk" id="on">正在进行</a></li>
+							<li class="p-list3"><a href="javascript:void(0)" class="pagetab-list-lnk" id="over">已经结束</a></li>
 						</ul>
 					</div>
 					<ul id="activitiesListBox" class="activitieslistbox">
@@ -99,11 +101,18 @@
 								<a class="lnk-type" href="#">[正在进行]</a> <a href="#">活动名称</a>
 							</p> <span class="date">2014-11-20</span>
 						</li>-->
+						<c:set var="now" value="<%=new Timestamp(System.currentTimeMillis())%>"/>
 						<c:if test="${list!=null}">
 							<c:forEach var="activity" items="${list }">
 								<li class="activities-lst">
 									<p>
-										<a class="lnk-type" href="#">[正在进行]</a> <a href="getActivity?aid=${activity.id }" target="_blank">${activity.title }</a>
+									<c:if test="${activity.endtime >= now }">
+									<a class="lnk-type" href="#">[正在进行]</a>
+									</c:if>
+									<c:if test="${activity.endtime < now }">
+									<a class="lnk-type" href="#">[已经结束]</a>
+									</c:if>
+										 <a href="getActivity?aid=${activity.id }" target="_blank">${activity.title }</a>
 									</p> <span class="date">${activity.createtime }</span>
 								</li>
 							</c:forEach>
@@ -191,6 +200,7 @@
 	</div>
 	<script type="text/javascript">
 		var current = 1;
+		var flag=0;
 		var total = $("#total").val();
 		pagingshow();
 		jsDec();
@@ -260,15 +270,22 @@
 					url : "getAllActivitiesOfPC",
 					type : "POST",
 					data : {
-						page : current
+						page : current,
+						flag: flag
+						
 					},
 					dataType : "json",
 					success : function(data,status){
 					$("#page").empty();
 					$("#activitiesListBox").empty();
 						$.each(data.list,function(index,array){
+						if(array['endtime'] >= $.now()){
 							var str = "<li class='activities-lst'><p><a class='lnk-type' href='#'>[正在进行]</a> <a href='getActivity?aid=" + array['id'] + "' target='_blank'>" + array['title'] +
 							"</p> <span class='date'>" + array['createtime'] +"</span></li>";
+							}else{
+							var str = "<li class='activities-lst'><p><a class='lnk-type' href='#'>[已经结束]</a> <a href='getActivity?aid=" + array['id'] + "' target='_blank'>" + array['title'] +
+							"</p> <span class='date'>" + array['createtime'] +"</span></li>";
+							}
 							$("#activitiesListBox").append(str);
 						});
 						jsDec();
@@ -281,12 +298,49 @@
 		}
 		
 		$(document).ready(function(){
-			$("#allActivities").click(function(){
+			 $("#allActivities").click(function(){
+			 flag = 0;
 				$.ajax({
 					url : "getAllActivitiesOfPC",
 					type : "POST",
 					data : {
-						page : 1
+						page : 1,
+						flag : 0
+					},
+					dataType : "json",
+					success : function(data,status){
+					$("#page").empty();
+					$("#activitiesListBox").empty();
+						$.each(data.list,function(index,array){
+						//alert(array['endtime']);
+						//alert($.now());
+						if(array['endtime'] >= $.now()){
+						
+							var str = "<li class='activities-lst'><p><a class='lnk-type' href='#'>[正在进行]</a> <a href='getActivity?aid=" + array['id'] + "' target='_blank'>" + array['title'] +
+							"</a></p> <span class='date'>" + array['createtime'] +"</span></li>";
+							}else{
+							var str = "<li class='activities-lst'><p><a class='lnk-type' href='#'>[已经结束]</a> <a href='getActivity?aid=" + array['id'] + "' target='_blank'>" + array['title'] +
+							"</a></p> <span class='date'>" + array['createtime'] +"</span></li>";
+							}$("#activitiesListBox").append(str);
+						});
+						jsDec();
+						total = data.total;
+						pagingshow();
+					},
+					error : function(){
+						alert("error");
+					}
+				});
+			}); 
+			
+			 $("#on").click(function(){
+			 flag = 1;
+				$.ajax({
+					url : "getAllActivitiesOfPC",
+					type : "POST",
+					data : {
+						page : 1,
+						flag : 1
 					},
 					dataType : "json",
 					success : function(data,status){
@@ -298,21 +352,35 @@
 							$("#activitiesListBox").append(str);
 						});
 						jsDec();
-						/* var str = "";
-						if(data.total <= 6){
-							for(var i = 1;i <= data.total;i++){
-								str += "<a href='javascript:void(0)' class='pagenext' onclick='choosepage(" + i +")'>" + i + "</a>";
-							}
-						}else{
-							for(var i = 1;i <= 5;i++){
-								str += "<a href='javascript:void(0)' class='pagenext' onclick='choosepage(" + i +")'>" + i + "</a>";
-							}
-							str += "......";
-							str += "<a href='javascript:void(0)' class='pagenext' onclick='choosepage(" + data.total +")'>" + data.total + "</a>";
-						}
 						total = data.total;
-						$("#page").append(str);
-						$("#last").css("display","none"); */
+						pagingshow();
+					},
+					error : function(){
+						alert("error");
+					}
+				});
+			});
+			 
+			$("#over").click(function(){
+			flag = 2;
+				$.ajax({
+					url : "getAllActivitiesOfPC",
+					type : "POST",
+					data : {
+						page : 1,
+						flag : 2
+					},
+					dataType : "json",
+					success : function(data,status){
+					$("#page").empty();
+					$("#activitiesListBox").empty();
+					
+						$.each(data.list,function(index,array){
+							var str = "<li class='activities-lst'><p><a class='lnk-type' href='#'>[已经结束]</a> <a href='getActivity?aid=" + array['id'] + "' target='_blank'>" + array['title'] +
+							"</a></p> <span class='date'>" + array['createtime'] +"</span></li>";
+							$("#activitiesListBox").append(str);
+						});
+						jsDec();
 						total = data.total;
 						pagingshow();
 					},
@@ -322,6 +390,9 @@
 				});
 			});
 		});
+		
+		
+	
 	</script>
 </body>
 </html>

@@ -1,6 +1,7 @@
 package com.na.service.imp;
 
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -145,6 +146,28 @@ public class ActivityServiceImp implements ActivityService {
 		return null;
 
 	}
+	
+	//获取所有活动,若为空返回null
+	@Override
+	public List<Activity> getActivitiesByPageByFlag(int flag,int currentPage,int pageSize) {
+		String hql = null;
+		/*SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		Date date = new Date();
+		String d =	df.format(date);*/
+		Date date = new Date();
+		Timestamp timestamp = new Timestamp(date.getTime()); //2013-01-14 22:45:36.484
+
+		if(flag == 0) hql = "from Activity where id>0";
+		else if(flag == 1) hql ="from Activity where id >0 and endtime >='"+timestamp+"'";
+		else if(flag == 2) hql ="from Activity where id >0 and endtime < '"+timestamp+"'" ;
+		List<Activity> list = (List<Activity>) activityDao.selectHqlByPage(hql,currentPage,pageSize);
+		if (list.size()!=0) {
+			return list;
+		}
+		return null;
+
+	}
+	
 
 	//通过管理员ID获取活动（适用于管理员查看自己的活动）,若为空返回null
 	@Override
@@ -244,6 +267,25 @@ public class ActivityServiceImp implements ActivityService {
 		List<Activity> list = (List<Activity>) activityDao.selectHql(hql);
 		return list.size();
 	}
+	
+	@Override
+	public int getAllActivityNumberByFlag(int flag) {
+		// TODO Auto-generated method stub
+		String hql = null;
+		//SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		Date date = new Date();
+		Timestamp timestamp = new Timestamp(date.getTime());		
+		switch(flag){
+		case 0: hql = "from Activity";break;
+		case 1: hql = "from Activity where id >0 and  endtime >= '"+timestamp+"'";break;
+		case 2: hql = "from Activity where id >0 and  endtime < '" +timestamp+"'";break;
+		}
+		System.out.println("before list.size====");
+		List<Activity> list = (List<Activity>) activityDao.selectHql(hql);
+		System.out.println("list.size===="+list.size());
+		return list.size();
+	}
+
 
 
 	@Override

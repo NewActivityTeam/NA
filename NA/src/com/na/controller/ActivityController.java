@@ -39,7 +39,7 @@ import com.na.tools.Pager;
 
 @Controller
 public class ActivityController extends BaseController{
-	private final static int PAGE_SIZE = 12;
+	private final static int PAGE_SIZE = 4;
 	private int currentPage = 1;
 	@Autowired
 	public ActivityService activityService;
@@ -251,8 +251,9 @@ public class ActivityController extends BaseController{
 		return "jsp/pc/activity";
 	}
 	
-	public int getActivitiesCount(){
-		return activityService.getAllActivityNumber();
+	public int getActivitiesCount(int flag){
+		System.out.println("flag ======"+flag);
+		return activityService.getAllActivityNumberByFlag(flag);
 	}
 	public int getActivitiesCountOfUser(long uid){
 		return 0;
@@ -262,10 +263,12 @@ public class ActivityController extends BaseController{
 	public Map<String,Object> getAllActivitiesOfPC(HttpServletRequest request){
 		Map<String,Object> map = new HashMap<String,Object>();
 		int page = Integer.parseInt(request.getParameter("page"));
+		int flag = Integer.parseInt(request.getParameter("flag"));
 		int total = 0;
 		int pages = 0;
-		List<Activity> list = activityService.getAllActivitiesByPage(page, PAGE_SIZE);
-		total = this.getActivitiesCount();
+		//List<Activity> list = activityService.getAllActivitiesByPage(page, PAGE_SIZE);
+		List<Activity> list = activityService.getActivitiesByPageByFlag(flag,page, PAGE_SIZE);
+		total = this.getActivitiesCount(flag);
 		
 		if(total % PAGE_SIZE == 0){
 			pages = total / PAGE_SIZE;

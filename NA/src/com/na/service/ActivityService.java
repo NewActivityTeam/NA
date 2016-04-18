@@ -19,6 +19,7 @@ public interface ActivityService {
 	public Activity getActicity(long id);
 	
 	public List<Activity> getAllActivitiesByPage(int currentPage,int pageSize);
+	public List<Activity> getActivitiesByPageByFlag(int flag,int currentPage,int pageSize);
 	
 	public List<Activity> getActivitiesByManager(long uid);
 	
@@ -29,6 +30,7 @@ public interface ActivityService {
 	public List<Activity> getActivitiesByConditions(String title,Timestamp start,Timestamp end,int currentPage,int pageSize);
 	
 	public int getAllActivityNumber();
+	public int getAllActivityNumberByFlag(int flag);
 
 	public int getPartActivityNumber(String title,Timestamp start,Timestamp end);
 

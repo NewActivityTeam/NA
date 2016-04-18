@@ -22,7 +22,7 @@ import com.na.tools.AddressTools;
 //页面跳转
 @Controller
 public class TurnPageController {
-	private final static int PAGE_SIZE = 12;
+	private final static int PAGE_SIZE = 4;
 	@Autowired
 	UserinfoService userinfoService;
 	@Autowired
