@@ -27,9 +27,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   			<td colspan="3" style="background:white"><iframe name="head" src="<%=request.getContextPath() %>/jsp/head.jsp" width="100%" height="100px" scrolling="no"></iframe></td>
   		</tr>
   		<tr>
-  			<td width="16%" height="80%"><iframe name="left" src="<%=request.getContextPath()%>/jsp/navigation.jsp" width="100%" height="100%" scrolling="no"></iframe></td>
-  			<td width="84%" height="80%"><iframe name="right" src="<%=request.getContextPath()%>/jsp/PublishActivity.jsp" width="100%" height="100%"></iframe></td>
-  		</tr>
-  	</table>
+  			<td width="20%" height="80%"><iframe name="left" src="<%=request.getContextPath()%>/jsp/navigation.jsp" width="100%" height="100%" scrolling="no"></iframe></td>
+  			<td width="80%" height="80%"><iframe name="right" src="<%=request.getContextPath()%>/jsp/PublishActivity.jsp" width="100%" height="100%"></iframe></td>
+  </table>
   </body>
 </html>

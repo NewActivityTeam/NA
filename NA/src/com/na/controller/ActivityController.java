@@ -4,7 +4,9 @@ package com.na.controller;
 
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -13,6 +15,9 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -80,6 +85,44 @@ public class ActivityController extends BaseController{
 		return "/jsp/PublishActivity";
 	}*/
 	@ResponseBody
+	@RequestMapping("upload")
+	public void upload(HttpServletRequest request) throws IllegalStateException, IOException{
+		System.out.println("===开始传图片===");
+		CommonsMultipartResolver multipartResover = new CommonsMultipartResolver(request.getSession().getServletContext());
+		if(multipartResover.isMultipart(request)){
+			System.out.println(1);
+			String imageURL = "";
+			MultipartHttpServletRequest multiRequest = (MultipartHttpServletRequest) request;
+			System.out.println(1.5);
+			Iterator<String> iter = multiRequest.getFileNames();
+			System.out.println(2);
+			int i = 0;
+			System.out.println(3);
+			while(iter.hasNext()){
+				System.out.println(++i);
+				int pre = (int) System.currentTimeMillis();
+				MultipartFile file = multiRequest.getFile(iter.next());
+				if(file != null){
+					String myFileName = file.getOriginalFilename();
+					System.out.print(myFileName);
+					if(myFileName.trim() != ""){
+						System.out.println(myFileName);
+						imageURL += (myFileName + ";");
+						request.getSession().setAttribute("imageURL", imageURL);
+						String fileName = "demoUpload" + file.getOriginalFilename();
+						String path = request.getSession().getServletContext().getRealPath("/") + "/upload/" + fileName;
+						File localFile = new File(path);
+						file.transferTo(localFile);
+						
+					}
+				}
+				else {
+					System.out.println("读不出来");
+				}
+			}
+		}
+	}
+	@ResponseBody
 	@RequestMapping("PublishActivity")
 	public Map<String, Integer> publishActivityTest(){
 		Map<String, Integer> map  = new HashMap<String, Integer>();
@@ -92,6 +135,8 @@ public class ActivityController extends BaseController{
 			String address = request.getParameter("address");
 			String voteAddress = request.getParameter("voteaddress");
 			String description = request.getParameter("content");
+			String file = request.getParameter("file");
+			System.out.println("file = " + file);
 			long manager = Long.parseLong(request.getParameter("manager"));
 			int number = 1;
 			if (!request.getParameter("number").equals("")) {
@@ -117,6 +162,7 @@ public class ActivityController extends BaseController{
 			title = request.getParameter("title");
 		}
 		if(request.getParameter("startDate") != ""){
+			System.out.println("start = " + request.getParameter("startDate"));
 			start = Timestamp.valueOf(request.getParameter("startDate") + " 00:00:00");
 		}
 		if( request.getParameter("endDate") != ""){

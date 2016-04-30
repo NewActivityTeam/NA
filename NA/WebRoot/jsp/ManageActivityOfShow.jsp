@@ -29,8 +29,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	margin-bottom: 10px;
 }
 </style>
-
-
 <style>
 .top {
 	margin-right: auto;
@@ -39,15 +37,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	height: 25%;
 	border: 1px solid black;
 }
-
 .content {
 	margin-right: auto;
 	margin-left: auto;
 	width: 95%;
 	height: 75%;
-	border: 1px solid black;
 }
-
 th {
 	align: center;
 	text-align: center;
@@ -59,21 +54,17 @@ th {
 	padding: 0;
 	list-style: none;
 }
-
 a {
 	text-decoration: none;
 }
-
 a:hover {
 	text-decoration: none;
 }
-
 .tcdPageCode {
 	padding: 15px 20px;
 	text-align: left;
 	color: #ccc;
 }
-
 .tcdPageCode a {
 	display: inline-block;
 	color: #428bca;
@@ -86,12 +77,10 @@ a:hover {
 	border-radius: 4px;
 	vertical-align: middle;
 }
-
 .tcdPageCode a:hover {
 	text-decoration: none;
 	border: 1px solid #428bca;
 }
-
 .tcdPageCode span.current {
 	display: inline-block;
 	height: 25px;
@@ -121,13 +110,11 @@ a:hover {
 </head>
 
 <body>
-
-
 	<div class="content">
 		<center>
 			<h4>活动列表</h4>
 		</center>
-		<table width="100%" border="1px" style="text-align:center">
+		<table width="100%" style="text-align:center" class="table table-bordered">
 			<tr>
 				<th>编号</th>
 				<th>活动名称</th>
@@ -138,23 +125,19 @@ a:hover {
 				<th>删除</th>
 				<th>管理</th>
 			</tr>
-
 			<%
 				int i = 1;
 			%>
 			<%
 				List<Activity> list = (List<Activity>)request.getAttribute("activities");
-			    			
 			    			if(list == null){
 			    			}else{
 			    				for(Activity activity : list ) {
 			    				System.out.println("title=" + activity.getTitle());
 			%>
-
 			<tr>
 				<td><%=i++%></td>
 				<td><%=activity.getTitle()%></td>
-
 				<td><%=activity.getStarttime()%></td>
 				<td><%=activity.getEndsigntime()%></td>
 				<td><%=activity.getAddress()%></td>
@@ -169,7 +152,6 @@ a:hover {
 							'',
 							'height=800, width=1000, top=0, left=0, toolbar=no, menubar=no, scrollbars=no,resizable=no,location=no, status=no');"><span class="glyphicon glyphicon-user"></span></a></td>
 			</tr>
-
 			<%
 				}}
 			%>
@@ -180,7 +162,6 @@ a:hover {
 			</tr>
 		</table>
 	</div>
-
 	<input id="func" name="func" value="${func}" type="hidden">
 	<input id="title" name="title" value="${title}" type="hidden">
 	<input id="startDate" name="startDate" value="${start}" type="hidden">
@@ -198,8 +179,7 @@ a:hover {
 
 	<script>
 		var current =
-	<%=request.getAttribute("current")%>
-		;
+	<%=request.getAttribute("current")%>;
 		var method = $('#func').val();
 		var pageCount =
 	<%=request.getAttribute("pageCount")%>
@@ -216,9 +196,6 @@ a:hover {
 				console.log(p);
 			}
 		});
-		function oncli() {
-			
-		}
 	</script>
 </body>
 </html>

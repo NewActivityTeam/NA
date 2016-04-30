@@ -216,7 +216,6 @@ body {
 				<input type="hidden" value=<%=request.getParameter("aid") %> name="aid" id="aid">
 			</form>
 			<div id="demo" class="demo"></div>
-
 		</div>
 	</div>
 </body>

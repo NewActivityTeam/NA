@@ -8,9 +8,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <html>
   <head>
     <base href="<%=basePath%>">
-    
     <title>My JSP 'PublishActivity.jsp' starting page</title>
-    
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
 	<meta http-equiv="expires" content="0">    
@@ -41,7 +39,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript" src="<%=request.getContextPath() %>/dist/bootstrap-clockpicker.min.js"></script>
 	<script type="text/javascript" src="<%=request.getContextPath() %>/js/bootstrap-datetimepicker.js"></script>
 	<script type="text/javascript" src="<%=request.getContextPath() %>/js/bootstrap-datetimepicker.zh-CN.js"></script>
-	
+	<script type="text/javascript" src="<%=request.getContextPath() %>/js/ajaxfileupload.js"></script>
 	
 	<style>
 		.input-group{
@@ -53,12 +51,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
   
   <body style="overflow:scroll">
-  	
-    <form class="form-horizontal" action="PublishActivity" method="post" id="form" style="margin-top:30px;" OnSubmit="return check()">
+  	<form class="form-horizontal" style="margin-top:30px;">
+    <!-- <form class="form-horizontal" action="PublishActivity" method="post" id="form" style="margin-top:30px;" OnSubmit="return check()"> -->
   		<div class="form-group">
     		<label for="inputEmail3" class="col-sm-2 control-label">活动名称</label>
-    		<div class="col-sm-7">
+    		<div class="col-sm-3">
       			<input type="text" name="title" id="title" class="form-control" placeholder="请输入活动名称">
+    		</div>
+    		<label for="inputEmail3" class="col-sm-2 control-label">活动LOGO</label>
+    		<div class="col-sm-3">
+    		
+      			<input type="file" name="fileToUpload" id="fileToUpload">
+      		
     		</div>
   		</div>
   		
@@ -138,11 +142,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					    <option value="6">6人</option>
 					</select>
     			</div>
-				
-			
-
-
-
     		</div>
   		</div>
   		<div style="margin-left:auto;margin-right:auto;text-align:center;">
@@ -172,6 +171,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   		
   		
   		<center><input type="button" id="sub" class="btn btn-info" value="发布活动"></center>
+	<!-- </form> -->
 	</form>
 	
 	
@@ -256,6 +256,31 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			}
 			return true;
 		}
+		function getFileName(o){
+   			var pos=o.lastIndexOf("\\");
+   			return o.substring(pos+1);  
+		}
+		function ajaxFileUpload(){
+			$.ajaxFileUpload ({ 
+				url :'upload', 
+				secureuri :false, 
+				fileElementId :'fileToUpload', 
+				dataType : 'json', 
+				success : function (data, status){ 
+				if(typeof(data.error) != 'undefined'){ 
+				if(data.error != ''){ 
+				alert(data.error); 
+				}else{ 
+				alert(data.msg); 
+				} 
+				} 
+				}, 
+				error: function (data, status, e){ 
+				alert(e); 
+				} 
+				}) 
+				return false; 
+			} 
 		$(document).ready(function(){
 			$('#mulperson').click(function(){
 				$('#inputperson').show();
@@ -263,10 +288,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			$('#oneperson').click(function(){
 				$('#inputperson').hide();
 			});
+			
 			//AJAX访问
 			$('#sub').click(function(){
 				var number = 1;
 				var title = $('#title').val();
+				var file = $('#fileToUpload').val();
+				file = getFileName(file);
 				var startdate = $('#startDate').val();
 				var starttime = $('#startTime').val();
 				var enddate = $('#endDate').val();
@@ -284,6 +312,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				if(parseInt($('#inputperson').val()) != 0){
 					number = parseInt($('#inputperson').val());
 				}
+				//$("#form").submit();
+				ajaxFileUpload();
 				if(check()==true && isLegalTime() == true){
 					$.ajax({ 
 					url: "PublishActivity", 
@@ -302,7 +332,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						voteaddress : voteaddress,
 						content : content,
 						manager : manager,
-						number : number
+						number : number,
+						file : file
 					},
 					dataType : "json",
 					success: function(data,status){

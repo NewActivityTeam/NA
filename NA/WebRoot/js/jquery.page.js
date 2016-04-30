@@ -97,7 +97,7 @@
 		tag = options.tag;
 		parm = options.parm;
 		var args = $.extend({
-			pageCount : 10,
+			pageCount : 8,
 			current : 1,
 			backFn : function(){}
 		},options);
