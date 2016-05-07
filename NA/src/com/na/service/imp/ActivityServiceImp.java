@@ -25,7 +25,7 @@ public class ActivityServiceImp implements ActivityService {
 
 	//新增活动
 	@Override
-	public int newActicity(String title, String description, Timestamp starttime,
+	public int newActicity(String title, String logo, String description, Timestamp starttime,
 			Timestamp endtime, Timestamp endsigntime,String address,String voteAddress,long manager,int number) {
 		
 		int code = 12014;
@@ -33,6 +33,7 @@ public class ActivityServiceImp implements ActivityService {
 		try {
 			Activity activity = new Activity();
 			activity.setTitle(title);
+			activity.setLogo(logo);
 			activity.setDescription(description);
 			activity.setManager(manager);
 			activity.setEndsigntime(endsigntime);
@@ -73,7 +74,7 @@ public class ActivityServiceImp implements ActivityService {
 	 * 		10	voteAddress		投票地址
 	 */
 	@Override
-	public int updateActicity(long id,String title, String description, Timestamp starttime,
+	public int updateActicity(long id,String title, String logo, String description, Timestamp starttime,
 			Timestamp endtime, Timestamp endsigntime,String address,String voteAddress,long manager,int number) {
 		
 		int code = 12024;
@@ -82,6 +83,7 @@ public class ActivityServiceImp implements ActivityService {
 			Activity activity = activityDao.getActivity(id);
 			if (activity!=null) {
 				activity.setTitle(title);
+				activity.setLogo(logo);
 				activity.setDescription(description);
 				activity.setManager(manager);
 				activity.setEndsigntime(endsigntime);

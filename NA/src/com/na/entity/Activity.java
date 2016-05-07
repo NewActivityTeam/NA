@@ -18,6 +18,7 @@ public class Activity implements java.io.Serializable {
 	// Fields
 
 	private Long id;
+	private String logo;
 	private String title;
 	private String description;
 	private Timestamp starttime;
@@ -45,10 +46,12 @@ public class Activity implements java.io.Serializable {
 	}
 
 	/** full constructor */
-	public Activity(String title, String description, Timestamp starttime,
-			Timestamp endtime, Timestamp endsigntime, Timestamp createtime,
-			Long manager, String voteaddress, String webAddress,
-			String mobileAddress, String address, Integer number, Integer fgc) {
+	public Activity(String logo, String title, String description,
+			Timestamp starttime, Timestamp endtime, Timestamp endsigntime,
+			Timestamp createtime, Long manager, String voteaddress,
+			String webAddress, String mobileAddress, String address,
+			Integer number, Integer fgc) {
+		this.logo = logo;
 		this.title = title;
 		this.description = description;
 		this.starttime = starttime;
@@ -74,6 +77,15 @@ public class Activity implements java.io.Serializable {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	@Column(name = "logo", length = 500)
+	public String getLogo() {
+		return this.logo;
+	}
+
+	public void setLogo(String logo) {
+		this.logo = logo;
 	}
 
 	@Column(name = "title", nullable = false, length = 40)

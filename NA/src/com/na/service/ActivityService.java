@@ -7,11 +7,11 @@ import com.na.entity.Activity;
 
 public interface ActivityService {
 
-	public int newActicity(String title, String description, Timestamp starttime,
+	public int newActicity(String title,String logo, String description, Timestamp starttime,
 			Timestamp endtime, Timestamp endsigntime,String address,String voteAddress,long manager,int number);
 	
 	public int addActivity(Activity activity);
-	public int updateActicity(long id,String title, String description, Timestamp starttime,
+	public int updateActicity(long id,String title,String logo,  String description, Timestamp starttime,
 			Timestamp endtime, Timestamp endsigntime,String address,String voteAddress,long manager,int number);
 	
 	public int deleteActivity(long []ids);

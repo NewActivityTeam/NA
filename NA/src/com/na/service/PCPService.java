@@ -51,4 +51,10 @@ public interface PCPService {
 	public int deletePCPsByUID(long uid);
 	
 	public int fastAllot(List<Long> pcpids,List<Long> groups,int nop);
+	
+	public int setGroup(long pid,long gid);
+	
+	public int setGroup(long aid, long uid,long gid);
+	
+	public boolean testGroupIsFull(long gid,int count);
 }

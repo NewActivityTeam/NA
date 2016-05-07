@@ -5,7 +5,7 @@
 <html>
   <head>
   	<title>个人信息</title>
-  	<meta charset="UTF-8"   data-theme="b">
+  	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
   	<link rel="stylesheet" href="${pageContext.request.contextPath}/js/jquery.mobile-1.4.5/jquery.mobile-1.4.5.min.css">
   	<script src="${pageContext.request.contextPath}/js/jQuery/jquery-1.12.0.min.js"></script>
@@ -157,7 +157,7 @@
   	</script>
   </head>
   <body>
-	  <div data-role="page"  data-theme="b">
+	  <div data-role="page">
 		  <div data-role="header">
 			  <a data-role="button" data-rel="back" data-icon="back">返回</a>
 			    <h1>个人信息</h1>	  

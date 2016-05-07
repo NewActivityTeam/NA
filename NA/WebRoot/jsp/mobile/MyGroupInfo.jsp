@@ -1,10 +1,5 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%
-String path = request.getContextPath();
-String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
-%>
-
 <!DOCTYPE>
 <html>
 	<head>
@@ -13,14 +8,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<link rel="stylesheet" href="${pageContext.request.contextPath}/js/jquery.mobile-1.4.5/jquery.mobile-1.4.5.min.css">
 		<script src="${pageContext.request.contextPath}/js/jQuery/jquery-1.12.0.min.js"></script>
 		<script src="${pageContext.request.contextPath}/js/jquery.mobile-1.4.5/jquery.mobile-1.4.5.min.js"></script>
-		<title>我的小组</title>
+		<title>组队信息</title>
 	</head>
 
 	<body>
 		<div data-role="page">
 			<div data-role="header">
 		  		<a data-role="button" data-rel="back" data-icon="back">返回</a>
-			   	<h1>我的小组</h1>
+			   	<h1>组队信息</h1>
 			</div>
 			
 			<div data-role="content" id="main" class="ui-content">
@@ -34,7 +29,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						${leader.name}
 					</c:if>
 					<c:if test="${leader==null}">
-						无
+						待定
 					</c:if></div></li>
 					<li data-icon="none">人数上限：<div style="float: right;" id ="maxcount">${group.maxcount}</div></li>
 					<li data-role="list-divider">组员名单</li>
@@ -43,9 +38,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					</c:forEach>
 				</ul>
 			</c:if>
-			<c:if test="${code%10==1}">				
+			<c:if test="${code%10==2}">	
+				<p style="text-align: center; font-size: 3ex;">您还未参加任何小组，请等待管理员分配或点击下面按钮创建或参加小组</p>
+				<a data-ajax="false"  href="${pageContext.request.contextPath}/test/group/tojoin?display=mobile&aid=${aid}" data-role="button" style="background: #55ccff">参加小组</a>
+				<a data-ajax="false"  href="${pageContext.request.contextPath}/test/group/tocreate?display=mobile&aid=${aid}" data-role="button">创建一个小组</a>
+				
 			</c:if>
 			</div>
+		</div>
+		<div id="foot-sign" data-role="footer" data-position="fixed">
 		</div>
 	</body>
 </html>

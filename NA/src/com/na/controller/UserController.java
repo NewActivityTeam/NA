@@ -437,4 +437,5 @@ public class UserController {
 		request.setAttribute("newlist", newlist);
 		return "jsp/pc/MyInfo";
 	}
+
 }

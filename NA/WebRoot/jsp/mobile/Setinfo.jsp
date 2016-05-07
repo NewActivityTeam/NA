@@ -243,7 +243,7 @@
   	</script>
 	</head>
 	<body>
-	<div data-role="page"  data-theme="b">
+	<div data-role="page">
 		<div data-role="header">
 			<a data-role="button" data-rel="back" data-icon="back">返回</a>
 			<h1>信息设置</h1>	  

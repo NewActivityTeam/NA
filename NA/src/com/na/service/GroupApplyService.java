@@ -18,4 +18,5 @@ public interface GroupApplyService {
 	
 	public List<GroupApply> getGroupAppliesByUID(long uid);
 	
+	public GroupApply getGroupApply(long uid,long gid);
 }

@@ -34,7 +34,7 @@
   	</div> -->
   	
   	<ul data-role="listview">
-  	<c:if test="${code==90161}">
+  	<c:if test="${code%10==1}">
 	  	<c:if test="${list!=null}">
 		  	<c:forEach var="activity" items="${list}">
 		  		<li data-role="list-divider">${activity.title}</li>
@@ -50,7 +50,7 @@
 	  		<h2 style="text-align: center; color: blue;">此类活动暂时为空</h2>
 	  	</c:if>
   	</c:if>
-  	<c:if test="${code!=90161}">
+  	<c:if test="${code%10!=1}">
   		<h1>查询异常</h1>
   	</c:if>
   	</ul>

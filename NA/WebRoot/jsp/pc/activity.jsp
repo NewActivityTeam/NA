@@ -42,7 +42,7 @@
 			<div class="navigator">
 				<ul>
 					<li><a href="${pageContext.request.contextPath}/pc/home" style="text-decoration:none;">首页</a></li>
-					<li><a href="${pageContext.request.contextPath}/user/getJoinedActivitiesInPC" style="text-decoration:none;">我的活动</a></li>
+					<li><a href="${pageContext.request.contextPath}/user/getJoinedActivitiesInPC?page=1" style="text-decoration:none;">我的活动</a></li>
 					<li>我的团队</li>
 					<li>个人中心</li>
 				</ul>
@@ -65,7 +65,7 @@
 			</div>
 		</div>
 		<div class="location">
-			<span>我的活动 <i>&gt;</i> ${activity.title }
+			<span style="margin-left:-1080px;">我的活动 <i>&gt;</i> ${activity.title }
 			</span>
 		</div>
 		<div class="wb activity">

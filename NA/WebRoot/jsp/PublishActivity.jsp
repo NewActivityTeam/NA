@@ -293,8 +293,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			$('#sub').click(function(){
 				var number = 1;
 				var title = $('#title').val();
-				var file = $('#fileToUpload').val();
-				file = getFileName(file);
+				var logo = $('#fileToUpload').val();
+				logo = getFileName(logo);
 				var startdate = $('#startDate').val();
 				var starttime = $('#startTime').val();
 				var enddate = $('#endDate').val();
@@ -333,7 +333,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						content : content,
 						manager : manager,
 						number : number,
-						file : file
+						logo : logo
 					},
 					dataType : "json",
 					success: function(data,status){

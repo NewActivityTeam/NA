@@ -3,6 +3,7 @@ package com.na.service.imp;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.hibernate.hql.internal.ast.HqlASTFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -32,6 +33,32 @@ public class GroupServiceImp implements GroupService {
 			group.setGroupname(groupname);
 			group.setDescription(description);
 			group.setMaxcount(maxcount);
+			if (groupDao.insert(group)) {
+				code = 15011;
+			}
+			else{
+				code = 15013;
+			}
+		} 
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return code;
+	}
+	//创建新的小组
+	public int createGroup(long aid,long leader,String groupname, String description,
+			int maxcount) {
+	
+		int code = 15014;
+
+		try {
+			Group group = new Group();
+			group.setAid(aid);
+			group.setGroupname(groupname);
+			group.setDescription(description);
+			group.setMaxcount(maxcount);
+			group.setLeader(leader);
 			if (groupDao.insert(group)) {
 				code = 15011;
 			}
@@ -237,6 +264,54 @@ public class GroupServiceImp implements GroupService {
 		
 		return code;
 	}
-	
-	
+	//获取通过AID和Leader获取组
+	@Override
+	public Group getGroupByAIDAndLeader(long aid, long leader) {
+		try{
+			String hql = "from Group where aid= "+aid+" and leader= "+leader;
+			List<Group> list = (List<Group>) groupDao.selectHql(hql);
+			if (list!=null&&list.size()!=0) {
+				return list.get(0);
+			}
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}
+		return null;
+	}
+	//改变（设置）组长
+	public int updateGroupLeader(long gid,long newleader){
+		int code = 90004;
+		try {
+			Group group = groupDao.getGroup(gid);
+			group.setLeader(newleader);
+			if(groupDao.update(group)){
+				code = 90001;
+			}
+			else{
+				code = 90003;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return code;
+	}
+	//通过组长id获取
+	@Override
+	public List<Group> getGroupsByLeader(long leader) {
+		
+		String hql = "from Group where leader="+leader;
+		
+		try {
+			List<Group> list = (List<Group>) groupDao.selectHql(hql);
+			if (list!=null&&list.size()!=0) {
+				return list;
+			}
+		} 
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+					
+		return null;
+	}
 }

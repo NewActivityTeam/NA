@@ -16,6 +16,7 @@
 <title>My JSP 'index.jsp' starting page</title>
 <link rel="stylesheet" type="text/css"
 	href="<%=request.getContextPath()%>/jsp/pc/css/css.css">
+<link rel="stylesheet" type="text/css" media="all" href="<%=request.getContextPath() %>/jsp/pc/css/style.css">
 <link rel="stylesheet" type="text/css"
 	href="<%=request.getContextPath()%>/jsp/pc/css/myactivity.css">
 <!-- 新 Bootstrap 核心 CSS 文件 -->
@@ -28,7 +29,6 @@
 <script src="http://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
 <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
 <script src="http://cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-
 </head>
 
 <body>
@@ -159,7 +159,7 @@
 										style="width:120px;text-align:center;vertical-align:top;padding-top:10px;padding-bottom:10px;border-right-width:0;border-right-style:solid;border-right-color:#E8E8E8;border-top-width:0;border-top-style:solid;border-top-color:#E8E8E8;">
 										<div>
 										<c:if test="${myactivity.comment == false }">
-											<div style="margin-bottom:3px;"><a href="#">评价</a></div>
+											<div style="margin-bottom:3px;"><a href="turnToScore?id=${myactivity.activity.id }&title=${myactivity.activity.title}" target="_blank" class="flatbtn">评价</a></div>
 										</c:if>
 										<c:if test="${myactivity.comment == true }">
 											<div style="margin-bottom:3px;">已评价</div>

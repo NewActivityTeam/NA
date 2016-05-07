@@ -174,12 +174,13 @@ public class GroupController {
 	}
 
 	//显示我的分组
-	@RequestMapping("showinfo")
+	@RequestMapping("mygroup")
 	public String MyGroupinfo(HttpServletRequest request){
 		int code = 91115;
 		String display = request.getParameter("display");
 		try {
 			long aid = Long.parseLong(request.getParameter("aid"));
+			request.setAttribute("aid", aid);
 			long uid = (long) request.getSession().getAttribute("uid");
 			PCP pcp = pcpService.getPcp(uid, aid);
 			if (pcp.getGroupid()!=null) {

@@ -208,9 +208,47 @@ public class GroupTestController {
 		map.put("list", returnList);
 		return map;
 	}
-
-	//显示我的分组
+	//显示分组信息
 	@RequestMapping("showinfo")
+	public String ShowGroupinfo(HttpServletRequest request){
+		int code = 91115;
+		String display = request.getParameter("display");
+		try {
+			long gid = Long.parseLong(request.getParameter("gid"));
+			Group group = groupService.getGroup(gid);
+			if(group!=null){
+				request.setAttribute("group", group);
+				if (group.getLeader()!=null) {
+					Userinfo leader = userinfoService.getUserinfo(group.getLeader());
+					request.setAttribute("leader", leader);
+				}
+				int count = pcpService.getGroupCount(group.getId());
+				request.setAttribute("count", count);
+				List<Long> list = pcpService.getUIDsByGID(group.getId());
+				if (list!=null&&list.size()!=0) {
+					long []ids = new long[list.size()];
+					for (int i = 0; i < list.size(); i++) {
+						ids[i] = list.get(i);
+					}
+					List<Userinfo> userinfos = userinfoService.getUserinfos(ids);
+					request.setAttribute("userinfos", userinfos);
+					code = 91111;
+				}
+			}
+			else {
+				code = 91112;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		request.setAttribute("code", code);
+		if (display!=null&&display.equals("mobile")) {
+			return "jsp/mobile/Groupinfo";
+		}
+		return "";
+	}
+	//显示我的分组
+	@RequestMapping("mygroup")
 	public String MyGroupinfo(HttpServletRequest request){
 		int code = 91115;
 		String display = request.getParameter("display");
@@ -251,18 +289,96 @@ public class GroupTestController {
 		return "";
 	}
 	//显示我的分组列表
-	@RequestMapping("showlist")
+	@RequestMapping("mygroupmanage")
 	public String MyGroupList(HttpServletRequest request){
 		int code = 91125;
 		String display = request.getParameter("display");
 		try {
 			long uid = (long) request.getSession().getAttribute("uid");
+			List<Group> list = groupService.getGroupsByLeader(uid);
+			if(list!=null&&list.size()!=0){
+				request.setAttribute("list", list);
+				code = 90121;
+			}
+			else{
+				code = 90122;
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		request.setAttribute("code", code);
 		if (display!=null&&display.equals("mobile")) {
 			return "jsp/mobile/MyGroupList";
+		}
+		return "";
+	}
+	
+	@RequestMapping("tocreate")
+	public String ToCreateGroup(HttpServletRequest request){
+		String display = request.getParameter("display");
+		try {
+			long aid = Long.parseLong(request.getParameter("aid"));
+			Activity activity = activityService.getActicity(aid);
+			request.setAttribute("activity", activity);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		if (display!=null&&display.equals("mobile")) {
+			return "jsp/mobile/CreateGroup";
+		}
+		return "";
+	}
+	//创建小组
+	@ResponseBody
+	@RequestMapping("create")
+	public Map<String, Object> CreateGroup(HttpServletRequest request){
+		Map<String, Object> map = new HashMap<String, Object>();
+		int code = 91135;
+		
+		long uid = (long) request.getSession().getAttribute("uid");
+		try {
+			long aid = Long.parseLong(request.getParameter("aid"));
+			String groupname = request.getParameter("groupname");
+			String description = request.getParameter("description");
+			int maxcount = Integer.parseInt(request.getParameter("maxcount"));
+			code = groupService.createGroup(aid, uid,groupname, description, maxcount);
+			if(code%10==1){
+				Group group = groupService.getGroupByAIDAndLeader(aid, uid);
+				System.out.println(group.getId());
+				PCP pcp = pcpService.getPcp(uid, aid);
+				System.out.println(pcp.getId());
+				if(pcp!=null){
+					code = pcpService.setGroup(pcp.getId(), group.getId());
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		map.put("code", code);
+		return map;
+	}
+	@RequestMapping("tojoin")
+	public String ToJoinGroup(HttpServletRequest request){
+		String display = request.getParameter("display");
+		try {
+			long aid = Long.parseLong(request.getParameter("aid"));
+			List<Group> AllList = groupService.getGroupsByAID(aid);
+			List<Group> acceptable = new ArrayList<Group>();
+			for (Group group : AllList) {
+				if(!pcpService.testGroupIsFull(group.getId(), group.getMaxcount())){
+					acceptable.add(group);
+				}
+			}
+			if(acceptable.size()==0){
+				request.setAttribute("aid", aid);
+				acceptable=null;
+			}
+			request.setAttribute("list", acceptable);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		if (display!=null&&display.equals("mobile")) {
+			return "jsp/mobile/GroupApplyList";
 		}
 		return "";
 	}

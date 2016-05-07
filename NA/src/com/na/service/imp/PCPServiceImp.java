@@ -534,5 +534,57 @@ public class PCPServiceImp implements PCPService {
 		return code;
 	}
 
+	//设置活动id
+	@Override
+	public int setGroup(long pid, long gid) {
+		int code = 14014;
+		try {
+			PCP pcp = getPcp(pid);
+			pcp.setGroupid(gid);
+			if (pcpDao.update(pcp)) {
+				code = 14011;
+			}
+			else{
+				code = 14013;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return code;
+	}
+	@Override
+	public int setGroup(long uid, long aid,long gid) {
+		int code = 14014;
+		try {
+			PCP pcp = getPcp(uid, aid);
+			if(pcp!=null){
+				pcp.setGroupid(gid);
+				if (pcpDao.update(pcp)) {
+					code = 14011;
+				}
+				else{
+					code = 14013;
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return code;
+	}
+
+	@Override
+	public boolean testGroupIsFull(long gid,int count) {
+		String hql = "from PCP where groupid = "+gid;
+		List<PCP> list = (List<PCP>) pcpDao.selectHql(hql);
+		if(list!=null&&list.size()!=0){
+			if(list.size()<count){
+				return false;
+			}
+		}
+		return true;
+	}
+	
 
 }

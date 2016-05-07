@@ -29,16 +29,21 @@ public class GroupApplyServiceImp implements GroupApplyService {
 		int code = 16014;
 		
 		try {
-			GroupApply groupApply = new GroupApply();
-			groupApply.setUid(uid);
-			groupApply.setGid(gid);
-			groupApply.setState(0);
-			groupApply.setCreatetime(new Timestamp(new Date().getTime()));
-			if (groupApplyDao.insert(groupApply)) {
-				code = 16011;
-			}
+			if(getGroupApply(uid, gid)==null){
+				GroupApply groupApply = new GroupApply();
+				groupApply.setUid(uid);
+				groupApply.setGid(gid);
+				groupApply.setState(0);
+				groupApply.setCreatetime(new Timestamp(new Date().getTime()));
+				if (groupApplyDao.insert(groupApply)) {
+					code = 16011;
+				}
+				else{
+					code = 16013;
+				}
+				}
 			else{
-				code = 16013;
+				code = 16012;
 			}
 		} 
 		catch (Exception e) {
@@ -54,7 +59,7 @@ public class GroupApplyServiceImp implements GroupApplyService {
 		int code = 16024;
 		
 		try {
-			GroupApply groupApply = new GroupApply();
+			GroupApply groupApply = groupApplyDao.getGroupApply(id);
 			groupApply.setState(1);
 			if(groupApplyDao.update(groupApply)){
 				code = 16021;
@@ -76,7 +81,7 @@ public class GroupApplyServiceImp implements GroupApplyService {
 		int code = 16034;
 
 		try {
-			GroupApply groupApply = new GroupApply();
+			GroupApply groupApply = groupApplyDao.getGroupApply(id);
 			groupApply.setState(2);
 			if(groupApplyDao.update(groupApply)){
 				code = 16031;
@@ -101,7 +106,7 @@ public class GroupApplyServiceImp implements GroupApplyService {
 	@Override
 	public List<GroupApply> getGroupAppliesByGID(long gid) {
 
-		String hql = "from GroupApply where gid="+gid;
+		String hql = "from GroupApply where gid="+gid +" order by state asc";
 		try {
 			List<GroupApply> list = (List<GroupApply>) groupApplyDao.selectHql(hql);
 			if (list!=null&&list.size()!=0) {
@@ -126,6 +131,24 @@ public class GroupApplyServiceImp implements GroupApplyService {
 			}
 		} 
 		catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	//获取GroupApply通过uid，gid
+	@Override
+	public GroupApply getGroupApply(long uid, long gid) {
+		String hql = "from GroupApply where uid="+uid +" and gid="+gid;
+		try{
+			
+			List<GroupApply> list = (List<GroupApply>) groupApplyDao.selectHql(hql);
+			if(list!=null&&list.size()!=0){
+				return list.get(0);
+			}
+
+		}
+		catch(Exception e){
 			e.printStackTrace();
 		}
 		return null;

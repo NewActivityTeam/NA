@@ -113,6 +113,19 @@ public class TurnPageController {
 		return "jsp/adminTurnError";
 		
 	}
-
+	@RequestMapping("turnToScore")
+	public String turnToScore(HttpServletRequest request){
+		List<Activity> res = activityService.getNewestActivities();
+		List<Activity> newlist = new ArrayList<Activity>();
+		if(res.size() > 4){
+			for(int i = 0;i < 4;i++){
+				newlist.add(res.get(i));
+			}
+		}else{
+			newlist = res;
+		}
+		request.setAttribute("newlist", newlist);
+		return "jsp/pc/score";
+	}
 
 }

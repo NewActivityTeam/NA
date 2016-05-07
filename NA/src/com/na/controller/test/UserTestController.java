@@ -7,6 +7,7 @@ import java.util.Random;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.tomcat.util.descriptor.web.LoginConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,6 +18,7 @@ import com.na.entity.Userinfo;
 import com.na.service.ActivityService;
 import com.na.service.PCPService;
 import com.na.service.UserinfoService;
+import com.sun.org.apache.bcel.internal.classfile.Code;
 
 @Controller
 @RequestMapping("/test/user")
@@ -29,6 +31,45 @@ public class UserTestController {
 	@Autowired
 	ActivityService activitySercice;
 	
+	@ResponseBody
+	@RequestMapping("/login")
+	public Map<String, Object> LoginConfig(HttpServletRequest request){
+		Map<String, Object> map = new HashMap<String, Object>();
+		try {
+			long uid = Long.parseLong(request.getParameter("uid"));
+			Userinfo userinfo = userinfoService.getUserinfo(uid);
+			if (userinfo!=null) {
+				String message ="登录成功,欢迎您，测试员"+userinfo.getName();
+				map.put("message", message);
+				request.getSession().setAttribute("uid", uid);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		int code = 90115;
+		map.put("code", code);
+		return map;
+	}
+	@ResponseBody
+	@RequestMapping("/logout")
+	public Map<String, Object> Logout(HttpServletRequest request){
+		Map<String, Object> map = new HashMap<String, Object>();
+		int code = 90115;
+		try {
+			if(request.getSession().getAttribute("uid")!=null){
+				request.getSession().setAttribute("uid", null);
+				code = 90111;
+			}
+			else{
+				code = 90112;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		map.put("code", code);
+		return map;
+	}
 	//随机创建Users
 	@ResponseBody
 	@RequestMapping("/newusers")
@@ -82,7 +123,6 @@ public class UserTestController {
 			}
 			List<Userinfo> userinfos = userinfoService.getUserinfos(ids);
 			if (userinfos!=null&&userinfos.size()!=0) {
-				System.out.println("成功了，有"+userinfos.size()+"条记录");
 				map.put("list", userinfos);
 				code = 90131;
 			}
@@ -137,11 +177,6 @@ public class UserTestController {
 			ids[i] = listOfAid.get(i);
 		}
 		List<Activity> list = activitySercice.getActivitiesByIds(ids);
-		System.out.println("====================");
-		for(int i = 0;i < list.size();i++){
-			System.out.println(list.get(i).getTitle() + " " + list.get(i).getDescription());
-		}
-		System.out.println("====================");
 		if(list != null && list.size() > 0){
 			request.setAttribute("list", list);
 			return "jsp/mobile/JoinedActivityList";
@@ -266,5 +301,23 @@ public class UserTestController {
 		}
 		map.put("code", code);
 		return map;
+	}
+	@RequestMapping("otherinfo")
+	public String OtherUserinfo(HttpServletRequest request){
+		String display = request.getParameter("display");
+		try {
+			long uid =Long.parseLong(request.getSession().getAttribute("uid").toString());
+			Userinfo userinfo = userinfoService.getUserinfo(uid);
+			if (userinfo!=null) {
+				request.setAttribute("userinfo", userinfo);
+			}
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}
+		if (display!=null&&display.endsWith("mobile")) {
+			return "jsp/mobile/OtherUserinfo";
+		}
+		return "";
 	}
 }

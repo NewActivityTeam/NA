@@ -137,12 +137,13 @@ public class ActivityController extends BaseController{
 			String description = request.getParameter("content");
 			String file = request.getParameter("file");
 			System.out.println("file = " + file);
+			String logo = request.getParameter("logo");
 			long manager = Long.parseLong(request.getParameter("manager"));
 			int number = 1;
 			if (!request.getParameter("number").equals("")) {
 				number = Integer.parseInt(request.getParameter("number"));
 			}
-			code = activityService.newActicity(title, description, starttime, endtime, endsigntime, address, voteAddress, manager,number);
+			code = activityService.newActicity(title,logo, description, starttime, endtime, endsigntime, address, voteAddress, manager,number);
 		}
 		catch(Exception e){
 			e.printStackTrace();
@@ -230,6 +231,7 @@ public class ActivityController extends BaseController{
 			String address = request.getParameter("address");
 			String voteAddress = request.getParameter("voteaddress");
 			String description = request.getParameter("content");
+			String logo = request.getParameter("logo");
 			System.out.println("description:" + description);
 			long manager = Long.parseLong(request.getParameter("manager"));
 			int number = 1;
@@ -238,7 +240,7 @@ public class ActivityController extends BaseController{
 				number = Integer.parseInt(request.getParameter("number"));
 			}
 			System.out.println(title + " " + starttime + " " + endtime + " " + endsigntime + " " + voteAddress + " " + description);
-			code = activityService.updateActicity(id, title, description, starttime, endtime, endsigntime, address, voteAddress, manager, number);
+			code = activityService.updateActicity(id, title,logo, description, starttime, endtime, endsigntime, address, voteAddress, manager, number);
 			System.out.println("code:" + code);
 		}
 		catch(Exception e){
