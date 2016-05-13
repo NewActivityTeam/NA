@@ -3,6 +3,7 @@ package com.na.service;
 import java.util.List;
 
 import com.na.entity.Group;
+import com.na.entity.nodb.ReturnMyGroup;
 
 public interface GroupService {
 
@@ -20,9 +21,13 @@ public interface GroupService {
 	
 	public List<Group> getGroupsByAID(long aid);
 	
+	public List<ReturnMyGroup> getPCGroupsByAID(long aid);
+	
 	public List<Group> getGroupsByUID(long uid);
 	
 	public List<Group> getGroupsByLeader(long leader);
+	
+	public List<ReturnMyGroup> getGroupsByGID(long ids[]);
 	
 	public List<Long> fastCreateGroups(long aid,int count,int nop);
 	

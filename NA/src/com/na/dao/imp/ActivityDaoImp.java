@@ -119,6 +119,7 @@ public class ActivityDaoImp implements ActivityDao {
 
 	//通过ID获取
 	public Activity getActivity(long id) {
+		System.out.println("ididid" + id);
 		Session session = sessionFactory.getCurrentSession();
 		if (!session.isOpen()) {
 			session = sessionFactory.openSession();

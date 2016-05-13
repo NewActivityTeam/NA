@@ -108,36 +108,39 @@ public class UserController {
 		}
 		System.out.println("total = " + total + "," + "pages = " + pages);
 		List<ReturnMyActivity> mylist = new ArrayList<ReturnMyActivity>();
-		List<Long> listOfAid = pcpService.getAIDsByUID(uid); 
-		long[] ids = new long[listOfAid.size()];
-		for(int i = 0;i < listOfAid.size();i++){
-			ids[i] = listOfAid.get(i);
-		}
-		List<Activity> list = activitySercice.getActivitiesByIds(ids);
-		System.out.println("list size:" + list.size());
-		if(list != null){
-			/*for(Activity activity : list)*/
-			for(int i = (page - 1) * PAGE_SIZE;i < page * PAGE_SIZE;i++){
-				if(i < total){
-					Activity activity = list.get(i);
-					System.out.println(activity.getId() + " " + uid);
-					ReturnMyActivity myActivity = new ReturnMyActivity();
-					myActivity.setActivity(activity);
-					PCP pcp = pcpService.getPcp(uid, activity.getId());
-					myActivity.setPcp(pcp);
-					if(pcp.getGroupid() != null){
-						Group group = groupService.getGroup(pcp.getGroupid());
-						myActivity.setGroup(group);
+		List<Long> listOfAid = pcpService.getAIDsByUID(uid);
+		if(listOfAid != null && listOfAid.size() != 0){
+			long[] ids = new long[listOfAid.size()];
+			for(int i = 0;i < listOfAid.size();i++){
+				ids[i] = listOfAid.get(i);
+			}
+			List<Activity> list = activitySercice.getActivitiesByIds(ids);
+			System.out.println("list size:" + list.size());
+			if(list != null){
+				/*for(Activity activity : list)*/
+				for(int i = (page - 1) * PAGE_SIZE;i < page * PAGE_SIZE;i++){
+					if(i < total){
+						Activity activity = list.get(i);
+						System.out.println(activity.getId() + " " + uid);
+						ReturnMyActivity myActivity = new ReturnMyActivity();
+						myActivity.setActivity(activity);
+						PCP pcp = pcpService.getPcp(uid, activity.getId());
+						myActivity.setPcp(pcp);
+						if(pcp.getGroupid() != null){
+							Group group = groupService.getGroup(pcp.getGroupid());
+							myActivity.setGroup(group);
+						}
+						if(assessService.getAssess(uid, activity.getId()) != null){
+							myActivity.setComment(true);
+						}else{
+							myActivity.setComment(false);
+						}
+						mylist.add(myActivity);
 					}
-					if(assessService.getAssess(uid, activity.getId()) != null){
-						myActivity.setComment(true);
-					}else{
-						myActivity.setComment(false);
-					}
-					mylist.add(myActivity);
 				}
 			}
 		}
+		
 		System.out.println("mylist size:" + mylist.size());
 		for(int i = 0;i < mylist.size();i++){
 			System.out.println(mylist.get(i).getActivity().getTitle() + " " + mylist.get(i).getPcp().getCreatetime());

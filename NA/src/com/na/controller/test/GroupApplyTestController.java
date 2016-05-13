@@ -65,6 +65,7 @@ public class GroupApplyTestController {
 			long gid = Long.parseLong(request.getParameter("gid"));
 			request.setAttribute("gid", gid);
 			long uid = (long) request.getSession().getAttribute("uid");
+			System.out.println("gid = " + gid);
 			if (groupService.getGroup(gid).getLeader()==uid) {
 				List<GroupApply> groupApplies = groupApplyService.getGroupAppliesByGID(gid);
 				if (groupApplies!=null&&groupApplies.size()!=0) {
@@ -96,7 +97,7 @@ public class GroupApplyTestController {
 		if (display!=null&&display.equals("mobile")) {
 			return "jsp/mobile/MyGroupManage";
 		}
-		return "";
+		return "jsp/pc/GroupMembers";
 	}
 	
 	@ResponseBody

@@ -39,7 +39,7 @@
 				<ul>
 					<li><a href="${pageContext.request.contextPath}/pc/home" style="text-decoration:none;">首页</a></li>
 					<li><a href="${pageContext.request.contextPath}/user/getJoinedActivitiesInPC?page=1" style="text-decoration:none;">我的活动</a></li>
-					<li>我的团队</li>
+					<li><a href="${pageContext.request.contextPath}/test/group/mypcgroupmanage">我的团队</a></li>
 					<li><a href="${pageContext.request.contextPath}/user/turnToPerInfo" style="text-decoration:none;">个人中心</a></li>
 				</ul>
 			</div>
@@ -112,7 +112,8 @@
 													<span style="margin-right:6px;"><span><strong>组名</strong></span><span>:</span><span>${myactivity.group.groupname }</span></span>
 												</c:if>
 												<c:if test="${myactivity.activity.number > 1 && myactivity.group == null }">
-													<span style="margin-right:6px;"><span><strong>尚未分组</strong></span></span>
+													<a href="${pageContext.request.contextPath}/jsp/pc/CreateTeam.jsp?aid=${myactivity.activity.id }&title=${myactivity.activity.title }&number=${myactivity.activity.number }&uid=${myactivity.pcp.uid }">创建小组</a>
+													<a href="${pageContext.request.contextPath}/test/group/topcjoin?aid=${myactivity.activity.id }">我要报名</a>
 												</c:if>
 												</div>
 											</div>
@@ -159,7 +160,7 @@
 										style="width:120px;text-align:center;vertical-align:top;padding-top:10px;padding-bottom:10px;border-right-width:0;border-right-style:solid;border-right-color:#E8E8E8;border-top-width:0;border-top-style:solid;border-top-color:#E8E8E8;">
 										<div>
 										<c:if test="${myactivity.comment == false }">
-											<div style="margin-bottom:3px;"><a href="turnToScore?id=${myactivity.activity.id }&title=${myactivity.activity.title}" target="_blank" class="flatbtn">评价</a></div>
+											<div style="margin-bottom:3px;"><a href="turnToScore?aid=${myactivity.activity.id }&title=${myactivity.activity.title}" target="_blank" class="flatbtn">评价</a></div>
 										</c:if>
 										<c:if test="${myactivity.comment == true }">
 											<div style="margin-bottom:3px;">已评价</div>

@@ -43,7 +43,7 @@
 				<ul>
 					<li><a href="${pageContext.request.contextPath}/pc/home" style="text-decoration:none;">首页</a></li>
 					<li><a href="${pageContext.request.contextPath}/user/getJoinedActivitiesInPC?page=1" style="text-decoration:none;">我的活动</a></li>
-					<li>我的团队</li>
+					<li><a href="${pageContext.request.contextPath}/test/group/mypcgroupmanage">我的团队</a></li>
 					<li>个人中心</li>
 				</ul>
 			</div>

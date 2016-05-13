@@ -18,6 +18,7 @@ import com.na.entity.Group;
 import com.na.entity.PCP;
 import com.na.entity.Userinfo;
 import com.na.entity.nodb.ReturnInfo;
+import com.na.entity.nodb.ReturnMyGroup;
 import com.na.service.ActivityService;
 import com.na.service.GroupService;
 import com.na.service.PCPService;
@@ -154,7 +155,6 @@ public class GroupTestController {
 			}
 			else if (attr.endsWith("0")) {
 				//未分组
-			
 				//获取所有未分组用户UID
 				List<Long> uidlList = pcpService.getUIDsByAIDNoGroup(aid);
 				if (uidlList!=null&&uidlList.size()!=0) {
@@ -173,7 +173,6 @@ public class GroupTestController {
 				else{
 					code = 90152;
 				}
-				
 			}
 			else if (attr.endsWith("1")) {
 				//已分组
@@ -286,7 +285,7 @@ public class GroupTestController {
 		if (display!=null&&display.equals("mobile")) {
 			return "jsp/mobile/MyGroupInfo";
 		}
-		return "";
+		return "jsp/pc/team";
 	}
 	//显示我的分组列表
 	@RequestMapping("mygroupmanage")
@@ -311,6 +310,41 @@ public class GroupTestController {
 			return "jsp/mobile/MyGroupList";
 		}
 		return "";
+	}
+	
+	
+	@RequestMapping("mypcgroupmanage")
+	public String MyGroupListInPC(HttpServletRequest request){
+		int code = 91125;
+		String display = request.getParameter("display");
+		try {
+			long uid = (long) request.getSession().getAttribute("uid");
+			List<PCP> list = pcpService.getPcpByUID(uid);
+			System.out.println("list size:" + list.size());
+			long[] groupids = new long[list.size()];
+			if(list.size() != 0 && list != null){
+				for(int i = 0;i < list.size();i++){
+					if(list.get(i).getGroupid() != null){
+						groupids[i] = list.get(i).getGroupid();
+					}
+				}
+			}
+			List<ReturnMyGroup> grouplist = groupService.getGroupsByGID(groupids);
+			if(grouplist!=null&&grouplist.size()!=0){
+				request.setAttribute("list", grouplist);
+				code = 90121;
+			}
+			else{
+				code = 90122;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		request.setAttribute("code", code);
+		if (display!=null&&display.equals("mobile")) {
+			return "jsp/mobile/MyGroupList";
+		}
+		return "jsp/pc/team";
 	}
 	
 	@RequestMapping("tocreate")
@@ -380,6 +414,31 @@ public class GroupTestController {
 		if (display!=null&&display.equals("mobile")) {
 			return "jsp/mobile/GroupApplyList";
 		}
-		return "";
+		return "jsp/pc/GroupApplyList";
+	}
+	@RequestMapping("topcjoin")
+	public String ToPCJoinGroup(HttpServletRequest request){
+		String display = request.getParameter("display");
+		try {
+			long aid = Long.parseLong(request.getParameter("aid"));
+			List<ReturnMyGroup> AllList = groupService.getPCGroupsByAID(aid);
+			List<ReturnMyGroup> acceptable = new ArrayList<ReturnMyGroup>();
+			for (ReturnMyGroup group : AllList) {
+				if(!pcpService.testGroupIsFull(group.getId(), group.getNumber())){
+					acceptable.add(group);
+				}
+			}
+			if(acceptable.size()==0){
+				request.setAttribute("aid", aid);
+				acceptable=null;
+			}
+			request.setAttribute("list", acceptable);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		if (display!=null&&display.equals("mobile")) {
+			return "jsp/mobile/GroupApplyList";
+		}
+		return "jsp/pc/GroupApplyList";
 	}
 }
