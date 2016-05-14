@@ -347,4 +347,21 @@ public class UserinfoServiceImp implements UserinfoService {
 		String sql = "select count(*) from PCP where uid=" + uid;
 		return userinfoDao.findCount(sql);
 	}
+
+	@Override
+	public int updateUser(Userinfo user) {
+		// TODO Auto-generated method stub
+		int code = 11024;
+		try{
+			if(userinfoDao.update(user)){
+				code = 11021;
+			}else{
+				code = 11023;
+			}
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}
+		return code;
+	}
 }

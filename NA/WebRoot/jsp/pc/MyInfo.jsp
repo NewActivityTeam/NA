@@ -40,9 +40,7 @@
 				<ul>
 					<li><a href="${pageContext.request.contextPath}/pc/home"
 						style="text-decoration:none;">首页</a></li>
-					<li><a
-						href="${pageContext.request.contextPath}/jsp/user/getJoinedActivitiesInPC?page=1"
-						style="text-decoration:none;">我的活动</a></li>
+					<li><a href="${pageContext.request.contextPath}/user/getJoinedActivitiesInPC?page=1" style="text-decoration:none;">我的活动</a></li>
 					<li><a href="${pageContext.request.contextPath}/test/group/mypcgroupmanage">我的团队</a></li>
 					<li><a href="${pageContext.request.contextPath}/user/turnToPerInfo" style="text-decoration:none;">个人中心</a></li>
 				</ul>
@@ -277,7 +275,7 @@
 			},
 			dataType : "json",
 			success : function(data){
-				alert(data.code);
+				alert("success");
 			},
 			error : function(){
 				alert("error");
@@ -285,7 +283,39 @@
 		});
 	}
 	function update(){
-	
+		var name = $("#name").val();
+		var sex = $("#sex  option:selected").text();
+		if(sex == '男'){
+			sex = 0;
+		}else{
+			sex = 1;
+		}
+		var age = $("#age").val();
+		var stature = $("#stature").val();
+		var weight = $("#weight").val();
+		var telephone = $("#telephone").val();
+		var email = $("#email").val();
+		alert(sex);
+		$.ajax({
+			url : "${pageContext.request.contextPath}/test/user/updateinfo",
+			type : "POST",
+			data : {
+				name : name,
+				sex : sex,
+				age : age,
+				height : stature,
+				weight : weight,
+				phone : telephone,
+				email : email
+			},
+			dataType : "json",
+			success : function(data){
+				alert("update success");
+			},
+			error : function(){
+				alert("error");
+			}
+		});
 	}
 </script>
 </body>

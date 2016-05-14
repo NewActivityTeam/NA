@@ -423,16 +423,19 @@ public class GroupTestController {
 			long aid = Long.parseLong(request.getParameter("aid"));
 			List<ReturnMyGroup> AllList = groupService.getPCGroupsByAID(aid);
 			List<ReturnMyGroup> acceptable = new ArrayList<ReturnMyGroup>();
-			for (ReturnMyGroup group : AllList) {
-				if(!pcpService.testGroupIsFull(group.getId(), group.getNumber())){
-					acceptable.add(group);
+			if(AllList != null){
+				for (ReturnMyGroup group : AllList) {
+					if(!pcpService.testGroupIsFull(group.getId(), group.getNumber())){
+						acceptable.add(group);
+					}
 				}
+				if(acceptable.size()==0){
+					request.setAttribute("aid", aid);
+					acceptable=null;
+				}
+				request.setAttribute("list", acceptable);
 			}
-			if(acceptable.size()==0){
-				request.setAttribute("aid", aid);
-				acceptable=null;
-			}
-			request.setAttribute("list", acceptable);
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

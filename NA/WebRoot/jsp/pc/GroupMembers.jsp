@@ -36,6 +36,40 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script src="http://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
 <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
 <script src="http://cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<script>
+	function accept(gid){
+		$.ajax({
+			url : "${pageContext.request.contextPath}/test/groupapply/accept",
+			type : "POST",
+			data : {
+				gid : gid
+			},
+			dataType : "json",
+			success : function(data){
+				alert("审核通过！");
+			},
+			error : function(){
+				alert("拒绝通过!");
+			}
+		});
+	}
+	function refuse(id){
+		$.ajax({
+			url : "${pageContext.request.contextPath}/test/groupapply/refuse",
+			type : "POST",
+			data : {
+				gid : id
+			},
+			dataType : "json",
+			success : function(data){
+				alert("成功拒绝！");
+			},
+			error : function(){
+				alert("拒绝失败！");
+			}
+		});
+	}
+</script>
 </head>
 
 <body>
@@ -83,7 +117,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<tr>
 							<th>用户名</th>
 							<th>操作</th>
-							<th>操作</th>
+							<th>状态</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -91,8 +125,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							<c:forEach var="member" items="${list }">
 								<tr>
 									<td>${member.userinfo.name }</td>
-									<td>接受</td>
-									<td>拒绝</td>
+									<td><a href="javascript:void(0)" onclick="accept(${member.groupApply.id})">接受</a>
+									/<a href="javascript:void(0)" onclick="refuse(${member.groupApply.id})">拒绝</a></td>
+									<c:if test="${member.groupApply.state == 0 }">
+										<td>未审核</td>
+									</c:if>
+									<c:if test="${member.groupApply.state == 1 }">
+										<td>已审核</td>
+									</c:if>
+									<c:if test="${member.groupApply.state == 2 }">
+										<td>已拒绝</td>
+									</c:if>
+									
 								</tr>
 							</c:forEach>
 						</c:if>

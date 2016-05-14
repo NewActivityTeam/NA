@@ -53,6 +53,22 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			}
 		});
 	}
+	function refuse(id){
+		$.ajax({
+			url : "${pageContext.request.contextPath}/test/groupapply/refuse",
+			type : "POST",
+			data : {
+				gid : id
+			},
+			dataType : "json",
+			success : function(data){
+				alert("成功拒绝！");
+			},
+			error : function(){
+				alert("拒绝失败！");
+			}
+		});
+	}
 </script>
 </head>
 

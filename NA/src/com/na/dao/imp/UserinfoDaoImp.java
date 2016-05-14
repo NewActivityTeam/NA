@@ -53,7 +53,7 @@ public class UserinfoDaoImp implements UserinfoDao {
 				session = sessionFactory.openSession();
 			}
 			Transaction ts = session.beginTransaction();
-			session.saveOrUpdate(userinfo);
+			session.merge(userinfo);
 			ts.commit();
 			session.flush(); 
 			session.clear();

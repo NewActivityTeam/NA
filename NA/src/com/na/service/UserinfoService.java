@@ -13,6 +13,8 @@ public interface UserinfoService {
 	public int setUserinfo(long uid,String name,float height,float weight,int age,int sex,String phonenumber,String email);
 	
 	public int updateUserinfo(long uid,int subject,Object content);
+	
+	public int updateUser(Userinfo user);
 
 	public int deleteUserinfo(long uid);
 	

@@ -222,6 +222,43 @@ public class UserTestController {
 		map.put("code", code);
 		return map;
 	}
+	@ResponseBody
+	@RequestMapping("/updateinfo")
+	public Map<String, Integer> updateinfo(HttpServletRequest request){
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		int code = 11025;
+		Userinfo user = new Userinfo();
+		try {
+			long uid =(long) request.getSession().getAttribute("uid");
+			Userinfo userinfo = userinfoService.getUserinfo(uid);
+			String name = request.getParameter("name");
+			Float height = Float.parseFloat(request.getParameter("height"));
+			Float weight = Float.parseFloat(request.getParameter("weight"));
+			Integer age = Integer.parseInt(request.getParameter("age"));
+			String phonenumber = request.getParameter("phone");
+			String email = request.getParameter("email");
+			Integer sex = Integer.parseInt(request.getParameter("sex"));
+			user.setUid(uid);
+			user.setAuthority(userinfo.getAuthority());
+			user.setBandays(userinfo.getBandays());
+			user.setBantime(userinfo.getBantime());
+			user.setYbaccount(userinfo.getYbaccount());
+			user.setAge(age);
+			user.setHeight(height);
+			user.setWeight(weight);
+			user.setPhonenumber(phonenumber);
+			user.setEmail(email);
+			user.setName(name);
+			user.setSex(sex);
+			code = userinfoService.updateUser(user);
+			System.out.println("code = " + code);
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}
+		map.put("code", code);
+		return map;
+	}
 	//保存用户信息
 	@ResponseBody
 	@RequestMapping("/saveinfo")
