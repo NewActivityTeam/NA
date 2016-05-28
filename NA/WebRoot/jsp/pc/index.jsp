@@ -25,11 +25,18 @@
 <script src="http://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
 <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
 <script src="http://cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<style>
+	a:link,a:hover{
+	text-decoration:none;
+}
+</style>
 </head>
 <body>
 	<div>
 		<div class="header">
-			<div class="logo"></div>
+			<div class="logo">
+				<img src="${pageContext.request.contextPath}/images/school.png" style="width:140px;height:80px;">
+			</div>
 			<div class="navigator">
 				<ul>
 					<li><a href="${pageContext.request.contextPath}/pc/home" style="text-decoration:none;">首页</a></li>
@@ -102,6 +109,9 @@
 							</p> <span class="date">2014-11-20</span>
 						</li>-->
 						<c:set var="now" value="<%=new Timestamp(System.currentTimeMillis())%>"/>
+						<c:if test="${list==null }">
+							<h3>当前并没有可以参与的活动，请等待后续发布的活动！</h3>
+						</c:if>
 						<c:if test="${list!=null}">
 							<c:forEach var="activity" items="${list }">
 								<li class="activities-lst">
@@ -168,6 +178,7 @@
 					</div>
 					<div class="aside-body" style="margin-top:50px;">
 						<dl class="topic-list">
+						
 						<c:if test="${newlist!=null }">
 							<c:forEach var="activity" items="${newlist }">
 							<dd class="topic-item topic-item-0 odd">
@@ -311,6 +322,10 @@
 					success : function(data,status){
 					$("#page").empty();
 					$("#activitiesListBox").empty();
+					if(data.list == null){
+							var str = "<h3>很抱歉，当前还没有活动！</h3>"
+							$("#activitiesListBox").append(str);
+						}else{
 						$.each(data.list,function(index,array){
 						//alert(array['endtime']);
 						//alert($.now());
@@ -323,6 +338,8 @@
 							"</a></p> <span class='date'>" + array['createtime'] +"</span></li>";
 							}$("#activitiesListBox").append(str);
 						});
+						}
+						
 						jsDec();
 						total = data.total;
 						pagingshow();
@@ -346,11 +363,17 @@
 					success : function(data,status){
 					$("#page").empty();
 					$("#activitiesListBox").empty();
+					if(data.list == null){
+							var str = "<h3>很抱歉，当前还没有活动！</h3>"
+							$("#activitiesListBox").append(str);
+						}else{
 						$.each(data.list,function(index,array){
 							var str = "<li class='activities-lst'><p><a class='lnk-type' href='#'>[正在进行]</a> <a href='getActivity?aid=" + array['id'] + "' target='_blank'>" + array['title'] +
 							"</a></p> <span class='date'>" + array['createtime'] +"</span></li>";
 							$("#activitiesListBox").append(str);
 						});
+						}
+						
 						jsDec();
 						total = data.total;
 						pagingshow();
@@ -374,12 +397,17 @@
 					success : function(data,status){
 					$("#page").empty();
 					$("#activitiesListBox").empty();
-					
-						$.each(data.list,function(index,array){
+						if(data.list == null){
+							var str = "<h3>很抱歉，当前还没有活动！</h3>"
+							$("#activitiesListBox").append(str);
+						}else{
+							$.each(data.list,function(index,array){
 							var str = "<li class='activities-lst'><p><a class='lnk-type' href='#'>[已经结束]</a> <a href='getActivity?aid=" + array['id'] + "' target='_blank'>" + array['title'] +
 							"</a></p> <span class='date'>" + array['createtime'] +"</span></li>";
 							$("#activitiesListBox").append(str);
 						});
+						}
+						
 						jsDec();
 						total = data.total;
 						pagingshow();
@@ -390,9 +418,6 @@
 				});
 			});
 		});
-		
-		
-	
 	</script>
 </body>
 </html>

@@ -42,15 +42,15 @@
 
 	<body>
 		<div data-role="page">
-			<div data-role="header">
-		  		<a data-role="button" data-rel="back" data-icon="back">返回</a>
-			   	<h1>组队信息</h1>
+			<div data-role="header" data-theme="b">
+		  		<a data-role="button" data-rel="back" data-icon="arrow-l" data-iconpos="notext">返回</a>
+			   	<h1>队伍信息</h1>
 			</div>
 			
 			<div data-role="content" id="main" class="ui-content">
 				<c:if test="${code%10==1}">
 					<ul data-role="listview" data-inset="true">
-						<li data-role="list-divider">基本信息</li>
+						<li data-role="list-divider" style="background-color:#29c1e8;">基本信息</li>
 						<li data-icon="none">组名：<div style="float: right;" id ="groupname">${group.groupname}</div></li>
 						<li data-icon="none">小组描述：<div style="float: right;" id ="description">${group.description}</div></li>
 						<li data-icon="none">组长：<div style="float: right;" id ="leader">
@@ -61,7 +61,7 @@
 							待定
 						</c:if></div></li>
 						<li data-icon="none">人数上限：<div style="float: right;" id ="maxcount">${group.maxcount}</div></li>
-						<li data-role="list-divider">组员名单</li>
+						<li data-role="list-divider" style="background-color:#29c1e8;">组员名单</li>
 						
 						<c:forEach var="userinfo" items="${userinfos}">
 							<li data-icon="none">姓名：<div style="float: right;">${userinfo.name}</div></li>

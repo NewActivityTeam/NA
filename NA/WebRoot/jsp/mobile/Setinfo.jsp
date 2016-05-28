@@ -243,7 +243,7 @@
   	</script>
 	</head>
 	<body>
-	<div data-role="page">
+	<div data-role="page" data-theme="e">
 		<div data-role="header">
 			<a data-role="button" data-rel="back" data-icon="back">返回</a>
 			<h1>信息设置</h1>	  
@@ -254,7 +254,7 @@
 				    <li data-icon="edit"><a href="#setName"  data-rel="popup" class="ui-btn" data-transition="pop" data-position-to="window">姓名：<div style="float: right;" id = "nameInfo"></div> </a> </li>
 				    <li data-icon="edit"><a href="#setSex" data-rel="popup" class="ui-btn" data-transition="pop" data-position-to="window">性别：<div style="float: right;" id="sexInfo" ></div></a></li>
 				<li data-role="list-divider">可设置信息</li>
-					<li data-icon="edit"><a href="#setAge"  data-rel="popup" class="ui-btn" data-transition="pop" data-position-to="window">年龄：<div style="float: right;" id = "ageInfo"></div> </a> </li>
+					<li data-icon="edit"><a href="#setAge"  data-rel="popup" class="ui-btn" data-transition="pop" data-position-to="window" data-theme="e">年龄：<div style="float: right;" id = "ageInfo"></div> </a> </li>
 				    <li data-icon="edit"><a href="#setHeight" data-rel="popup" class="ui-btn" data-transition="pop" data-position-to="window">身高：<div style="float: right;" id="heightInfo" ></div></a></li>
 				  	<li data-icon="edit"><a href="#setWeight" data-rel="popup" class="ui-btn" data-transition="pop" data-position-to="window">体重：<div style="float: right;" id="weightInfo"></div></a></li>
 				  	<li data-icon="edit"><a href="#setPhone" data-rel="popup" class="ui-btn" data-transition="pop" data-position-to="window">手机号：<div style="float: right;" id="phoneInfo"></div></a></li>

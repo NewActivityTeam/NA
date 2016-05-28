@@ -6,17 +6,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
-  <head>
-    <base href="<%=basePath%>">
-    
-    <title>My JSP 'CreateTeam.jsp' starting page</title>
-    
-	<meta http-equiv="pragma" content="no-cache">
-	<meta http-equiv="cache-control" content="no-cache">
-	<meta http-equiv="expires" content="0">    
-	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
-	<meta http-equiv="description" content="This is my page">
-	<!--
+<head>
+<base href="<%=basePath%>">
+
+<title>My JSP 'CreateTeam.jsp' starting page</title>
+
+<meta http-equiv="pragma" content="no-cache">
+<meta http-equiv="cache-control" content="no-cache">
+<meta http-equiv="expires" content="0">
+<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+<meta http-equiv="description" content="This is my page">
+<!--
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	-->
 <link rel="stylesheet" type="text/css"
@@ -43,8 +43,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			var number = $("#number").val();
 			var uid = $("#uid").val();
 			var des = $("#des").val();
-			alert(name + " " + number + " " + aid + " " + uid);
-			$.ajax({
+			if(name == ""){
+				alert("请填写组名!");
+			}else{
+				$.ajax({
 				url : "${pageContext.request.contextPath}//test/group/create",
 				type : "POST",
 				data : {
@@ -57,20 +59,29 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				dataType : "json",
 				success : function(data){
 					alert("发表成功");
+					location.href = "<%=request.getContextPath()%>/jsp/pc/MyActivity.jsp";
 				},
 				error : function(){
 					alert("发表失败");
 				}
 			});
+			}
 		});
 	});
 </script>
-  </head>
-  
-  <body>
-    <div>
+<style>
+a:link, a:hover {
+	text-decoration: none;
+}
+</style>
+</head>
+
+<body>
+	<div>
 		<div class="header">
-			<div class="logo"></div>
+			<div class="logo">
+				<img src="${pageContext.request.contextPath}/images/school.png" style="width:140px;height:80px;">
+			</div>
 			<div class="navigator">
 				<ul>
 					<li><a href="${pageContext.request.contextPath}/pc/home"
@@ -78,7 +89,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<li><a
 						href="${pageContext.request.contextPath}/user/getJoinedActivitiesInPC?page=1"
 						style="text-decoration:none;">我的活动</a></li>
-					<li><a href="${pageContext.request.contextPath}/test/group/mypcgroupmanage">我的团队</a></li>
+					<li><a
+						href="${pageContext.request.contextPath}/test/group/mypcgroupmanage">我的团队</a></li>
 					<li><a
 						href="${pageContext.request.contextPath}/user/turnToPerInfo"
 						style="text-decoration:none;">个人中心</a></li>
@@ -105,39 +117,44 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<div class="main">
 			<div class="left">
 				<div class="line"></div>
-				<form class="form-horizontal" style="margin-top:30px;">
-				  <div class="form-group">
-				    <label for="inputEmail3" class="col-sm-2 control-label">小组名称</label>
-				    <div class="col-sm-10">
-				      <input type="text" class="form-control" id="name" placeholder="请为小组起名">
-				    </div>
-				  </div>
-				  <div class="form-group">
-				    <label for="inputPassword3" class="col-sm-2 control-label">活动名称</label>
-				    <div class="col-sm-10">
-				      <input type="text" class="form-control" id="title" value="<%=request.getParameter("title") %>" disabled="true">
-				    </div>
-				  </div>
-				  <input type="hidden" id="aid" value="<%=request.getParameter("aid") %>">
-				  <input type="hidden" id="uid" value="<%=request.getParameter("uid") %>">
-				  <input type="hidden" id="number" value="<%=request.getParameter("number") %>">
-				  <div class="form-group">
-				  	<label for="inputPassword3" class="col-sm-2 control-label">人数上限</label>
-				     <div class="col-sm-10">
-				      <input type="email" class="form-control" id="inputEmail3" value="<%=request.getParameter("number") %>人" disabled="true">
-				    </div>
-				  </div>
-				  <div class="form-group">
-				    <label for="inputPassword3" class="col-sm-2 control-label">小组描述</label>
-				    <div class="col-sm-10">
-				    	<textarea class="form-control" rows="5" id="des"></textarea>
-				    </div>
-				  </div>
-				  <div class="form-group">
-				    <div class="col-sm-offset-2 col-sm-10">
-				      <button type="submit" class="btn btn-default" id="sub">创建小组</button>
-				    </div>
-				  </div>
+				<form class="form-horizontal" style="margin-top:30px;" method="post">
+					<div class="form-group">
+						<label for="inputEmail3" class="col-sm-2 control-label">小组名称</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" id="name"
+								placeholder="请为小组起名">
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="inputPassword3" class="col-sm-2 control-label">活动名称</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" id="title"
+								value="<%=request.getParameter("title") %>" disabled="true">
+						</div>
+					</div>
+					<input type="hidden" id="aid"
+						value="<%=request.getParameter("aid") %>"> <input
+						type="hidden" id="uid" value="<%=request.getParameter("uid") %>">
+					<input type="hidden" id="number"
+						value="<%=request.getParameter("number") %>">
+					<div class="form-group">
+						<label for="inputPassword3" class="col-sm-2 control-label">人数上限</label>
+						<div class="col-sm-10">
+							<input type="email" class="form-control" id="inputEmail3"
+								value="<%=request.getParameter("number") %>人" disabled="true">
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="inputPassword3" class="col-sm-2 control-label">小组描述</label>
+						<div class="col-sm-10">
+							<textarea class="form-control" rows="5" id="des"></textarea>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="col-sm-offset-2 col-sm-10">
+							<input type="button" class="btn btn-default" id="sub" value="创建小组">
+						</div>
+					</div>
 				</form>
 			</div>
 			<div class="right">
@@ -208,5 +225,5 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 		</div>
 	</div>
-  </body>
+</body>
 </html>

@@ -38,14 +38,20 @@
 <script src="http://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
 <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
 <script src="http://cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-
+<style>
+	a:link,a:hover{
+	text-decoration:none;
+}
+</style>
 
 </head>
 
 <body>
 	<div>
 		<div class="header">
-			<div class="logo"></div>
+			<div class="logo">
+				<img src="${pageContext.request.contextPath}/images/school.png" style="width:140px;height:80px;">
+			</div>
 			<div class="navigator">
 				<ul>
 					<li><a href="${pageContext.request.contextPath}/pc/home"
@@ -81,6 +87,10 @@
 		<div class="main">
 			<div class="left">
 				<div class="line"></div>
+				<c:if test="${state == 0 }">
+				${message }
+				</c:if>
+				<c:if test="${state == 1 }">
 				<table class="table">
 					<caption>小組列表</caption>
 					<thead>
@@ -106,7 +116,9 @@
 						</c:if>
 					</tbody>
 				</table>
-
+				
+				</c:if>
+				
 			</div>
 			<div class="right">
 				<div class="hot">

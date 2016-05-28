@@ -337,7 +337,7 @@
 
 <body>
 	<div data-role="page">
-		<div data-role="header" data-position="fixed" data-fullscreen="true">
+		<div data-role="header" data-position="fixed" data-fullscreen="true" data-theme="b">
 			<a data-ajax="false" data-role="button" data-rel="back" data-icon="back">返回</a>
 		    <h1>显示评论</h1>
 	  	</div>

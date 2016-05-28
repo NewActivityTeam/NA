@@ -76,7 +76,6 @@ public class GroupController {
 			long aid = Long.parseLong(request.getParameter("id"));
 			int num =pcpService.getUIDsByAID(aid).size();
 			request.setAttribute("num", num);
-			System.out.print(num);
 			String attr = request.getParameter("attr");
 			if (attr==null) {
 				//默认进入界面，分组和未分组均显示

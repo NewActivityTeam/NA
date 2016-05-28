@@ -33,12 +33,19 @@
 
 <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
 <script src="http://cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<style>
+	a:link,a:hover{
+	text-decoration:none;
+}
+</style>
 </head>
 
 <body>
 	<div>
 		<div class="header">
-			<div class="logo"></div>
+			<div class="logo">
+				<img src="${pageContext.request.contextPath}/images/school.png" style="width:140px;height:80px;">
+			</div>
 			<div class="navigator">
 				<ul>
 					<li><a href="${pageContext.request.contextPath}/pc/home" style="text-decoration:none;">首页</a></li>
@@ -68,25 +75,12 @@
 			<span style="margin-left:-1080px;">我的活动 <i>&gt;</i> ${activity.title }
 			</span>
 		</div>
-		<div class="wb activity">
-			<div class="activity-detail" id="activity-content-div">
-				<h3 class="activity-title" id="subtitle">${activity.title }</h3>
-				<div class="activity-info">
-					<div class="activity-basic">
-						<span class="author" id="authorname">官方</span> <span class="date"
-							id="activitytime">${activity.createtime }</span> <span
-							class="font">字体：【 <a href="javascript:doZoom(16);">大</a> <a
-							href="javascript:doZoom(14);">中</a> <a
-							href="javascript:doZoom(12);">小</a> 】
-						</span>
-					</div>
-				</div>
-			</div>
+		<div class="wb activity" style="margin-bottom:0">
 
 			<!-- 活动id -->
-			<input type="hidden" id="input" value="${activity.id }"/>
+			<input type="hidden" id="input" value="${activity.id }" style="margin:0"/>
 			<!-- 活动详情 -->
-			<div>${activity.description }</div>
+			<div style="margin-top:3%;margin-left:5%;margin-right:5%;">${activity.description }</div>
 			<!-- 活动基本信息 -->
 			<div>
 				<p>
@@ -112,8 +106,7 @@
 			<div class="np-frame" style="padding-bottom: 0px; width: 100%;margin-top:50px;">
 				<div id="top_reply">
 					<h1 class="np-title">
-						<a href="http://coral.qq.com/1359943489" id="commentTotleNum"
-							target="_blank" hidefocus="true"><span>17条评论</span></a> <strong>网友评论</strong>
+						 <strong>网友评论</strong>
 					</h1>
 					<div id="commentArea" class="out">
 						<div class="np-reply-box blueLight np-reply-box-active"
@@ -193,7 +186,7 @@
             		success : function(data,status){
                            var str = "<li class='np-post topno'><div class='np-tip-newpost'></div> <img class='np-avatar popClick'" +
                            "src='<%=request.getContextPath() %>/images/person.jpg'><div class='np-post-body'><div class='np-post-header'>"
-														+ data.uname
+														+ data.name
 														+ "</a></span></div><div class='np-post-content' data-height='5'><p>"
 														+ content
 														+ "</p></div><div class='np-post-footer'>"
@@ -217,7 +210,6 @@
                 	},
                 	dataType : "json",
                 	success : function(data,status){
-                		
                 		 $.each(data.comments, function(index, array) {
                 		 	var now = Date.parse(new Date()); 
 	  								var time = "";

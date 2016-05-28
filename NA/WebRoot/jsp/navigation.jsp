@@ -48,19 +48,17 @@
 <style>
 .input-group {
 	width: 110px;
-	margin-bottom: 10px;
+	margin-bottom:10px;
 }
-</style>
-
-
-<style>
+a:link,a:hover{
+	text-decoration:none;
+}
 .top {
 	margin-right: auto;
 	margin-left: auto;
 	width: 100%;
 	height: 100%;
 }
-
 .content {
 	margin-right: auto;
 	margin-left: auto;
@@ -68,8 +66,7 @@
 	height: 75%;
 	border: 1px solid black;
 }
-
-th {
+th{
 	align: center;
 	text-align: center;
 }
@@ -77,10 +74,9 @@ th {
 </head>
 
 <body id="bg">
-
 	<div class="container">
 		<div class="leftsidebar_box">
-			<a href="../main.html" target="main">
+			<a href="#" target="right">
 				<div class="line">
 					<img src="<%=request.getContextPath()%>/images/coin01.png" />&nbsp;&nbsp;首页
 				</div>

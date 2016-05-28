@@ -35,6 +35,7 @@ public class UserTestController {
 	@RequestMapping("/login")
 	public Map<String, Object> LoginConfig(HttpServletRequest request){
 		Map<String, Object> map = new HashMap<String, Object>();
+		int code = 90115;
 		try {
 			long uid = Long.parseLong(request.getParameter("uid"));
 			Userinfo userinfo = userinfoService.getUserinfo(uid);
@@ -46,7 +47,7 @@ public class UserTestController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		int code = 90115;
+
 		map.put("code", code);
 		return map;
 	}
@@ -66,7 +67,6 @@ public class UserTestController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
 		map.put("code", code);
 		return map;
 	}
@@ -76,15 +76,14 @@ public class UserTestController {
 	public Map<String, Object> newUsers(HttpServletRequest request){
 		Map<String, Object> map = new HashMap<String, Object>();
 		int code = 90115;
-
 		try {
 			int count = Integer.parseInt(request.getParameter("count"));
 			Random random = new Random();
 			int sum = 0;
-			for (int i = 0; i < count; i++) {
-				long id = random.nextInt(999999)+1000000;
+			for (int i = 0; i < count; i++){
+				long id = random.nextInt(999999) + 1000000;
 				while (userinfoService.getUserinfo(id)!=null) {
-					id = random.nextInt(1000000)+1000000;
+					id = random.nextInt(1000000) + 1000000;
 				}
 				float height = (random.nextFloat()+1)*100;
 				float weight = (random.nextFloat()+1)*50;
@@ -94,14 +93,12 @@ public class UserTestController {
 					sum++;
 				}
 			}
-			if (sum==count) {
+			if(sum==count) {
 				code = 90111;
 			}
 			else{
 				code = 90114;
 			}
-			
-			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -251,7 +248,6 @@ public class UserTestController {
 			user.setName(name);
 			user.setSex(sex);
 			code = userinfoService.updateUser(user);
-			System.out.println("code = " + code);
 		}
 		catch(Exception e){
 			e.printStackTrace();
@@ -313,7 +309,6 @@ public class UserTestController {
 	//test
 	@RequestMapping("/test")
 	public String TestForm(HttpServletRequest request){
-		System.out.print(request.getParameter("content"));
 		return "TestFrom";
 	}
 

@@ -282,9 +282,7 @@ public class ActivityServiceImp implements ActivityService {
 		case 1: hql = "from Activity where id >0 and  endtime >= '"+timestamp+"'";break;
 		case 2: hql = "from Activity where id >0 and  endtime < '" +timestamp+"'";break;
 		}
-		System.out.println("before list.size====");
 		List<Activity> list = (List<Activity>) activityDao.selectHql(hql);
-		System.out.println("list.size===="+list.size());
 		return list.size();
 	}
 

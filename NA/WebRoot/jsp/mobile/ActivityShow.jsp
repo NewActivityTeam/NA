@@ -12,6 +12,29 @@
   	<script src="${pageContext.request.contextPath}/js/jQuery/jquery-1.12.0.min.js"></script>
 	<script src="${pageContext.request.contextPath}/js/jquery.mobile-1.4.5/jquery.mobile-1.4.5.min.js"></script>
   	<script src="${pageContext.request.contextPath}/js/jquery.qqFace.js"></script>
+  	<style>
+.activity:after {
+	background-image:
+		url("<%=request.getContextPath() %>/images/activity.png");
+	background-size: 18px 18px;
+}
+
+.my:after {
+	background-image: url("<%=request.getContextPath() %>/images/my.png");
+	background-size: 18px 18px;
+}
+
+.team:after {
+	background-image: url("<%=request.getContextPath() %>/images/team.png");
+	background-size: 18px 18px;
+}
+
+.info:after {
+	background-image: url("<%=request.getContextPath() %>/images/info.png");
+	background-size: 18px 18px;
+}
+
+</style>
   	<!-- 页面相关js -->
   	<script>
   		
@@ -115,15 +138,13 @@
 		.qqFace table td img{cursor:pointer;border:1px #fff solid;}
 		.qqFace table td img:hover{border:1px #0066cc solid;}
 	</style>
-  
   </head>
   <body>
 	  <div data-role="page">
-	  <div data-role="header" data-position="fixed" data-fullscreen="true">
-		  <a data-ajax="false"  data-role="button" data-rel="back" data-icon="back">返回</a>
+	  <div data-role="header" data-position="fixed" data-fullscreen="true" data-theme="b">
+		  <a data-ajax="false"  data-role="button" data-rel="back" data-icon="arrow-l" data-iconpos="notext" data-theme="a">返回</a>
 		    <h1>${activity.title}</h1>
 	  </div>
-	
 	  <div data-role="content" id="content" class="ui-content"></div>
 	  <div id="comment"></div>
 	  <div  id="input" >
@@ -131,10 +152,8 @@
 	  	  <span class="emotion">表情</span>
 	  	  <a id="subComment" data-role="button" style="width: 3em;float: right; margin-top: 0em">提交</a>
 	  </div>
-
 		<c:set var="now" value="<%=new Timestamp(System.currentTimeMillis())%>"/> 
-
-		  <div id="foot-sign" data-role="footer" data-position="fixed" data-fullscreen="true" style="text-align: center;">
+		<div id="foot-sign" data-role="footer" data-position="fixed" data-fullscreen="true" style="text-align: center;">
 			  <div data-role="navbar">
 			    <ul>
 				 	<c:if test="${activity.endsigntime>now}">
@@ -146,15 +165,12 @@
 			    </ul>
 			  </div>
 		  </div>
-	  	  <div data-role="popup" id="messageBox" class="ui-content" data-overlay-theme="b" style="text-align: center;" >
+		   <div data-role="popup" id="messageBox" class="ui-content" data-overlay-theme="b" style="text-align: center;" >
 	  	  <a data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn ui-icon-delete ui-btn-icon-notext ui-btn-right" >关闭</a>
 	  		<div id="messageConent"></div>
 	  		<a id="toset" data-ajax="false" href="${pageContext.request.contextPath}/test/user/setuserinfo?display=mobile" class="ui-btn" style="display: none;">去设置</a>
 	  		<a data-rel="back" class="ui-btn">返回</a>
-	  		
 	 	  </div>
 	</div> 
-	  
-
   </body>
 </html>

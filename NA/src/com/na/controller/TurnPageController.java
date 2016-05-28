@@ -22,7 +22,7 @@ import com.na.tools.AddressTools;
 //页面跳转
 @Controller
 public class TurnPageController {
-	private final static int PAGE_SIZE = 4;
+	private final static int PAGE_SIZE = 12;
 	@Autowired
 	UserinfoService userinfoService;
 	@Autowired
@@ -40,12 +40,6 @@ public class TurnPageController {
 			pages = total / PAGE_SIZE;
 		}else{
 			pages = total / PAGE_SIZE + 1;
-		}
-		System.out.println("total = " + total + "," + "pages = " + pages);
-		if(list != null){
-			for(Activity activity : list){
-				System.out.println(activity.getTitle());
-			}
 		}
 		List<Activity> res = activityService.getNewestActivities();
 		List<Activity> newlist = new ArrayList<Activity>();

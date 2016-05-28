@@ -4,6 +4,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -16,7 +18,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.na.entity.Activity;
+import com.na.entity.nodb.ActivityWithNum;
 import com.na.service.ActivityService;
+import com.na.service.PCPService;
 
 @Controller
 @RequestMapping("/test/activity")
@@ -24,6 +28,8 @@ public class ActivityTestController {
 
 	@Autowired
 	ActivityService activityService;
+	@Autowired
+	PCPService pcpService;
 	
 	@ResponseBody
 	@RequestMapping("/create")
@@ -51,8 +57,6 @@ public class ActivityTestController {
 	
 	@RequestMapping("/activity_save")
 	public String saveActivity(@ModelAttribute Activity activity,HttpServletRequest request){
-		System.out.println(activity.getTitle());
-		System.out.println(activity.getStarttime());
 		return "redirect:test/activity_list";
 	}
 	@RequestMapping("/activity_list")
@@ -62,7 +66,11 @@ public class ActivityTestController {
 		try{
 			boolean state =  Boolean.parseBoolean(request.getParameter("state"));
 			List<Activity> list = activityService.getAllActvityByState(state);
-			request.setAttribute("list", list);
+			List<ActivityWithNum> list1 = list.stream()
+					.map(activity->new ActivityWithNum(activity,pcpService.getUIDsByAID(activity.getId()).size()))
+					.collect(Collectors.toList());
+			list1.forEach(System.out::println);
+			request.setAttribute("list", list1);
 			code = 90161;
 		}
 		catch(Exception e){
@@ -76,7 +84,6 @@ public class ActivityTestController {
 	}
 	@RequestMapping("/activity_show")
 	public String showActivity(HttpServletRequest request){
-		
 		String display = request.getParameter("display");
 		int code = 90215;
 		try {
@@ -84,7 +91,6 @@ public class ActivityTestController {
 			Activity activity = activityService.getActicity(aid);
 			if (activity!=null) {
 				request.setAttribute("activity", activity);
-				System.out.print(activity.getDescription());
 				code = 90211;
 			}
 			else{

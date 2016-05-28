@@ -319,17 +319,20 @@ public class GroupServiceImp implements GroupService {
 		for (long id : ids) {
 			// list.add(groupDao.getGroup(id));
 			if (id != 0) {
-				System.out.println("id = " + id);
 				ReturnMyGroup myGroup = new ReturnMyGroup();
 				Group group = groupDao.getGroup(id);
-				Activity activity = activityDao.getActivity(group.getAid());
-				Userinfo user = userinfoDao.getUserinfo(group.getLeader());
-				myGroup.setGroupname(group.getGroupname());
-				myGroup.setLeader(user.getName());
-				myGroup.setTitle(activity.getTitle());
-				myGroup.setNumber(group.getMaxcount());
-				myGroup.setId(group.getId());
-				list.add(myGroup);
+				if(group != null){
+					Activity activity = activityDao.getActivity(group.getAid());
+					if(activity != null){
+						Userinfo user = userinfoDao.getUserinfo(group.getLeader());
+						myGroup.setGroupname(group.getGroupname());
+						myGroup.setLeader(user.getName());
+						myGroup.setTitle(activity.getTitle());
+						myGroup.setNumber(group.getMaxcount());
+						myGroup.setId(group.getId());
+						list.add(myGroup);
+					}
+				}
 			}
 		}
 		return list;

@@ -12,6 +12,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -36,84 +37,46 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.na.entity.Activity;
 import com.na.entity.Comment;
+import com.na.entity.nodb.ActivityWithNum;
 import com.na.service.ActivityService;
 import com.na.service.CommentService;
+import com.na.service.PCPService;
 import com.na.tools.Pager;
 
 
 
 @Controller
 public class ActivityController extends BaseController{
-	private final static int PAGE_SIZE = 4;
+	private final static int PAGE_SIZE = 12;
 	private int currentPage = 1;
 	@Autowired
 	public ActivityService activityService;
 	@Autowired
 	public CommentService commentService;
 	
-	/*@RequestMapping("PublishActivity")
-	public String publishActivity() throws ParseException{
-		Activity activity = new Activity();
-		activity.setTitle(request.getParameter("title"));
-		activity.setStarttime(Timestamp.valueOf(request.getParameter("startDate") + " " + request.getParameter("startTime") + ":00"));
-		activity.setEndtime(Timestamp.valueOf(request.getParameter("endDate") + " " + request.getParameter("endTime") + ":00"));
-		activity.setEndsigntime(Timestamp.valueOf(request.getParameter("endSignDate") + " " + request.getParameter("endSignTime") + ":00"));
-		activity.setCreatetime(Timestamp.valueOf(request.getParameter("createDate") + " " + request.getParameter("createTime") + ":00"));
-		activity.setAddress(request.getParameter("address"));
-		activity.setWebAddress(request.getParameter("voteaddress"));
-		activity.setDescription(request.getParameter("content"));
-		activity.setManager((long)Integer.parseInt(request.getParameter("manager")));
-		activityService.addActivity(activity);
-		return "/jsp/PublishActivity";
-	}*/
-	
-	/*@RequestMapping("PublishActivity")
-	public String publishActivity() throws ParseException{
-		
-		String title = request.getParameter("title");
-		Timestamp starttime = Timestamp.valueOf(request.getParameter("startDate") + " " + request.getParameter("startTime") + ":00");
-		Timestamp endtime = Timestamp.valueOf(request.getParameter("endDate") + " " + request.getParameter("endTime") + ":00");
-		Timestamp endsigntime = Timestamp.valueOf(request.getParameter("endSignDate") + " " + request.getParameter("endSignTime") + ":00");
-		Timestamp createtime = Timestamp.valueOf(request.getParameter("createDate") + " " + request.getParameter("createTime") + ":00");
-		String address = request.getParameter("address");
-		String voteAddress = request.getParameter("voteaddress");
-		String description = request.getParameter("content");
-		long manager = Long.parseLong(request.getParameter("manager"));
-		if(activityService.newActicity(title, description, starttime, endtime, endsigntime, address, voteAddress, manager)==12011){
-			System.out.print("成功");
-		}
-		return "/jsp/PublishActivity";
-	}*/
+	@Autowired
+	PCPService pcpService;
 	@ResponseBody
 	@RequestMapping("upload")
 	public void upload(HttpServletRequest request) throws IllegalStateException, IOException{
-		System.out.println("===开始传图片===");
 		CommonsMultipartResolver multipartResover = new CommonsMultipartResolver(request.getSession().getServletContext());
 		if(multipartResover.isMultipart(request)){
-			System.out.println(1);
 			String imageURL = "";
 			MultipartHttpServletRequest multiRequest = (MultipartHttpServletRequest) request;
-			System.out.println(1.5);
 			Iterator<String> iter = multiRequest.getFileNames();
-			System.out.println(2);
 			int i = 0;
-			System.out.println(3);
 			while(iter.hasNext()){
-				System.out.println(++i);
 				int pre = (int) System.currentTimeMillis();
 				MultipartFile file = multiRequest.getFile(iter.next());
 				if(file != null){
 					String myFileName = file.getOriginalFilename();
-					System.out.print(myFileName);
 					if(myFileName.trim() != ""){
-						System.out.println(myFileName);
 						imageURL += (myFileName + ";");
 						request.getSession().setAttribute("imageURL", imageURL);
-						String fileName = "demoUpload" + file.getOriginalFilename();
+						String fileName = file.getOriginalFilename();
 						String path = request.getSession().getServletContext().getRealPath("/") + "/upload/" + fileName;
 						File localFile = new File(path);
 						file.transferTo(localFile);
-						
 					}
 				}
 				else {
@@ -136,7 +99,6 @@ public class ActivityController extends BaseController{
 			String voteAddress = request.getParameter("voteaddress");
 			String description = request.getParameter("content");
 			String file = request.getParameter("file");
-			System.out.println("file = " + file);
 			String logo = request.getParameter("logo");
 			long manager = Long.parseLong(request.getParameter("manager"));
 			int number = 1;
@@ -151,7 +113,6 @@ public class ActivityController extends BaseController{
 		map.put("code", code);
 		return map;
 	}
-	
 	@RequestMapping("GetActivities")
 	public ModelAndView GetActivities(ModelMap map){
 		currentPage = Integer.parseInt(request.getParameter("current"));
@@ -163,7 +124,6 @@ public class ActivityController extends BaseController{
 			title = request.getParameter("title");
 		}
 		if(request.getParameter("startDate") != ""){
-			System.out.println("start = " + request.getParameter("startDate"));
 			start = Timestamp.valueOf(request.getParameter("startDate") + " 00:00:00");
 		}
 		if( request.getParameter("endDate") != ""){
@@ -208,7 +168,6 @@ public class ActivityController extends BaseController{
 		activityService.deleteActivity(id);
 		return new ModelAndView("redirect:/GetActivities?current=" + currentPage + "&title=" + title + "&startDate=" + start + "&endDate=" + end);
 	}
-	
 	@RequestMapping("UpdateActivity")
 	public ModelAndView UpdateActivity(){
 		long id = Integer.parseInt(request.getParameter("id"));	
@@ -216,7 +175,6 @@ public class ActivityController extends BaseController{
 		request.setAttribute("activity", activity);
 		return new ModelAndView("/jsp/UpdateActivity");
 	}
-	
 	@ResponseBody
 	@RequestMapping("ChangeActivity")
 	public Map<String, Integer> ChangeActivity(){
@@ -232,16 +190,12 @@ public class ActivityController extends BaseController{
 			String voteAddress = request.getParameter("voteaddress");
 			String description = request.getParameter("content");
 			String logo = request.getParameter("logo");
-			System.out.println("description:" + description);
 			long manager = Long.parseLong(request.getParameter("manager"));
 			int number = 1;
-			System.out.println("number:" + request.getParameter("number"));
 			if (!request.getParameter("number").equals("")) {
 				number = Integer.parseInt(request.getParameter("number"));
 			}
-			System.out.println(title + " " + starttime + " " + endtime + " " + endsigntime + " " + voteAddress + " " + description);
 			code = activityService.updateActicity(id, title,logo, description, starttime, endtime, endsigntime, address, voteAddress, manager, number);
-			System.out.println("code:" + code);
 		}
 		catch(Exception e){
 			e.printStackTrace();
@@ -249,58 +203,17 @@ public class ActivityController extends BaseController{
 		map.put("code", code);
 		return map;
 	}
-	/*
-	 
-	@RequestMapping(value="/album/uploadImage/{albumId}",method= RequestMethod.POST)
-    @ResponseBody
-    public Object uploadImage(@RequestParam(value="file", required=false) MultipartFile file,@PathVariable Integer albumId){
-        Map result_map = new HashMap();
-        try{
-            byte[] bytes = file.getBytes();
-            String uploadDir = request.getSession().getServletContext().getRealPath("/upload");//request.getContextPath()+"/upload";
-            File dirPath = new File(uploadDir);
-            if (!dirPath.exists()) {
-                dirPath.mkdirs();
-            }
-            String sep = System.getProperty("file.separator");
-            String fileName = UUID.randomUUID().toString() + "." + getSuffix(file.getOriginalFilename());
-            File uploadedFile = new File(uploadDir + sep + fileName);
-            FileCopyUtils.copy(bytes, uploadedFile);
-
-            //上传到又拍云
-            String filePath = uploadDir + "/" + fileName;
-            Map<String, Object> map = UpYunUtil.writeFile(fileName, filePath, true);
-            String url = (String) map.get("detail");
-            new File(filePath).delete();//上传到又拍云后删除
-
-            //保存照片Url到image表
-            storeService.saveImage(albumId,url);
-            result_map.put("url",url);
-            return result_map;
-        }catch (IOException e){
-            result_map.put("url","");
-            return result_map;
-        }
-    }
-	*/
-	
 	@RequestMapping("getActivity")
 	public String getActivity(HttpServletRequest request){
-		//long id = Long.parseLong(request.getParameter("id"));
 		long aid = Long.parseLong(request.getParameter("aid"));
 		List<Comment> list = null;
-		System.out.println("+++++");
 		Activity activity = activityService.getActicity(aid);
 		list = commentService.getAllCommentsByPage(aid,0,5);
-		System.out.println("=====");
 		request.setAttribute("activity", activity);
 		request.setAttribute("commentlist", list);
-		System.out.println(activity.getTitle());
 		return "jsp/pc/activity";
 	}
-	
 	public int getActivitiesCount(int flag){
-		System.out.println("flag ======"+flag);
 		return activityService.getAllActivityNumberByFlag(flag);
 	}
 	public int getActivitiesCountOfUser(long uid){
@@ -314,23 +227,13 @@ public class ActivityController extends BaseController{
 		int flag = Integer.parseInt(request.getParameter("flag"));
 		int total = 0;
 		int pages = 0;
-		//List<Activity> list = activityService.getAllActivitiesByPage(page, PAGE_SIZE);
 		List<Activity> list = activityService.getActivitiesByPageByFlag(flag,page, PAGE_SIZE);
 		total = this.getActivitiesCount(flag);
-		
 		if(total % PAGE_SIZE == 0){
 			pages = total / PAGE_SIZE;
 		}else{
 			pages = total / PAGE_SIZE + 1;
 		}
-		System.out.println("total = " + total + "," + "pages = " + pages);
-		if(list != null){
-			System.out.println("第" + page + "页内容！");
-			for(Activity activity : list){
-				System.out.println(activity.getTitle());
-			}
-		}
-		
 		map.put("list", list);
 		map.put("total", pages);
 		return map;
@@ -339,24 +242,19 @@ public class ActivityController extends BaseController{
 	public void DoWithImage(){
 		System.out.println("hello");
 	}
-	
 	public int getAllActivitiesNumber(){
 		return activityService.getAllActivityNumber();
 	}
-	
 	public int getPartActivitiesNumber(String title,Timestamp start,Timestamp end){
 		return activityService.getPartActivityNumber(title, start, end);
 	}
-	
 	@RequestMapping("ManageActivity")
 	public String ManageActivity()
 	{
 		long id = (long)Integer.parseInt(request.getParameter("id"));	
-		System.out.println("manageactivity , id = "+id);
 		request.setAttribute("id", id);
 		return "jsp/GroupManage";
 	}
-
 	/***
 	 * 活动列表
 	 * @param request
@@ -374,7 +272,11 @@ public class ActivityController extends BaseController{
 		try{
 			boolean state =  Boolean.parseBoolean(request.getParameter("state"));
 			List<Activity> list = activityService.getAllActvityByState(state);
-			request.setAttribute("list", list);
+			List<ActivityWithNum> list1 = list.stream()
+					.map(activity->new ActivityWithNum(activity,pcpService.getUIDsByAID(activity.getId()) == null ? 0 : pcpService.getUIDsByAID(activity.getId()).size()))
+					.collect(Collectors.toList());
+			list1.forEach(System.out::println);
+			request.setAttribute("list", list1);
 			code = 90161;
 		}
 		catch(Exception e){
@@ -386,7 +288,6 @@ public class ActivityController extends BaseController{
 		}
 		return "jsp/ActivityList";
 	}
-	
 	/***
 	 * 展示活动详情
 	 * @param request
@@ -406,7 +307,6 @@ public class ActivityController extends BaseController{
 			Activity activity = activityService.getActicity(aid);
 			if (activity!=null) {
 				request.setAttribute("activity", activity);
-				System.out.print(activity.getDescription());
 				code = 90211;
 			}
 			else{

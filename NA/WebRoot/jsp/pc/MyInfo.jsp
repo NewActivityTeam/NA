@@ -22,20 +22,25 @@
 	href="http://cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
 <link rel="stylesheet"
 	href="http://cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
-
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/jsp/pc/css/info.css">
 <script src="http://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
 
 <script src="http://cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-<link rel="stylesheet" type="text/css"
-	href="<%=request.getContextPath()%>/jsp/pc/css/info.css">
 
 
+<style>
+	a:link,a:hover{
+	text-decoration:none;
+}
+</style>
 </head>
 
 <body>
 	<div>
 		<div class="header">
-			<div class="logo"></div>
+			<div class="logo">
+				<img src="${pageContext.request.contextPath}/images/school.png" style="width:140px;height:80px;">
+			</div>
 			<div class="navigator">
 				<ul>
 					<li><a href="${pageContext.request.contextPath}/pc/home"
@@ -65,13 +70,17 @@
 		<div class="main">
 			<div class="left">
 				<div class="line"></div>
+				<c:if test="${state == 0 }">
+					${message }
+				</c:if>
+				<c:if test="${state == 1 }">
 				<div class="loginbox registbox">
 					<div class="login-content reg-content">
 					<c:if test="${isRegister == 0 }">
 						<div class="loginbox-title">
 							<h2>注册</h2>
 						</div>
-						<form class="form-horizontal">
+						<form class="form-horizontal" id="defaultForm">
 							  <div class="form-group">
 							    <label for="inputEmail3" class="col-sm-2 control-label">姓名</label>
 							    <div class="col-sm-4">
@@ -169,7 +178,7 @@
 							  <div class="form-group">
 							    <label for="inputEmail3" class="col-sm-2 control-label">Email</label>
 							    <div class="col-sm-4">
-							      <input type="text" class="form-control" id="email" value="${user.email }">
+							      <input type="text" class="form-control" id="email" name="email" value="${user.email }">
 							    </div>
 							  </div>
 							<div class="row btnArea">
@@ -179,6 +188,8 @@
 						</c:if>
 					</div>
 				</div>
+				</c:if>
+				
 			</div>
 			<div class="right">
 				<div class="hot">
@@ -295,7 +306,6 @@
 		var weight = $("#weight").val();
 		var telephone = $("#telephone").val();
 		var email = $("#email").val();
-		alert(sex);
 		$.ajax({
 			url : "${pageContext.request.contextPath}/test/user/updateinfo",
 			type : "POST",

@@ -83,21 +83,30 @@
 			});
 		});
 	</script>
+	<script>
+	$(function() {
+		var winWidth, winHeight;
+		Resize = function() {
+			winWidth = $(window).width(), winHeight = $(window).height();
+		}
+	});
+</script>
   </head>
   <body>
   	<div data-role="page">
-  	<div data-role="header">
-			<a data-role="button" data-rel="back" data-icon="back">返回</a>
+  	<div data-role="header" data-theme="b">
+			<a data-role="button" data-rel="back" data-icon="arrow-l"
+				data-iconpos="notext">返回</a>
 			<h1>活动管理</h1>	  
 	</div>
-	<div data-role="content" id="main" class="ui-content">
+	<div data-role="content" id="main" class="ui-content" style="background-color:#f5f5f5;">
 	<c:if test="${code%10==1 }">
 	  	<ul data-role="listview">
 		  	<c:if test="${list!=null}">
 			  	<c:forEach var="groupApplyinfo" items="${list}">
-			  		<li data-icon="false" >
+			  		<li data-icon="false" style="margin-bottom:2%">
 			  		
-			  		<a class="useritem"  href="">
+			  		<a class="useritem"  href="" style="background:#ffffff;font-size:1.0em;font-family:楷体;">
 			  			<p style="display: none;" class="gid">${groupApplyinfo.groupApply.id}</p>
 			  			<p style="display: none;" class="state">${groupApplyinfo.groupApply.state}</p>
 			  			<p>姓名：<b>${groupApplyinfo.userinfo.name}</b></p>
@@ -106,8 +115,8 @@
 			  				<c:when test="${groupApplyinfo.userinfo.sex==0}">男</c:when>
 			  				<c:otherwise>女</c:otherwise>
 			  			</c:choose>
-			  			</b></p>
-			  			<p>申请时间：<b>${groupApplyinfo.groupApply.createtime.toString().substring(0,16)}</b></p>
+			  			</b>&nbsp;&nbsp;申请时间：<b>${groupApplyinfo.groupApply.createtime.toString().substring(0,16)}</b></p>
+			  			<p>手机：<b>${groupApplyinfo.userinfo.phonenumber}</b>&nbsp;&nbsp;Email：<b>${groupApplyinfo.userinfo.email}</b></p>
 			  		
 			  		</a>
 			  		<c:choose>

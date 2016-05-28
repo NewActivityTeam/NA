@@ -36,10 +36,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<p class="p1">
 				欢迎，admin
 			</p>
-			<p class="p2">
-				<a href="#" class="resetPWD">重置密码</a>&nbsp;&nbsp;
-				<a href="../log.html" target="_blank" class="goOut">退出</a>
-			</p>
 		</div>
 		<!-- onclick="{if(confirm(&quot;确定退出吗&quot;)){return true;}return false;}" -->
 	</div>

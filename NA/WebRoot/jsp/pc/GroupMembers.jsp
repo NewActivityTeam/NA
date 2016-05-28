@@ -46,7 +46,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			},
 			dataType : "json",
 			success : function(data){
+			if(data.code == 91222){
+				alert("对不起,小组成员已满！")
+			}else{
 				alert("审核通过！");
+			}
 			},
 			error : function(){
 				alert("拒绝通过!");
@@ -70,12 +74,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		});
 	}
 </script>
+<style>
+	a:link,a:hover{
+	text-decoration:none;
+}
+</style>
 </head>
-
 <body>
 	<div>
 		<div class="header">
-			<div class="logo"></div>
+			<div class="logo">
+				<img src="${pageContext.request.contextPath}/images/school.png" style="width:140px;height:80px;">
+			</div>
 			<div class="navigator">
 				<ul>
 					<li><a href="${pageContext.request.contextPath}/pc/home"
@@ -107,7 +117,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<!-- /.row -->
 			</div>
 		</div>
-
 		<div class="main">
 			<div class="left">
 				<div class="line"></div>
@@ -125,18 +134,22 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							<c:forEach var="member" items="${list }">
 								<tr>
 									<td>${member.userinfo.name }</td>
-									<td><a href="javascript:void(0)" onclick="accept(${member.groupApply.id})">接受</a>
-									/<a href="javascript:void(0)" onclick="refuse(${member.groupApply.id})">拒绝</a></td>
+									<c:if test="${member.groupApply.state != 0}">
+										<td>已审核</td>
+									</c:if>
+									<c:if test="${member.groupApply.state == 0}">
+										<td><a href="javascript:void(0)" onclick="accept(${member.groupApply.id})">接受</a>
+										/<a href="javascript:void(0)" onclick="refuse(${member.groupApply.id})">拒绝</a></td>
+									</c:if>
 									<c:if test="${member.groupApply.state == 0 }">
 										<td>未审核</td>
 									</c:if>
 									<c:if test="${member.groupApply.state == 1 }">
-										<td>已审核</td>
+										<td>已接受</td>
 									</c:if>
 									<c:if test="${member.groupApply.state == 2 }">
 										<td>已拒绝</td>
 									</c:if>
-									
 								</tr>
 							</c:forEach>
 						</c:if>

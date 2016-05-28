@@ -9,12 +9,21 @@
 		<script src="${pageContext.request.contextPath}/js/jQuery/jquery-1.12.0.min.js"></script>
 		<script src="${pageContext.request.contextPath}/js/jquery.mobile-1.4.5/jquery.mobile-1.4.5.min.js"></script>
 		<title>组队信息</title>
+		<script>
+	$(function() {
+		var winWidth, winHeight;
+		Resize = function() {
+			winWidth = $(window).width(), winHeight = $(window).height();
+		}
+	});
+</script>
 	</head>
 
-	<body>
+	<body onResize="Resize()" onLoad="Resize()">
 		<div data-role="page">
-			<div data-role="header">
-		  		<a data-role="button" data-rel="back" data-icon="back">返回</a>
+			<div data-role="header" data-theme="b">
+		  		<a data-role="button" data-rel="back" data-icon="arrow-l"
+				data-iconpos="notext">返回</a>
 			   	<h1>组队信息</h1>
 			</div>
 			

@@ -70,12 +70,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		});
 	}
 </script>
+<style>
+	a:link,a:hover{
+	text-decoration:none;
+}
+</style>
 </head>
 
 <body>
 	<div>
 		<div class="header">
-			<div class="logo"></div>
+			<div class="logo">
+				<img src="${pageContext.request.contextPath}/images/school.png" style="width:140px;height:80px;">
+			</div>
 			<div class="navigator">
 				<ul>
 					<li><a href="${pageContext.request.contextPath}/pc/home"
@@ -123,6 +130,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						</tr>
 					</thead>
 					<tbody>
+						
 						<c:if test="${ list != null}">
 							<c:forEach var="group" items="${list }">
 								<tr>

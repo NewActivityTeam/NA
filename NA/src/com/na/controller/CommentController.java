@@ -110,7 +110,6 @@ public class CommentController {
 			}
 		}
 		request.setAttribute("code", code);
-
 		if (display!=null&&display.equals("mobile")) {
 			return "jsp/mobile/ShowCommentsDemo";
 		}

@@ -29,12 +29,19 @@
 <script src="http://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
 <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
 <script src="http://cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<style>
+	a:link,a:hover{
+	text-decoration:none;
+}
+</style>
 </head>
 
 <body>
 	<div>
 		<div class="header">
-			<div class="logo"></div>
+			<div class="logo">
+				<img src="${pageContext.request.contextPath}/images/school.png" style="width:140px;height:80px;">
+			</div>
 			<div class="navigator">
 				<ul>
 					<li><a href="${pageContext.request.contextPath}/pc/home" style="text-decoration:none;">首页</a></li>
@@ -64,7 +71,14 @@
 		<div class="main">
 			<div class="left">
 				<div class="line"></div>
+				<c:if test="${state == 0 }">
+					${message }
+				</c:if>
+				<c:if test="${state == 1 }">
 				<ul id="activitiesListBox">
+					<c:if test="${list.size() == 0 }">
+						<h3>您还没参与任何活动！</h3>
+					</c:if>
 					<c:if test="${list!=null }">
 						<c:forEach var="myactivity" items="${list }">
 							<table
@@ -113,7 +127,7 @@
 												</c:if>
 												<c:if test="${myactivity.activity.number > 1 && myactivity.group == null }">
 													<a href="${pageContext.request.contextPath}/jsp/pc/CreateTeam.jsp?aid=${myactivity.activity.id }&title=${myactivity.activity.title }&number=${myactivity.activity.number }&uid=${myactivity.pcp.uid }">创建小组</a>
-													<a href="${pageContext.request.contextPath}/test/group/topcjoin?aid=${myactivity.activity.id }">我要报名</a>
+													<a href="${pageContext.request.contextPath}/test/group/topcjoin?aid=${myactivity.activity.id }">选择队伍</a>
 												</c:if>
 												</div>
 											</div>
@@ -172,8 +186,7 @@
 						</c:forEach>
 					</c:if>
 				</ul>
-				<div class="line">
-					</div>
+				<div class="line"></div>
 					<div class="pages" id="jNewsPager">
 						<a href="${pageContext.request.contextPath}/user/getJoinedActivitiesInPC?page=1" class="previouspage" onclick="choosepage(1)">首页</a>
 						<a href="${pageContext.request.contextPath}/user/getJoinedActivitiesInPC?page=${current - 1}" class="previouspage" onclick="choosepage(-1)" id="last">上一页</a>
@@ -181,6 +194,7 @@
 						<a href="${pageContext.request.contextPath}/user/getJoinedActivitiesInPC?page=${current + 1}" class="pagenext" onclick="choosepage(-2)" id="next">下一页</a>
 						<a href="${pageContext.request.contextPath}/user/getJoinedActivitiesInPC?page=${total}" class="previouspage" onclick="choosepage(-3)">最后一页</a>
 					</div>
+				</c:if>
 			</div>
 			<div class="right">
 				<div class="hot">

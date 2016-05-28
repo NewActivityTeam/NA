@@ -1,8 +1,10 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ page import="com.na.entity.Activity"%>
 <%
-String path = request.getContextPath();
-String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+	String path = request.getContextPath();
+	String basePath = request.getScheme() + "://"
+			+ request.getServerName() + ":" + request.getServerPort()
+			+ path + "/";
 %>
 
 <!DOCTYPE>
@@ -28,17 +30,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 
 <link rel="stylesheet" type="text/css"
-	href="<%=request.getContextPath() %>/dist/bootstrap-clockpicker.min.css">
+	href="<%=request.getContextPath()%>/dist/bootstrap-clockpicker.min.css">
 <link rel="stylesheet" type="text/css"
-	href="<%=request.getContextPath() %>/assets/css/github.min.css">
+	href="<%=request.getContextPath()%>/assets/css/github.min.css">
 <link
-	href="<%=request.getContextPath() %>/css/bootstrap-datetimepicker.min.css"
+	href="<%=request.getContextPath()%>/css/bootstrap-datetimepicker.min.css"
 	rel="stylesheet">
 
 <SCRIPT type=text/javascript
-	src="<%=request.getContextPath() %>/ueditor/ueditor.config.js"></SCRIPT>
+	src="<%=request.getContextPath()%>/ueditor/ueditor.config.js"></SCRIPT>
 <SCRIPT type=text/javascript
-	src="<%=request.getContextPath() %>/ueditor/ueditor.all.js"></SCRIPT>
+	src="<%=request.getContextPath()%>/ueditor/ueditor.all.js"></SCRIPT>
 
 <!-- jQuery文件，在bootstrap.min.js之前引入 -->
 <script src="http://cdn.bootcss.com/jquery/1.10.2/jquery.min.js"></script>
@@ -48,12 +50,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 
 <script type="text/javascript"
-	src="<%=request.getContextPath() %>/dist/bootstrap-clockpicker.min.js"></script>
+	src="<%=request.getContextPath()%>/dist/bootstrap-clockpicker.min.js"></script>
 <script type="text/javascript"
-	src="<%=request.getContextPath() %>/js/bootstrap-datetimepicker.js"></script>
+	src="<%=request.getContextPath()%>/js/bootstrap-datetimepicker.js"></script>
 <script type="text/javascript"
-	src="<%=request.getContextPath() %>/js/bootstrap-datetimepicker.zh-CN.js"></script>
-
+	src="<%=request.getContextPath()%>/js/bootstrap-datetimepicker.zh-CN.js"></script>
+<script type="text/javascript"
+	src="<%=request.getContextPath()%>/js/ajaxfileupload.js"></script>
 <style>
 .input-group {
 	width: 110px;
@@ -65,16 +68,21 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 <body>
 	<%
-  		Activity activity = (Activity)request.getAttribute("activity");
-  	 %>
+		Activity activity = (Activity) request.getAttribute("activity");
+	%>
 	<form class="form-horizontal" action="" method="post" id="form"
 		style="margin-top:30px;" OnSubmit="return check()">
 		<div class="form-group">
 			<label for="inputEmail3" class="col-sm-2 control-label">活动名称</label>
-			<div class="col-sm-7">
+			<div class="col-sm-3">
 				<input type="text" name="title" id="title"
 					value=<%=activity.getTitle()%> class="form-control"
 					placeholder="请输入活动名称">
+			</div>
+			<label for="inputEmail3" class="col-sm-2 control-label">活动LOGO</label>
+			<div class="col-sm-3">
+				<input type="file" name="fileToUpload" id="fileToUpload" value=<%=activity.getLogo() %>> <img
+					id="imglogo">
 			</div>
 		</div>
 
@@ -94,7 +102,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<div class="input-group clockpicker"
 				style="float:left;margin-left:10px;">
 				<input type="text" id="startTime" onfocus="this.blur()"
-					value=<%=activity.getStarttime().toString().split(" ")[1].substring(0,5)%>
+					value=<%=activity.getStarttime().toString().split(" ")[1]
+					.substring(0, 5)%>
 					name="startTime" class="form-control" value="09:30"> <span
 					class="input-group-addon"> <span
 					class="glyphicon glyphicon-time"></span>
@@ -106,7 +115,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				data-date-format="" data-link-field="dtp_input2"
 				data-link-format="yyyy-mm-dd" style="float:left">
 				<input class="form-control" onfocus="this.blur()" id="endDate"
-					value=<%=activity.getEndtime().toString().split(" ")[0] %>
+					value=<%=activity.getEndtime().toString().split(" ")[0]%>
 					name="endDate" size="16" type="text" placeholder="结束时间"
 					style="width:170px;"> <span class="input-group-addon"><span
 					class="glyphicon glyphicon-remove"></span></span> <span
@@ -116,7 +125,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<div class="input-group clockpicker"
 				style="float:left;margin-left:10px;">
 				<input type="text" id="endTime" onfocus="this.blur()"
-					value=<%=activity.getEndtime().toString().split(" ")[1].substring(0,5) %>
+					value=<%=activity.getEndtime().toString().split(" ")[1].substring(
+					0, 5)%>
 					name="endTime" class="form-control" value="09:30"> <span
 					class="input-group-addon"> <span
 					class="glyphicon glyphicon-time"></span>
@@ -130,7 +140,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				data-date-format="" data-link-field="dtp_input2"
 				data-link-format="yyyy-mm-dd" style="float:left;margin-left:15px;">
 				<input class="form-control" id="endSignDate" onfocus="this.blur()"
-					value=<%=activity.getEndsigntime().toString().split(" ")[0] %>
+					value=<%=activity.getEndsigntime().toString().split(" ")[0]%>
 					name="endSignDate" size="16" type="text" placeholder="报名截止时间"
 					style="width:170px;"> <span class="input-group-addon"><span
 					class="glyphicon glyphicon-remove"></span></span> <span
@@ -140,7 +150,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<div class="input-group clockpicker"
 				style="float:left;margin-left:10px;">
 				<input type="text" id="endSignTime" onfocus="this.blur()"
-					value=<%=activity.getEndsigntime().toString().split(" ")[1].substring(0,5) %>
+					value=<%=activity.getEndsigntime().toString().split(" ")[1]
+					.substring(0, 5)%>
 					name="endSignTime" class="form-control" value="09:30"> <span
 					class="input-group-addon"> <span
 					class="glyphicon glyphicon-time"></span>
@@ -153,7 +164,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<div class="col-sm-7">
 				<input class="form-control" style="width:150px;float:left"
 					placeholder="上海对外经贸大学" readonly /> <input class="form-control"
-					name="address" value=<%=activity.getAddress() %> id="address"
+					name="address" value=<%=activity.getAddress()%> id="address"
 					style="width:400px;float:left;margin-left:20px;"
 					placeholder="请输入活动地址" />
 			</div>
@@ -163,7 +174,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<label for="inputEmail3" class="col-sm-2 control-label">投票地址</label>
 			<div class="col-sm-7">
 				<input class="form-control" name="voteaddress"
-					value=<%=activity.getVoteaddress() %> id="voteaddress"
+					value=<%=activity.getVoteaddress()%> id="voteaddress"
 					placeholder="请输入投票地址" />
 			</div>
 		</div>
@@ -257,6 +268,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			var endtime = $('#endTime').val();
 			var endsigndate = $('#endSignDate').val();
 			var endsigntime = $('#endSignTime').val();
+			var logo = $('#fileToUpload').val();
 			var date = new Date();
 			var month = date.getMonth() + 1;
 			var createdate = date.getFullYear() + "-" + month + "-" + date.getDate();
@@ -268,7 +280,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			$('#createDate').attr("value",createdate);
 			$('#createTime').attr("value",createtime);
 			if(title == "" || startdate == "" || starttime == "" || enddate == "" || endtime == "" || endsigndate == ""
-			|| endsigntime == "" || createdate == "" || createtime == "" || address == "" || voteaddress == ""){
+			|| endsigntime == "" || createdate == "" || createtime == "" || address == "" || voteaddress == "" || logo == ""){
 				return false;
 			}else{
 				return true;
@@ -281,7 +293,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			}
 			return true;
 		}
-		
 		function getTime(){
 			start = new Date(($('#startDate').val() + " " + $('#startTime').val() + ":00").replace("-", "/"));
 			end = new Date(($('#endDate').val() + " " + $('#endTime').val() + ":00").replace("-", "/"));
@@ -299,12 +310,36 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			}
 			return true;
 		}
-		
+		function getFileName(o){
+   			var pos=o.lastIndexOf("\\");
+   			return o.substring(pos+1);  
+		}
+		function ajaxFileUpload(){
+			$.ajaxFileUpload ({ 
+				url :'upload', 
+				secureuri :false, 
+				fileElementId :'fileToUpload', 
+				dataType : 'json', 
+				success : function (data, status){ 
+				if(typeof(data.error) != 'undefined'){ 
+				if(data.error != ''){ 
+				alert(data.error); 
+				}else{ 
+				alert(data.msg); 
+				} 
+				} 
+				}, 
+				error: function (data, status, e){ 
+				alert(e); 
+				} 
+				}) 
+				return false; 
+			} 
 		$(document).ready(function(){
-			if(parseInt('<%=activity.getNumber() %>') > 1){
+			if(parseInt('<%=activity.getNumber()%>') > 1){
 				$('#mulperson').attr("checked","checked");
 				$('#inputperson').css('display','block');
-				$('#inputperson').find('option').eq('<%=activity.getNumber() %>').attr("selected",true);
+				$('#inputperson').find('option').eq('<%=activity.getNumber()%>').attr("selected",true);
 			}
 			$('#mulperson').click(function(){
 				$('#inputperson').show();
@@ -314,64 +349,69 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			});
 			//AJAX访问
 			$('#sub').click(function(){
-				var id = '<%=activity.getId() %>';
-				var number = 1;
-				var title = $('#title').val();
-				var startdate = $('#startDate').val();
-				var starttime = $('#startTime').val();
-				var enddate = $('#endDate').val();
-				var endtime = $('#endTime').val();
-				var endsigndate = $('#endSignDate').val();
-				var endsigntime = $('#endSignTime').val();
-				var date = new Date();
-				var month = date.getMonth() + 1;
-				var createdate = date.getFullYear() + "-" + month + "-" + date.getDate();
-				var createtime = date.getHours() + ":" + date.getMinutes();
-				var address = $('#address').val();
-				var voteaddress = $('#voteaddress').val();
-				var content = UE.getEditor("myEditor").getContent();
-				var manager = $('#manager').val();
-				if(parseInt($('#inputperson').val()) != 0){
-					number = parseInt($('#inputperson').val());
-				}
-				if(check()==true && isLegalTime() == true){
-					$.ajax({ 
-					url: "ChangeActivity", 
-					type:"POST",
-					data:{
-						id : id,
-						title : title,
-						startDate : startdate,
-						startTime : starttime,
-						endDate : enddate,
-						endTime : endtime,
-						endSignDate : endsigndate,
-						endSignTime : endsigntime,
-						createDate : createdate,
-						createTime : createtime,
-						address : address,
-						voteaddress : voteaddress,
-						content : content,
-						manager : manager,
-						number : number
-					},
-					dataType : "json",
-					success: function(data){
-	        			if(data.code==12021){
-	        				alert("成功了");
-	        			}
-	        			else{
-	        				alert("失败");
-	        			}
-	      			},
-	      			error: function(){
-	      				alert("出错了");
-	      			}
-	      		}
-	      		);
-      			}
-			});
-		});
+				var id = '<%=activity.getId()%>';
+								var number = 1;
+								var title = $('#title').val();
+								var logo = $('#fileToUpload').val();
+								logo = getFileName(logo);
+								var startdate = $('#startDate').val();
+								var starttime = $('#startTime').val();
+								var enddate = $('#endDate').val();
+								var endtime = $('#endTime').val();
+								var endsigndate = $('#endSignDate').val();
+								var endsigntime = $('#endSignTime').val();
+								var date = new Date();
+								var month = date.getMonth() + 1;
+								var createdate = date.getFullYear() + "-"
+										+ month + "-" + date.getDate();
+								var createtime = date.getHours() + ":"
+										+ date.getMinutes();
+								var address = $('#address').val();
+								var voteaddress = $('#voteaddress').val();
+								var content = UE.getEditor("myEditor")
+										.getContent();
+								var manager = $('#manager').val();
+								if (parseInt($('#inputperson').val()) != 0) {
+									number = parseInt($('#inputperson').val());
+								}
+								ajaxFileUpload();
+								if (check() == true && isLegalTime() == true) {
+									$.ajax({
+										url : "ChangeActivity",
+										type : "POST",
+										data : {
+											id : id,
+											title : title,
+											startDate : startdate,
+											startTime : starttime,
+											endDate : enddate,
+											endTime : endtime,
+											endSignDate : endsigndate,
+											endSignTime : endsigntime,
+											createDate : createdate,
+											createTime : createtime,
+											address : address,
+											voteaddress : voteaddress,
+											content : content,
+											manager : manager,
+											number : number,
+											logo : logo
+										},
+										dataType : "json",
+										success : function(data) {
+											if (data.code == 12021) {
+												alert("成功了");
+											} else {
+												alert("失败");
+											}
+										},
+										error : function() {
+											alert("出错了");
+										}
+									});
+								}
+							});
+				});
 	</script>
 </body>
 </html>

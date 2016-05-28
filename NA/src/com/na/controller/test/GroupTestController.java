@@ -4,15 +4,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-import com.fasterxml.jackson.annotation.JsonTypeInfo.Id;
 import com.na.entity.Activity;
 import com.na.entity.Group;
 import com.na.entity.PCP;
@@ -27,7 +23,6 @@ import com.na.service.UserinfoService;
 @Controller
 @RequestMapping("/test/group")
 public class GroupTestController {
-
 	@Autowired
 	UserinfoService userinfoService;
 	@Autowired
@@ -36,7 +31,6 @@ public class GroupTestController {
 	ActivityService activityService;
 	@Autowired
 	PCPService pcpService;
-	
 	@ResponseBody
 	@RequestMapping("/pcp")
 	public Map<String, Object> pcpActivity(HttpServletRequest request){
@@ -69,7 +63,6 @@ public class GroupTestController {
 		map.put("code", code);
 		return map;
 	}
-
 	//一键分组
 	@ResponseBody
 	@RequestMapping("/fast")
@@ -100,7 +93,6 @@ public class GroupTestController {
 		map.put("code", code);
 		return map;
 	}
-
 	//显示分组信息
 	@ResponseBody
 	@RequestMapping("getinfo")
@@ -109,11 +101,9 @@ public class GroupTestController {
 		List<ReturnInfo> returnList = new ArrayList<ReturnInfo>();
 		int code = 90155;
 		try {
-
 			long aid = Long.parseLong(request.getParameter("aid"));
 			int num =pcpService.getUIDsByAID(aid).size();
 			request.setAttribute("num", num);
-			System.out.print(num);
 			String attr = request.getParameter("attr");
 			if (attr==null) {
 				//默认进入界面，分组和未分组均显示
@@ -197,7 +187,6 @@ public class GroupTestController {
 						code = 90152;
 					}
 				}
-				
 				code = 90151;
 			}
 		} catch (Exception e) {
@@ -293,14 +282,20 @@ public class GroupTestController {
 		int code = 91125;
 		String display = request.getParameter("display");
 		try {
-			long uid = (long) request.getSession().getAttribute("uid");
-			List<Group> list = groupService.getGroupsByLeader(uid);
-			if(list!=null&&list.size()!=0){
-				request.setAttribute("list", list);
-				code = 90121;
-			}
-			else{
-				code = 90122;
+			if(request.getSession().getAttribute("uid") != null){
+				request.setAttribute("state", 1);
+				long uid = (long) request.getSession().getAttribute("uid");
+				List<Group> list = groupService.getGroupsByLeader(uid);
+				if(list!=null&&list.size()!=0){
+					request.setAttribute("list", list);
+					code = 90121;
+				}
+				else{
+					code = 90122;
+				}
+			}else{
+				request.setAttribute("state", 0);
+				request.setAttribute("message", "对不起，请先登录易班!");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -311,32 +306,36 @@ public class GroupTestController {
 		}
 		return "";
 	}
-	
-	
 	@RequestMapping("mypcgroupmanage")
 	public String MyGroupListInPC(HttpServletRequest request){
 		int code = 91125;
 		String display = request.getParameter("display");
 		try {
-			long uid = (long) request.getSession().getAttribute("uid");
-			List<PCP> list = pcpService.getPcpByUID(uid);
-			System.out.println("list size:" + list.size());
-			long[] groupids = new long[list.size()];
-			if(list.size() != 0 && list != null){
-				for(int i = 0;i < list.size();i++){
-					if(list.get(i).getGroupid() != null){
-						groupids[i] = list.get(i).getGroupid();
+			if(request.getSession().getAttribute("uid") != null){
+				request.setAttribute("state", 1);
+				long uid = (long) request.getSession().getAttribute("uid");
+				List<PCP> list = pcpService.getPcpByUID(uid);
+				if(list != null && list.size() != 0){
+					long[] groupids = new long[list.size()];
+					for(int i = 0;i < list.size();i++){
+						if(list.get(i).getGroupid() != null && list.get(i).getGroupid() != 0){
+							groupids[i] = list.get(i).getGroupid();
+						}
+					}
+					List<ReturnMyGroup> grouplist = groupService.getGroupsByGID(groupids);
+					if(grouplist!=null&&grouplist.size()!=0){
+						request.setAttribute("list", grouplist);
+						code = 90121;
+					}
+					else{
+						code = 90122;
 					}
 				}
+			}else{
+				request.setAttribute("state", 0);
+				request.setAttribute("message", "请先登录易班!");
 			}
-			List<ReturnMyGroup> grouplist = groupService.getGroupsByGID(groupids);
-			if(grouplist!=null&&grouplist.size()!=0){
-				request.setAttribute("list", grouplist);
-				code = 90121;
-			}
-			else{
-				code = 90122;
-			}
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -346,7 +345,6 @@ public class GroupTestController {
 		}
 		return "jsp/pc/team";
 	}
-	
 	@RequestMapping("tocreate")
 	public String ToCreateGroup(HttpServletRequest request){
 		String display = request.getParameter("display");
@@ -368,7 +366,6 @@ public class GroupTestController {
 	public Map<String, Object> CreateGroup(HttpServletRequest request){
 		Map<String, Object> map = new HashMap<String, Object>();
 		int code = 91135;
-		
 		long uid = (long) request.getSession().getAttribute("uid");
 		try {
 			long aid = Long.parseLong(request.getParameter("aid"));
@@ -378,9 +375,7 @@ public class GroupTestController {
 			code = groupService.createGroup(aid, uid,groupname, description, maxcount);
 			if(code%10==1){
 				Group group = groupService.getGroupByAIDAndLeader(aid, uid);
-				System.out.println(group.getId());
 				PCP pcp = pcpService.getPcp(uid, aid);
-				System.out.println(pcp.getId());
 				if(pcp!=null){
 					code = pcpService.setGroup(pcp.getId(), group.getId());
 				}
@@ -398,16 +393,18 @@ public class GroupTestController {
 			long aid = Long.parseLong(request.getParameter("aid"));
 			List<Group> AllList = groupService.getGroupsByAID(aid);
 			List<Group> acceptable = new ArrayList<Group>();
+			Activity activity = activityService.getActicity(aid);
 			for (Group group : AllList) {
-				if(!pcpService.testGroupIsFull(group.getId(), group.getMaxcount())){
+				if(group != null && !pcpService.testGroupIsFull(group.getId(), group.getMaxcount())){
 					acceptable.add(group);
 				}
 			}
 			if(acceptable.size()==0){
 				request.setAttribute("aid", aid);
-				acceptable=null;
+				acceptable = null;
 			}
 			request.setAttribute("list", acceptable);
+			request.setAttribute("activity", activity);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

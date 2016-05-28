@@ -183,7 +183,7 @@ body {
 <body>
 
 	<div data-role="page">
-		<div data-role="header">
+		<div data-role="header" data-theme="b">
 			<a href="" data-rel="back">返回</a>
 			<h1><%=request.getParameter("title")%></h1>
 			<a data-ajax="false" href="" data-role="button" id="sub">发表</a>

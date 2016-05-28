@@ -60,12 +60,10 @@ public class GroupApplyTestController {
 	public String ShowApplyByGID(HttpServletRequest request){
 		int code = 91225;
 		String display = request.getParameter("display");
-		
 		try {
 			long gid = Long.parseLong(request.getParameter("gid"));
 			request.setAttribute("gid", gid);
 			long uid = (long) request.getSession().getAttribute("uid");
-			System.out.println("gid = " + gid);
 			if (groupService.getGroup(gid).getLeader()==uid) {
 				List<GroupApply> groupApplies = groupApplyService.getGroupAppliesByGID(gid);
 				if (groupApplies!=null&&groupApplies.size()!=0) {

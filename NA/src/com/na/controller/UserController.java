@@ -28,7 +28,7 @@ import com.na.service.UserinfoService;
 @Controller
 @RequestMapping("/user")
 public class UserController {
-	private final static int PAGE_SIZE = 5;
+	private final static int PAGE_SIZE = 4;
 	@Autowired
 	UserinfoService userinfoService;
 	@Autowired
@@ -39,18 +39,23 @@ public class UserController {
 	GroupService groupService;
 	@Autowired
 	AssessService assessService;
-	
-
 	//获取用户个人信息
 	@RequestMapping("/getuserinfo")
 	public String getUserinfo(HttpServletRequest request){
 		String display = request.getParameter("display");
 		try {
-			long uid =Long.parseLong(request.getSession().getAttribute("uid").toString());
-			Userinfo userinfo = userinfoService.getUserinfo(uid);
-			if (userinfo!=null) {
-				request.setAttribute("userinfo", userinfo);
-			}	
+			if(request.getSession().getAttribute("uid") != null){
+				request.setAttribute("state", 1);
+				long uid =Long.parseLong(request.getSession().getAttribute("uid").toString());
+				Userinfo userinfo = userinfoService.getUserinfo(uid);
+				if (userinfo!=null) {
+					request.setAttribute("userinfo", userinfo);
+				}	
+			}else{
+				request.setAttribute("state", 0);
+				request.setAttribute("message", "对不起，请先登录易班!");
+			}
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -70,23 +75,45 @@ public class UserController {
 		return "";
 	}
 	
-	//获取用户已经参与过的活动
 	@RequestMapping("/getJoinedActivities")
 	public String getJoinedActivities(HttpServletRequest request){
 		String display = request.getParameter("display");
-		long uid = Long.parseLong(request.getSession().getAttribute("uid").toString());
-		List<Long> listOfAid = pcpService.getAIDsByUID(uid); 
-		long[] ids = new long[listOfAid.size()];
-		for(int i = 0;i < listOfAid.size();i++){
-			ids[i] = listOfAid.get(i);
+		if(request.getSession().getAttribute("uid") != null){
+			request.setAttribute("state", 1);
+			long uid = Long.parseLong(request.getSession().getAttribute("uid").toString());
+			List<ReturnMyActivity> mylist = new ArrayList<ReturnMyActivity>();
+			List<Long> listOfAid = pcpService.getAIDsByUID(uid); 
+			if(listOfAid != null && listOfAid.size() != 0){
+				long[] ids = new long[listOfAid.size()];
+				for(int i = 0;i < listOfAid.size();i++){
+					ids[i] = listOfAid.get(i);
+				}
+				List<Activity> list = activitySercice.getActivitiesByIds(ids);
+				if(list != null && list.size() > 0){
+					for(int i = 0;i < list.size();i++){
+						Activity activity = list.get(i);
+						ReturnMyActivity myActivity = new ReturnMyActivity();
+						myActivity.setActivity(activity);
+						PCP pcp = pcpService.getPcp(uid, activity.getId());
+						myActivity.setPcp(pcp);
+						if(pcp.getGroupid() != null){
+							Group group = groupService.getGroup(pcp.getGroupid());
+							myActivity.setGroup(group);
+						}
+						if(assessService.getAssess(uid, activity.getId()) != null){
+							myActivity.setComment(true);
+						}else{
+							myActivity.setComment(false);
+						}
+						mylist.add(myActivity);
+					}
+				}
+				request.setAttribute("list", mylist);
+			}
+		}else{
+			request.setAttribute("state", 0);
+			request.setAttribute("message", "对不起，请先登录易班!");
 		}
-		List<Activity> list = activitySercice.getActivitiesByIds(ids);
-		System.out.println("====================");
-		for(int i = 0;i < list.size();i++){
-			System.out.println(list.get(i).getTitle() + " " + list.get(i).getDescription());
-		}
-		request.setAttribute("list", list);
-		System.out.println("====================");
 		if(display != null && display.equals("mobile")){
 			return "jsp/mobile/JoinedActivityList";
 		}
@@ -97,31 +124,95 @@ public class UserController {
 	}
 	@RequestMapping("/getJoinedActivitiesInPC")
 	public String getJoinedActivitiesInPC(HttpServletRequest request){
-		long uid = Long.parseLong(request.getSession().getAttribute("uid").toString());
-		int total = getJoinedActivitiesCount(uid);
-		int page = Integer.parseInt(request.getParameter("page"));
-		int pages = 0;
-		if(total % PAGE_SIZE == 0){
-			pages = total / PAGE_SIZE;
+		if(request.getSession().getAttribute("uid") != null){
+			request.setAttribute("state", 1);
+			long uid = Long.parseLong(request.getSession().getAttribute("uid").toString());
+			int total = 0;
+			int page = 0;
+			int pages = 0;
+			List<ReturnMyActivity> mylist = new ArrayList<ReturnMyActivity>();
+			List<Long> listOfAid = pcpService.getAIDsByUID(uid);
+			if(listOfAid != null && listOfAid.size() != 0){
+				long[] ids = new long[listOfAid.size()];
+				for(int i = 0;i < listOfAid.size();i++){
+					ids[i] = listOfAid.get(i);
+				}
+				List<Activity> list = activitySercice.getActivitiesByIds(ids);
+				total = list.size();
+				page = Integer.parseInt(request.getParameter("page"));
+				if(total % PAGE_SIZE == 0){
+					pages = total / PAGE_SIZE;
+				}else{
+					pages = total / PAGE_SIZE + 1;
+				}
+				if(list != null){
+					/*for(Activity activity : list)*/
+					for(int i = (page - 1) * PAGE_SIZE;i < page * PAGE_SIZE;i++){
+						if(i < total){
+							Activity activity = list.get(i);
+							ReturnMyActivity myActivity = new ReturnMyActivity();
+							myActivity.setActivity(activity);
+							PCP pcp = pcpService.getPcp(uid, activity.getId());
+							myActivity.setPcp(pcp);
+							if(pcp.getGroupid() != null){
+								Group group = groupService.getGroup(pcp.getGroupid());
+								myActivity.setGroup(group);
+							}
+							if(assessService.getAssess(uid, activity.getId()) != null){
+								myActivity.setComment(true);
+							}else{
+								myActivity.setComment(false);
+							}
+							mylist.add(myActivity);
+						}
+					}
+				}
+			}
+			List<Activity> res = activitySercice.getNewestActivities();
+			List<Activity> newlist = new ArrayList<Activity>();
+			if(res.size() > 4){
+				for(int i = 0;i < 4;i++){
+					newlist.add(res.get(i));
+				}
+			}else{
+				newlist = res;
+			}
+			request.setAttribute("total", pages);
+			request.setAttribute("newlist", newlist);
+			request.setAttribute("list", mylist);
+			request.setAttribute("current", page);
 		}else{
-			pages = total / PAGE_SIZE + 1;
+			request.setAttribute("state", 0);
+			request.setAttribute("message", "请先登录易班!");
 		}
-		System.out.println("total = " + total + "," + "pages = " + pages);
-		List<ReturnMyActivity> mylist = new ArrayList<ReturnMyActivity>();
-		List<Long> listOfAid = pcpService.getAIDsByUID(uid);
-		if(listOfAid != null && listOfAid.size() != 0){
+		return "jsp/pc/MyActivity"; 
+	}
+	@ResponseBody
+	@RequestMapping("/getJoinedActivitiesInPCOfPaging")
+	public Map<String,Object> getJoinedActivitiesInPCOfPaging(HttpServletRequest request){
+		Map<String,Object> map = new HashMap<String,Object>();
+		if(request.getSession().getAttribute("uid") != null){
+			long uid = Long.parseLong(request.getSession().getAttribute("uid").toString());
+			int total = getJoinedActivitiesCount(uid);
+			int page = Integer.parseInt(request.getParameter("page"));
+			int pages = 0;
+			if(total % PAGE_SIZE == 0){
+				pages = total / PAGE_SIZE;
+			}else{
+				pages = total / PAGE_SIZE + 1;
+			}
+			List<ReturnMyActivity> mylist = new ArrayList<ReturnMyActivity>();
+			List<Long> listOfAid = pcpService.getAIDsByUID(uid); 
 			long[] ids = new long[listOfAid.size()];
 			for(int i = 0;i < listOfAid.size();i++){
 				ids[i] = listOfAid.get(i);
 			}
 			List<Activity> list = activitySercice.getActivitiesByIds(ids);
-			System.out.println("list size:" + list.size());
 			if(list != null){
 				/*for(Activity activity : list)*/
 				for(int i = (page - 1) * PAGE_SIZE;i < page * PAGE_SIZE;i++){
 					if(i < total){
 						Activity activity = list.get(i);
-						System.out.println(activity.getId() + " " + uid);
 						ReturnMyActivity myActivity = new ReturnMyActivity();
 						myActivity.setActivity(activity);
 						PCP pcp = pcpService.getPcp(uid, activity.getId());
@@ -139,94 +230,23 @@ public class UserController {
 					}
 				}
 			}
+			List<Activity> res = activitySercice.getNewestActivities();
+			List<Activity> newlist = new ArrayList<Activity>();
+			if(res.size() > 4){
+				for(int i = 0;i < 4;i++){
+					newlist.add(res.get(i));
+				}
+			}else{
+				newlist = res;
+			}
+			map.put("total", pages);
+			map.put("newlist", newlist);
+			map.put("list", mylist);
+		}else{
+			request.setAttribute("state", 0);
+			request.setAttribute("message", "请先登录易班!");
 		}
 		
-		System.out.println("mylist size:" + mylist.size());
-		for(int i = 0;i < mylist.size();i++){
-			System.out.println(mylist.get(i).getActivity().getTitle() + " " + mylist.get(i).getPcp().getCreatetime());
-		}
-		List<Activity> res = activitySercice.getNewestActivities();
-		List<Activity> newlist = new ArrayList<Activity>();
-		if(res.size() > 4){
-			for(int i = 0;i < 4;i++){
-				newlist.add(res.get(i));
-			}
-		}else{
-			newlist = res;
-		}
-		request.setAttribute("total", pages);
-		request.setAttribute("newlist", newlist);
-		System.out.println("hello");
-		request.setAttribute("list", mylist);
-		request.setAttribute("current", page);
-		return "jsp/pc/MyActivity"; 
-	}
-	@ResponseBody
-	@RequestMapping("/getJoinedActivitiesInPCOfPaging")
-	public Map<String,Object> getJoinedActivitiesInPCOfPaging(HttpServletRequest request){
-		Map<String,Object> map = new HashMap<String,Object>();
-		long uid = Long.parseLong(request.getSession().getAttribute("uid").toString());
-		int total = getJoinedActivitiesCount(uid);
-		int page = Integer.parseInt(request.getParameter("page"));
-		int pages = 0;
-		if(total % PAGE_SIZE == 0){
-			pages = total / PAGE_SIZE;
-		}else{
-			pages = total / PAGE_SIZE + 1;
-		}
-		System.out.println("total = " + total + "," + "pages = " + pages);
-		List<ReturnMyActivity> mylist = new ArrayList<ReturnMyActivity>();
-		List<Long> listOfAid = pcpService.getAIDsByUID(uid); 
-		long[] ids = new long[listOfAid.size()];
-		for(int i = 0;i < listOfAid.size();i++){
-			ids[i] = listOfAid.get(i);
-		}
-		List<Activity> list = activitySercice.getActivitiesByIds(ids);
-		System.out.println("list size:" + list.size());
-		if(list != null){
-			/*for(Activity activity : list)*/
-			for(int i = (page - 1) * PAGE_SIZE;i < page * PAGE_SIZE;i++){
-				if(i < total){
-					Activity activity = list.get(i);
-					System.out.println(activity.getId() + " " + uid);
-					ReturnMyActivity myActivity = new ReturnMyActivity();
-					myActivity.setActivity(activity);
-					PCP pcp = pcpService.getPcp(uid, activity.getId());
-					myActivity.setPcp(pcp);
-					if(pcp.getGroupid() != null){
-						Group group = groupService.getGroup(pcp.getGroupid());
-						myActivity.setGroup(group);
-					}
-					if(assessService.getAssess(uid, activity.getId()) != null){
-						myActivity.setComment(true);
-					}else{
-						myActivity.setComment(false);
-					}
-					mylist.add(myActivity);
-				}
-			}
-		}
-		System.out.println("mylist size:" + mylist.size());
-		for(int i = 0;i < mylist.size();i++){
-			System.out.println(mylist.get(i).getActivity().getTitle() + " " + mylist.get(i).getPcp().getCreatetime());
-		}
-		List<Activity> res = activitySercice.getNewestActivities();
-		List<Activity> newlist = new ArrayList<Activity>();
-		if(res.size() > 4){
-			for(int i = 0;i < 4;i++){
-				newlist.add(res.get(i));
-			}
-		}else{
-			newlist = res;
-		}
-		/*request.setAttribute("total", pages);
-		request.setAttribute("newlist", newlist);
-		System.out.println("hello");
-		request.setAttribute("list", mylist);*/
-		map.put("total", pages);
-		map.put("newlist", newlist);
-		map.put("list", mylist);
-		System.out.println("enen");
 		return map; 
 	}
 
@@ -286,8 +306,6 @@ public class UserController {
 		Map<String, Object> map = new HashMap<String, Object>();
 		int code = 90135;
 		try {
-	
-			//long aid = Long.parseLong(request.getParameter("aid"));
 			long aid = (long)Integer.parseInt(request.getParameter("id"));
 			List<Long> uidList = pcpService.getUIDsByAID(aid);
 			if(uidList != null){
@@ -318,7 +336,6 @@ public class UserController {
 	
 	@RequestMapping(value = "/upload",method = RequestMethod.POST)
 	public String upload(HttpServletRequest request){
-		System.out.println("hello");
 		return "";
 	}
 	
@@ -397,7 +414,6 @@ public class UserController {
 		Map<String, Integer> map = new HashMap<String, Integer>();
 		int code = 11015;
 		try {
-			System.out.println("input");
 			long uid =(long) request.getSession().getAttribute("uid");
 			String name = request.getParameter("name");
 			float height = Float.parseFloat(request.getParameter("height"));
@@ -407,7 +423,6 @@ public class UserController {
 			String phonenumber = request.getParameter("phone");
 			String email = request.getParameter("email");
 			Userinfo userinfo = userinfoService.getUserinfo(uid);
-			System.out.println(name + " " + height + " " + weight + " " + age + " " + sex + " " + phonenumber + " " + email);
 			code = userinfoService.setUserinfo(uid, name, height, weight, age, sex, phonenumber, email);
 		}
 		catch(Exception e){
@@ -419,25 +434,31 @@ public class UserController {
 	
 	@RequestMapping("turnToPerInfo")
 	public String turnToPerInfo(HttpServletRequest request){
-		long uid =Long.parseLong(request.getSession().getAttribute("uid").toString());
-		Userinfo user = userinfoService.getUserinfo(uid);
-		System.out.println(user.getUid() + " " + user.getSex());
-		if(user.getSex() == null){
-			request.setAttribute("isRegister", 0);
-		}else{
-			request.setAttribute("isRegister", 1);
-			request.setAttribute("user", user);
-		}
-		List<Activity> res = activitySercice.getNewestActivities();
-		List<Activity> newlist = new ArrayList<Activity>();
-		if(res.size() > 4){
-			for(int i = 0;i < 4;i++){
-				newlist.add(res.get(i));
+		if(request.getSession().getAttribute("uid") != null){
+			request.setAttribute("state", 1);
+			long uid =Long.parseLong(request.getSession().getAttribute("uid").toString());
+			Userinfo user = userinfoService.getUserinfo(uid);
+			if(user.getSex() == null){
+				request.setAttribute("isRegister", 0);
+			}else{
+				request.setAttribute("isRegister", 1);
+				request.setAttribute("user", user);
 			}
+			List<Activity> res = activitySercice.getNewestActivities();
+			List<Activity> newlist = new ArrayList<Activity>();
+			if(res.size() > 4){
+				for(int i = 0;i < 4;i++){
+					newlist.add(res.get(i));
+				}
+			}else{
+				newlist = res;
+			}
+			request.setAttribute("newlist", newlist);
 		}else{
-			newlist = res;
+			request.setAttribute("state", 0);
+			request.setAttribute("message", "请先登录易班!");
 		}
-		request.setAttribute("newlist", newlist);
+		
 		return "jsp/pc/MyInfo";
 	}
 
